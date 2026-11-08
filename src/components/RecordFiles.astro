@@ -1,0 +1,36 @@
+---
+import { downloads } from "../lib/site-indexes.mjs";
+const { record } = Astro.props;
+const pins =
+  record.kind === "DefinitionPackage"
+    ? record.files
+    : record.kind === "BuildArtifact"
+      ? [record.output]
+      : record.kind === "VerificationRecord"
+        ? [record.suite, ...(record.report ? [record.report] : [])]
+        : [];
+const files = pins.map((pin) => ({
+  pin,
+  file: downloads.files.find(
+    (file) => file.sha256 === pin.sha256 && file.url.endsWith("/" + pin.path),
+  ),
+}));
+---
+
+<ul class="download-list">
+  {
+    files.map(({ pin, file }) => (
+      <li>
+        {file ? (
+          <a href={file.url} download>
+            {pin.path}
+          </a>
+        ) : (
+          <span>{pin.path} — not included in this build</span>
+        )}
+        <small>SHA-256</small>
+        <code>{pin.sha256}</code>
+      </li>
+    ))
+  }
+</ul>

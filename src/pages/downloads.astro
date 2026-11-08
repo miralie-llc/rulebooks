@@ -1,0 +1,42 @@
+---
+import Base from "../layouts/Base.astro";
+import { downloads, budget } from "../lib/site-indexes.mjs";
+---
+
+<Base title="Data downloads | RuleBooks"
+  ><section class="prose-page shell">
+    <p class="eyebrow">EXACT RECORDS AND CHECKABLE BYTES</p><h1>
+      Take the data.
+    </h1><p class="reader-deck">
+      Readable records stay small. Source packages, compiled artifacts and
+      verification evidence are separate downloads when available.
+    </p><p>
+      Input mode: <strong>{downloads.mode}</strong>. Preview data is not an
+      accepted release.
+    </p><p>
+      Largest game discovery record: {budget.maxBytes} bytes. Budget: {
+        budget.limitBytes
+      } bytes (20 KiB).
+    </p><a class="primary-link" href="/data/downloads.json"
+      >Download SHA-256 inventory ↓</a
+    ><p class="small-note">
+      Hashes identify file contents; trust still depends on where you obtained
+      this inventory. In publication mode, retain the independently verified
+      assembly receipt digest as the release trust root.
+    </p><ul class="download-list">
+      {
+        downloads.files.map((file) => (
+          <li>
+            <>
+              <a href={file.url} download>
+                {file.url.replace("/data/", "")}
+              </a>
+              <small>{file.bytes} bytes · SHA-256</small>
+              <code>{file.sha256}</code>
+            </>
+          </li>
+        ))
+      }
+    </ul>
+  </section></Base
+>

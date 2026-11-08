@@ -38,6 +38,10 @@ const {
         <a href="/bgsm/" aria-current={active === "model" ? "page" : undefined}
           >The model</a
         >
+        <a
+          href="/search/"
+          aria-current={active === "search" ? "page" : undefined}>Search</a
+        >
         <a href="/about/" aria-current={active === "about" ? "page" : undefined}
           >About the project</a
         >
@@ -46,7 +50,16 @@ const {
         >
       </nav>
     </header>
-    <main id="main">{isFixture && <aside class="scope-warning shell">Contract fixture — fictional test data. Not a collected or accepted game publication.</aside>}<slot /></main>
+    <main id="main">
+      {
+        isFixture && (
+          <aside class="scope-warning shell">
+            Contract fixture — fictional test data. Not a collected or accepted
+            game publication.
+          </aside>
+        )
+      }<slot />
+    </main>
     <footer class="site-footer shell">
       <div>
         <a class="footer-brand" href="/">RuleBooks.</a><p>

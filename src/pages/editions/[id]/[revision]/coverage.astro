@@ -1,0 +1,126 @@
+---
+import RecordFiles from "../../../../components/RecordFiles.astro";
+import Base from "../../../../layouts/Base.astro";
+import {
+  content,
+  editions,
+  editionUrl,
+  record,
+  downloadUrl,
+} from "../../../../lib/catalog.mjs";
+import { coverageView } from "../../../../lib/coverage-view.mjs";
+import { conceptUrl } from "../../../../lib/model-view.mjs";
+export function getStaticPaths() {
+  return editions.map((edition) => ({
+    params: { id: edition.id, revision: String(edition.revision) },
+    props: { edition },
+  }));
+}
+const { edition } = Astro.props;
+const coverage = coverageView(content, edition);
+---
+
+<Base title={`Coverage: ${edition.label} | RuleBooks`}
+  ><section class="prose-page shell">
+    <a href={editionUrl(edition)}>← Read this rulebook</a><p class="eyebrow">
+      THREE SEPARATE QUESTIONS
+    </p><h1>What is covered?</h1><p class="reader-deck">
+      {edition.label} · RuleBooks revision {edition.revision}
+    </p><h2>Reading completeness</h2><p>
+      <strong
+        >{
+          coverage.reading === "complete"
+            ? "Complete within the declared scope"
+            : "Partial reading guide"
+        }.</strong
+      >
+      {" "}{edition.scope.summary}
+    </p><h2>Formal coverage</h2>{
+      coverage.mappings.length ? (
+        coverage.mappings.map(({ mapping, counts, evidence, artifacts }) => (
+          <section class="detail-section">
+            <>
+              <h3>Source package</h3>
+              <a
+                href={downloadUrl(record("DefinitionPackage", mapping.package))}
+              >
+                Exact package manifest
+              </a>
+              <RecordFiles
+                record={record("DefinitionPackage", mapping.package)}
+              />
+              <h3>Verification evidence</h3>
+            </>
+            {evidence.length ? (
+              evidence.map((item) => (
+                <div class="source-card">
+                  <p>
+                    <strong>
+                      {item.result} · {item.method}
+                    </strong>
+                  </p>
+                  <p>{item.scope}</p>
+                  {item.bounds && <p>Bounds: {item.bounds}</p>}
+                  <p>
+                    Implementation: {item.implementation.id}{" "}
+                    {item.implementation.version}
+                  </p>
+                  <p>
+                    <a href={downloadUrl(item)}>Exact verification record</a> ·{" "}
+                    <a href={item.run.url}>Recorded run</a>
+                  </p>
+                  <RecordFiles record={item} />
+                  <p class="small-note">
+                    A passing result establishes only the stated method, scope
+                    and bounds.
+                  </p>
+                </div>
+              ))
+            ) : (
+              <p>
+                No verification evidence for this exact formalization revision.
+              </p>
+            )}
+            <h3>Compiled artifacts</h3>
+            {artifacts.length ? (
+              <ul>
+                {artifacts.map((item) => (
+                  <li>
+                    <a href={downloadUrl(item)}>
+                      {item.id} · revision {item.revision}
+                    </a>
+                    <RecordFiles record={item} />
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No compiled artifacts for this mapping.</p>
+            )}
+          </section>
+        ))
+      ) : (
+        <p>
+          Not yet formalized. No rule-to-model mapping is published for this
+          revision.
+        </p>
+      )
+    }{
+      !coverage.mappings.length && (
+        <>
+          <>
+            <h2>Verification evidence</h2>
+            <p>
+              No executable verification is available. Readable completeness
+              does not imply an executable implementation.
+            </p>
+          </>
+        </>
+      )
+    }<h2>Evidenced semantic gaps</h2><p>
+      <a href="/gaps/">View published gap selections</a>. A missing
+      formalization alone does not establish a semantic gap.
+    </p><a class="text-link" href="/downloads/"
+      >Inspect downloads and SHA-256 hashes →</a
+    >
+  </section></Base
+>

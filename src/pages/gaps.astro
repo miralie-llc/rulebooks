@@ -1,0 +1,54 @@
+---
+import Base from "../layouts/Base.astro";
+import { content, editionUrl } from "../lib/catalog.mjs";
+const gaps = content.gaps.items;
+---
+
+<Base title="Semantic gaps | RuleBooks"
+  ><section class="prose-page shell">
+    <p class="eyebrow">MODELING WORK FROM EVIDENCE</p><h1>Known gaps.</h1>{
+      gaps.length ? (
+        gaps.map((item) => (
+          <section class="detail-section" id={item.id}>
+            <>
+              <h2>{item.title}</h2>
+              <p>
+                Status: {item.status} · {item.gap.classification}
+              </p>
+              <p>{item.gap.problem}</p>
+              <h3>Expected behavior</h3>
+              <p>{item.gap.expected}</p>
+              <h3>Minimal example</h3>
+              <p>{item.gap.example}</p>
+              <a href={editionUrl(item.target)}>
+                Read the exact rulebook revision
+              </a>
+              <ul>
+                {item.evidence.map((e) => (
+                  <li>{e.note}</li>
+                ))}
+              </ul>
+              <p class="small-note">
+                Pinned work record SHA-256: <code>{item.sha256}</code>
+              </p>
+            </>
+          </section>
+        ))
+      ) : (
+        <div class="scope-warning">
+          <>
+            <strong>No evidenced semantic gaps are published yet.</strong>
+            <p>
+              The absence of a formal mapping does not establish which patterns
+              BGSM can or cannot express.
+            </p>
+          </>
+        </div>
+      )
+    }<p>
+      Only explicitly selected, digest-pinned work with an actual rulebook
+      target and evidence appears here. The repository queue is not copied
+      wholesale into the site.
+    </p><a href="/data/gaps.json">Download the selected gap projection</a>
+  </section></Base
+>

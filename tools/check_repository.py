@@ -19,6 +19,7 @@ from jsonschema import ValidationError
 if not __package__:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools.prepare_site import preview_catalog
+from tools.site_gaps import selected_gaps
 from tools.references.contracts import validate_public_source
 from tools.validate_knowledge import validate_fixture as validate_knowledge_fixture
 
@@ -204,7 +205,9 @@ def validate_candidate(files):
             fixtures += 1
         catalog = root / "data/catalog/catalog.json"
         if catalog.exists():
-            preview_catalog(catalog)
+            content = preview_catalog(catalog)
+            if (root / "data/site/gaps.json").exists():
+                selected_gaps(root, content)
         sources = 0
         knowledge_fixtures = 0
         for path in sorted((root / 'tests/fixtures/knowledge').glob('*/draft.json')):

@@ -218,3 +218,88 @@ test("concept usages follow exact model, concept and rulebook pins in both direc
     release.concepts[0].revision,
   );
 });
+
+test("download inventory matches served bytes and discovery stays under budget", async () => {
+  const { createHash } = await import("node:crypto");
+  const inventory = JSON.parse(read("data/downloads.json"));
+  for (const item of inventory.files) {
+    const raw = fs.readFileSync(path.join(root, item.url));
+    assert.equal(raw.length, item.bytes, item.url);
+    assert.equal(
+      createHash("sha256").update(raw).digest("hex"),
+      item.sha256,
+      item.url,
+    );
+  }
+  const budget = JSON.parse(read("data/discovery/budget.json"));
+  assert.equal(budget.limitBytes, 20 * 1024);
+  for (const [id, size] of Object.entries(budget.games)) {
+    assert.equal(
+      Buffer.byteLength(read(`data/discovery/games/${id}.json`)),
+      size,
+    );
+    assert.ok(size <= budget.limitBytes);
+    const row = JSON.parse(read(`data/discovery/games/${id}.json`));
+    assert.ok(!("records" in row) && !("sections" in row));
+  }
+});
+
+test("search distinguishes draft games, formal concepts and editorial terms", () => {
+  const index = JSON.parse(read("data/search.json"));
+  assert.equal(index.entries.filter((e) => e.kind === "game").length, 3);
+  assert.equal(index.entries.filter((e) => e.kind === "concept").length, 0);
+  assert.equal(index.entries.filter((e) => e.kind === "vocabulary").length, 50);
+  assert.ok(
+    index.entries
+      .filter((e) => e.kind === "game")
+      .every((e) => e.status === "editorial-preview"),
+  );
+  assert.match(read("gaps/index.html"), /No evidenced semantic gaps/);
+  const html = read("editions/nim-one-two/1/coverage/index.html");
+  for (const label of [
+    "Reading completeness",
+    "Formal coverage",
+    "Verification evidence",
+    "Not yet formalized",
+  ])
+    assert.ok(html.includes(label));
+});
+
+test("coverage never converts a mapping into successful executable verification", async () => {
+  const { coverageView } = await import("../src/lib/coverage-view.mjs");
+  const fixture = JSON.parse(
+    fs.readFileSync("tests/fixtures/publication/first-games.json", "utf8"),
+  );
+  const content = {
+    records: fixture.records,
+    games: fixture.publication.games,
+  };
+  const formal = fixture.records.find((r) => r.kind === "Formalization");
+  const edition = fixture.records.find(
+    (r) =>
+      r.kind === "RulebookEdition" &&
+      r.id === formal.edition.id &&
+      r.revision === formal.edition.revision,
+  );
+  const view = coverageView(content, edition);
+  assert.ok(view.mappings.length);
+  assert.ok(view.mappings.every((m) => m.evidence.length === 0));
+  const evidence = {
+    kind: "VerificationRecord",
+    id: "fixture-failed",
+    revision: 1,
+    formalization: { id: formal.id, revision: formal.revision },
+    result: "fail",
+    method: "scenarios",
+    scope: "Test only",
+  };
+  const withEvidence = coverageView(
+    { ...content, records: [...content.records, evidence] },
+    edition,
+  );
+  assert.equal(
+    withEvidence.mappings.find((m) => m.mapping.id === formal.id).evidence[0]
+      .result,
+    "fail",
+  );
+});

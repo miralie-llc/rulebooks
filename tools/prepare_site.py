@@ -14,6 +14,8 @@ if not __package__:
 from tools.assemble_publication import canonical, directory, read_file, record_path, verify_assembly
 from tools.references.contracts import validate_proposal
 from tools.site_vocabulary import vocabulary
+from tools.site_indexes import indexes
+from tools.site_gaps import selected_gaps
 from tools.validate_publication import ROOT, digest, key_for, load_json, require
 
 SCHEMA = load_json(ROOT / 'schema/publication/0.1.0/bundle.schema.json')
@@ -126,10 +128,17 @@ def prepare(catalog_path, *, publication=None, expected_digest=None):
             outputs['public/data/'+record_path(record)] = canonical({'schemaVersion':'0.1.0','purpose':'editorial-preview','record':record})
     content['vocabulary'] = vocabulary(ROOT / 'docs/reference/vocabulary.md')
     outputs['public/data/vocabulary/'+content['vocabulary']['version']+'.json'] = canonical(content['vocabulary'])
+    content['gaps'] = selected_gaps(ROOT,content)
+    outputs['public/data/gaps.json'] = canonical(content['gaps'])
     content['digest'] = digest(content)
     outputs['content.json'] = canonical(content)
     if not publication:
         outputs['public/data/catalog.json'] = canonical(content)
+    generated,search,downloads,budget = indexes(content,outputs)
+    outputs.update(generated)
+    outputs['search.json'] = canonical(search)
+    outputs['downloads.json'] = canonical(downloads)
+    outputs['budget.json'] = canonical(budget)
     outputs['site-cache.json'] = canonical({'kind':'RuleBooksSiteCache'})
     target = ROOT / '.cache/site-generated'
     require(target == target.resolve(), 'Site cache must not be a symlink')

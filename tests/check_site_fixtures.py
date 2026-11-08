@@ -14,6 +14,7 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 from tools.assemble_publication import canonical, record_path
 from tools.site_vocabulary import vocabulary
+from tools.site_indexes import indexes
 
 
 class Links(HTMLParser):
@@ -36,7 +37,7 @@ def check():
     records.append(archived)
     fixture_content={'mode':'contract-fixture','schemaVersion':'0.1.0','records':records,
                      'games':fixture['publication']['games']+publisher['publication']['games'],
-                     'vocabulary':vocabulary(ROOT/'docs/reference/vocabulary.md')}
+                     'vocabulary':vocabulary(ROOT/'docs/reference/vocabulary.md'), 'gaps':{'items':[]}}
     parent=ROOT/'.cache';parent.mkdir(exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='site-fixture-',dir=parent) as directory:
         root=Path(directory)
@@ -50,6 +51,13 @@ def check():
             target.write_bytes(canonical({'purpose':'contract-fixture','record':record}))
         target=cache/'public/data/vocabulary/0.2.json';target.parent.mkdir(parents=True)
         target.write_bytes(canonical(fixture_content['vocabulary']))
+        (cache/'public/data/gaps.json').write_bytes(canonical(fixture_content['gaps']))
+        outputs={p.relative_to(cache).as_posix():p.read_bytes() for p in (cache/'public').rglob('*') if p.is_file()}
+        generated,search,downloads,budget=indexes(fixture_content,outputs)
+        for name,raw in generated.items():
+            target=cache/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw)
+        for name,value in [('search',search),('downloads',downloads),('budget',budget)]:
+            (cache/(name+'.json')).write_bytes(canonical(value))
         result=subprocess.run([os.environ.get('RULEBOOKS_NODE','node'),str(ROOT/'node_modules/astro/bin/astro.mjs'),'build'],cwd=root,
                               env={**os.environ,'ASTRO_TELEMETRY_DISABLED':'1'},capture_output=True,text=True)
         if result.returncode:raise AssertionError(result.stdout+result.stderr)

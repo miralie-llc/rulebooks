@@ -1,4 +1,5 @@
 ---
+import { coverageUrl } from "../lib/coverage-view.mjs";
 import Base from "../layouts/Base.astro";
 import {
   model,
@@ -283,6 +284,9 @@ let ruleNumber = 0;
           }
         </section>
         <section id="representation" class="detail-section representation">
+          <a class="text-link" href={coverageUrl(edition)}
+            >Inspect coverage and verification →</a
+          >
           <p class="eyebrow">FOR A CLOSER LOOK</p><h2>
             Structured representation
           </h2>{

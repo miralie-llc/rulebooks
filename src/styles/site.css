@@ -1513,3 +1513,25 @@ em {
 .vocabulary-list dd {
   margin: 6px 0 0;
 }
+
+.download-list {
+  list-style: none;
+  padding: 0;
+}
+.download-list li {
+  border-bottom: 1px solid var(--line);
+  padding-block: 20px;
+  overflow-wrap: anywhere;
+}
+.download-list small,
+.download-list code {
+  display: block;
+  font-size: 12px;
+}
+@media (max-width: 760px) {
+  .site-header nav {
+    flex-wrap: wrap;
+    gap: 8px 17px;
+  }
+}
+@media (max-width: 760px) { .site-header nav .github-link { display: none; } }

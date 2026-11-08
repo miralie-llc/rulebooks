@@ -1,0 +1,83 @@
+---
+import Base from "../layouts/Base.astro";
+import { search } from "../lib/site-indexes.mjs";
+---
+
+<Base title="Search the library and model | RuleBooks" active="search"
+  ><section class="prose-page shell">
+    <p class="eyebrow">GAMES, CONCEPTS AND VOCABULARY</p><h1>
+      Find the connection.
+    </h1><label class="search-field"
+      ><span class="sr-only">Search rules and concepts</span><input
+        type="search"
+        id="site-search"
+        placeholder="Try Nim, outcome, or publisher edition…"
+      /></label
+    ><div class="filters" role="group" aria-label="Result type">
+      <button data-kind="all" aria-pressed="true">Everything</button><button
+        data-kind="game"
+        aria-pressed="false">Games</button
+      ><button data-kind="concept" aria-pressed="false">BGSM concepts</button
+      ><button data-kind="vocabulary" aria-pressed="false">Vocabulary</button>
+    </div><p id="search-count" aria-live="polite">
+      {search.entries.length} entries
+    </p><ul class="version-list" id="search-results">
+      {
+        search.entries.map((entry) => (
+          <li
+            data-result
+            data-kind={entry.kind}
+            data-text={entry.text.toLowerCase()}
+          >
+            <a href={entry.url}>
+              {entry.title}
+              <span>
+                {entry.kind} · {entry.status}
+                {entry.version ? ` · BGSM ${entry.version}` : ""}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul><p id="search-empty" hidden>
+      No matching entries. Try a broader term or a different type.
+    </p><p class="small-note">
+      Editorial vocabulary is not executable semantics. Search status preserves
+      that distinction and identifies draft game content.
+    </p>
+  </section></Base
+>
+<script>
+  const input = document.querySelector<HTMLInputElement>("#site-search")!;
+  const rows = [...document.querySelectorAll<HTMLElement>("[data-result]")];
+  const buttons = [
+    ...document.querySelectorAll<HTMLButtonElement>(
+      "[data-kind]:not([data-result])",
+    ),
+  ];
+  let kind = "all";
+  function update() {
+    let count = 0;
+    const words = input.value.trim().toLowerCase().split(/\s+/);
+    for (const row of rows) {
+      const match =
+        (kind === "all" || row.dataset.kind === kind) &&
+        words.every((word) => (row.dataset.text || "").includes(word));
+      row.hidden = !match;
+      if (match) count++;
+    }
+    document.querySelector("#search-count")!.textContent =
+      `${count} ${count === 1 ? "entry" : "entries"}`;
+    (document.querySelector("#search-empty") as HTMLElement).hidden =
+      count !== 0;
+    for (const button of buttons)
+      button.setAttribute("aria-pressed", String(button.dataset.kind === kind));
+  }
+  input.addEventListener("input", update);
+  buttons.forEach((button) =>
+    button.addEventListener("click", () => {
+      kind = button.dataset.kind!;
+      update();
+    }),
+  );
+</script>
