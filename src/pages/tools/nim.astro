@@ -1,0 +1,84 @@
+---
+import Base from "../../layouts/Base.astro";
+import { nim } from "../../lib/site-indexes.mjs";
+import { editions } from "../../lib/catalog.mjs";
+const hasRulebook = editions.some(
+  (e) => JSON.stringify(e) === JSON.stringify(nim.rulebook),
+);
+const report = nim.verification;
+---
+
+<Base title="Nim definition review | RuleBooks" active="model"
+  ><section class="prose-page shell">
+    <a href="/tools/reference/">← Reference tooling</a><p class="eyebrow">
+      DRAFT GAME DEFINITION · ACCEPTANCE PENDING
+    </p><h1>Nim, end to end.</h1><p class="reader-deck">
+      Two heaps containing one and two counters. Player A starts; the player
+      taking the final counter wins.
+    </p><div class="scope-warning">
+      <strong
+        >Engineering verification passed; editorial acceptance is pending.</strong
+      ><p>
+        This is a candidate implementation of the existing Nim rulebook under
+        experimental semantics. It does not yet establish an accepted
+        Formalization or BGSM release.
+      </p>
+    </div><h2>What was checked</h2><p>{report.scope}</p><ul>
+      <li>{report.bounds.reachableStates} reachable states</li><li>
+        {report.bounds.legalTransitions} legal transitions
+      </li><li>
+        {report.bounds.rejectedIntents} rejected actor/parameter combinations, without
+        state mutation
+      </li><li>{report.bounds.terminalStates} terminal states</li>
+    </ul><p>
+      An independent Python oracle enumerates the expected moves and outcomes.
+      The declarative definition exposes setup, turn ownership, heap selection,
+      removal, state changes and ending conditions through reusable operations.
+      There is no host primitive named Nim.
+    </p><h2>Rule-to-source mapping</h2><ul>
+      {
+        nim.source.sourceMap.map((link) => (
+          <li>
+            <a
+              href={
+                hasRulebook
+                  ? `/editions/nim-one-two/1/#rule-${link.rule}`
+                  : nim.files.find((file) =>
+                      file.url.endsWith("/rulebook.json"),
+                    ).url
+              }
+            >
+              {link.rule}
+            </a>{" "}
+            → <code>{link.node}</code>
+          </li>
+        ))
+      }
+    </ul><details>
+      <summary>Inspect the complete authored definition</summary
+      ><pre><code set:text={JSON.stringify(nim.source,null,2)} /></pre>
+    </details><h2>Exact review inputs</h2><p>
+      Rulebook: {report.rulebook.id}, revision {report.rulebook.revision}. The
+      report pins its digest. Only this 1/2-heap scope has been exhaustively
+      checked; the 3/4/5 profile and other variants are outside these results.
+    </p><ul class="download-list">
+      {
+        nim.files.map((file) => (
+          <li>
+            <>
+              <a href={file.url} download>
+                {file.url.split("/").pop()}
+              </a>
+              <small>{file.bytes} bytes · SHA-256</small>
+              <code>{file.sha256}</code>
+            </>
+          </li>
+        ))
+      }
+    </ul><p>
+      To publish this as accepted game data, the readable rules and semantic
+      meaning still need accountable acceptance, followed by the existing
+      Formalization, BGSMRelease and VerificationRecord publication contracts.
+    </p>
+  </section></Base
+>

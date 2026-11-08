@@ -26,6 +26,7 @@ class SiteTests(unittest.TestCase):
         shutil.copytree(ROOT/'schema',self.root/'schema')
         shutil.copytree(ROOT/'docs',self.root/'docs')
         shutil.copytree(ROOT/'data/catalog',self.root/'data/catalog')
+        shutil.copytree(ROOT/'data/definitions',self.root/'data/definitions')
 
     def change(self, name, modify):
         file = self.catalog / name

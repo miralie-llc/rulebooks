@@ -16,6 +16,7 @@ from tools.assemble_publication import canonical, record_path
 from tools.site_vocabulary import vocabulary
 from tools.site_indexes import indexes
 from tools.runtime.specimens import build_specimens
+from tools.runtime.nim import build_nim
 
 
 class Links(HTMLParser):
@@ -59,6 +60,11 @@ def check():
         for name,raw in specimen_files.items():
             target=cache/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw)
         (cache/'specimens.json').write_bytes(canonical(specimens))
+        nim_files,nim=build_nim()
+        outputs.update(nim_files)
+        for name,raw in nim_files.items():
+            target=cache/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw)
+        (cache/'nim.json').write_bytes(canonical(nim))
         generated,search,downloads,budget=indexes(fixture_content,outputs)
         for name,raw in generated.items():
             target=cache/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw)

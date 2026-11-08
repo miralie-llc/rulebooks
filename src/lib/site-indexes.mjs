@@ -13,3 +13,5 @@ export const fileDownload = (path) =>
   downloads.files.find((file) => file.url === "/data/" + path);
 
 export const specimens = read("specimens");
+
+export const nim = read("nim");

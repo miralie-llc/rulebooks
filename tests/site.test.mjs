@@ -83,12 +83,23 @@ test("collected catalog is actual draft content with scope, citations and exact 
 test("site separates explicit developer specimens from private inputs and contract fixtures", () => {
   const files = walk(root).map((p) => path.relative(root, p));
   assert.ok(
-    !files.filter(p=>p!=="tools/reference/index.html" && !p.startsWith("data/reference/")).some((p) =>
-      /(?:^|\/)(tests|work|reference|tools|node_modules)\//.test(p),
-    ),
+    !files
+      .filter(
+        (p) =>
+          p !== "tools/reference/index.html" &&
+          p !== "tools/nim/index.html" &&
+          !p.startsWith("data/reference/"),
+      )
+      .some((p) =>
+        /(?:^|\/)(tests|work|reference|tools|node_modules)\//.test(p),
+      ),
   );
   assert.ok(!files.some((p) => /\.(pdf|py|md)$/.test(p)));
-  for (const file of files.filter(p=>p.startsWith("data/reference/"))) assert.match(file,/^data\/reference\/(catalog\.json|[a-f0-9]{64}\/(source|inspection|verification|suite)\.json)$/);
+  for (const file of files.filter((p) => p.startsWith("data/reference/")))
+    assert.match(
+      file,
+      /^data\/reference\/(catalog\.json|[a-f0-9]{64}\/(source|inspection|verification|suite)\.json)$/,
+    );
   for (const file of files.filter((p) => /\.(json|html)$/.test(p))) {
     assert.doesNotMatch(
       read(file),
@@ -319,4 +330,15 @@ test("executable developer specimens are separate from the collected games", () 
     assert.equal(entry.verification.bounds.events, 2);
     assert.ok(entry.files.some((file) => file.label === "verification.json"));
   }
+});
+
+test("Nim candidate exposes actual bounded evidence without claiming acceptance", () => {
+  const html = read("tools/nim/index.html");
+  assert.match(html, /ACCEPTANCE PENDING/);
+  assert.match(html, /8 reachable states/);
+  assert.match(html, /374 rejected/);
+  assert.match(
+    read("editions/nim-one-two/1/coverage/index.html"),
+    /Not yet formalized/,
+  );
 });

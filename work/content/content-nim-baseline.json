@@ -23,6 +23,10 @@
     {
       "path": "data/catalog/records/RulebookEdition-nim-three-heaps-1.json",
       "note": "Two complete-within-scope editorial drafts (3/4/5 and 1/2 heaps), awaiting acceptance; no formalization claimed."
+    },
+    {
+      "path": "data/definitions/nim-one-two/1.json",
+      "note": "Candidate 1/2-heap definition exposes setup, legal intents, reduction and outcomes. Independent exhaustive evidence passes; editorial and semantic acceptance remain pending."
     }
   ]
 }

@@ -1,0 +1,263 @@
+{
+  "schemaVersion": "0.1.0",
+  "id": "nim-one-two",
+  "language": {
+    "id": "rulebooks-json",
+    "version": "0.1.0"
+  },
+  "bgsm": "0.1.0-draft.1",
+  "library": {
+    "id": "core",
+    "version": "0.1.0"
+  },
+  "capabilities": [
+    "finite-intents",
+    "public-state",
+    "deterministic-reduction"
+  ],
+  "players": [
+    "a",
+    "b"
+  ],
+  "initial": {
+    "heaps": [
+      1,
+      2
+    ],
+    "turn": "a",
+    "winner": null
+  },
+  "actions": [
+    {
+      "id": "take",
+      "parameters": {
+        "heap": [
+          0,
+          1
+        ],
+        "amount": [
+          1,
+          2
+        ]
+      },
+      "legal": {
+        "op": "and",
+        "args": [
+          {
+            "op": "eq",
+            "args": [
+              {
+                "var": "actor"
+              },
+              {
+                "var": "state.turn"
+              }
+            ]
+          },
+          {
+            "op": "le",
+            "args": [
+              {
+                "var": "params.amount"
+              },
+              {
+                "op": "get",
+                "args": [
+                  {
+                    "var": "state.heaps"
+                  },
+                  {
+                    "var": "params.heap"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "resolve": {
+        "op": "object",
+        "args": [
+          [
+            "heap",
+            {
+              "var": "params.heap"
+            }
+          ],
+          [
+            "amount",
+            {
+              "var": "params.amount"
+            }
+          ],
+          [
+            "actor",
+            {
+              "var": "actor"
+            }
+          ]
+        ]
+      },
+      "effects": {
+        "heaps": {
+          "op": "set",
+          "args": [
+            {
+              "var": "state.heaps"
+            },
+            {
+              "var": "event.heap"
+            },
+            {
+              "op": "sub",
+              "args": [
+                {
+                  "op": "get",
+                  "args": [
+                    {
+                      "var": "state.heaps"
+                    },
+                    {
+                      "var": "event.heap"
+                    }
+                  ]
+                },
+                {
+                  "var": "event.amount"
+                }
+              ]
+            }
+          ]
+        },
+        "turn": {
+          "op": "if",
+          "args": [
+            {
+              "op": "eq",
+              "args": [
+                {
+                  "var": "state.turn"
+                },
+                "a"
+              ]
+            },
+            "b",
+            "a"
+          ]
+        },
+        "winner": {
+          "op": "if",
+          "args": [
+            {
+              "op": "eq",
+              "args": [
+                {
+                  "op": "sum",
+                  "args": [
+                    {
+                      "var": "state.heaps"
+                    }
+                  ]
+                },
+                {
+                  "var": "event.amount"
+                }
+              ]
+            },
+            {
+              "var": "event.actor"
+            },
+            null
+          ]
+        }
+      }
+    }
+  ],
+  "outcome": {
+    "op": "object",
+    "args": [
+      [
+        "terminal",
+        {
+          "op": "eq",
+          "args": [
+            {
+              "op": "sum",
+              "args": [
+                {
+                  "var": "state.heaps"
+                }
+              ]
+            },
+            0
+          ]
+        }
+      ],
+      [
+        "winners",
+        {
+          "op": "if",
+          "args": [
+            {
+              "op": "eq",
+              "args": [
+                {
+                  "op": "sum",
+                  "args": [
+                    {
+                      "var": "state.heaps"
+                    }
+                  ]
+                },
+                0
+              ]
+            },
+            {
+              "op": "array",
+              "args": [
+                {
+                  "var": "state.winner"
+                }
+              ]
+            },
+            []
+          ]
+        }
+      ]
+    ]
+  },
+  "sourceMap": [
+    {
+      "node": "/outcome",
+      "rule": "last-counter"
+    },
+    {
+      "node": "/players",
+      "rule": "players"
+    },
+    {
+      "node": "/initial",
+      "rule": "starting-heaps"
+    },
+    {
+      "node": "/actions/0/effects/turn",
+      "rule": "alternate"
+    },
+    {
+      "node": "/actions/0/legal",
+      "rule": "remove-counters"
+    },
+    {
+      "node": "/actions/0/effects/heaps",
+      "rule": "one-heap"
+    },
+    {
+      "node": "/outcome",
+      "rule": "finish"
+    },
+    {
+      "node": "/initial/turn",
+      "rule": "players"
+    }
+  ]
+}
