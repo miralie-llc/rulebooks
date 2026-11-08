@@ -13,6 +13,7 @@ The repository contains the selected product plan, vocabulary, versioned product
 - [Publication contract: entities, relationships and first-game examples](docs/architecture/publication-contract.md)
 - [Build publication data from reviewed bundles or individual records](docs/development/publication-assembly.md)
 - [Run the Astro catalog and browse the first game data](docs/development/site.md)
+- [Experimental semantic charter and public reference engine](docs/architecture/reference-semantics.md)
 - [Deployment, monitoring and ownership](docs/product/operations.md)
 - [Public repository, private research and publication boundaries](docs/product/repository-boundaries.md)
 - [Contributor checks and local pre-publication review](docs/development/contribution-checks.md)

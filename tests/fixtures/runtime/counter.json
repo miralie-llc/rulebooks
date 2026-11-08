@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "0.1.0",
+  "id": "counter-fixture",
+  "language": {"id": "rulebooks-json", "version": "0.1.0"},
+  "bgsm": "0.1.0-draft.1",
+  "library": {"id": "core", "version": "0.1.0"},
+  "capabilities": ["finite-intents", "public-state", "deterministic-reduction"],
+  "players": ["a", "b"],
+  "initial": {"remaining": 2, "turn": "a", "winner": null},
+  "actions": [{
+    "id": "take",
+    "parameters": {"amount": [1, 2]},
+    "legal": {"op": "and", "args": [
+      {"op": "eq", "args": [{"var": "actor"}, {"var": "state.turn"}]},
+      {"op": "le", "args": [{"var": "params.amount"}, {"var": "state.remaining"}]}
+    ]},
+    "resolve": {"op": "object", "args": [["amount", {"var": "params.amount"}], ["actor", {"var": "actor"}]]},
+    "effects": {
+      "remaining": {"op": "sub", "args": [{"var": "state.remaining"}, {"var": "event.amount"}]},
+      "turn": {"op": "if", "args": [{"op": "eq", "args": [{"var": "state.turn"}, "a"]}, "b", "a"]},
+      "winner": {"op": "if", "args": [{"op": "eq", "args": [{"var": "state.remaining"}, {"var": "event.amount"}]}, {"var": "event.actor"}, null]}
+    }
+  }],
+  "outcome": {"op": "object", "args": [
+    ["terminal", {"op": "eq", "args": [{"var": "state.remaining"}, 0]}],
+    ["winners", {"op": "if", "args": [{"op": "eq", "args": [{"var": "state.remaining"}, 0]}, {"op": "array", "args": [{"var": "state.winner"}]}, []]}]
+  ]},
+  "sourceMap": [
+    {"node": "/initial", "rule": "fixture-two-counters"},
+    {"node": "/actions/0/legal", "rule": "fixture-alternate-and-remove"},
+    {"node": "/actions/0/effects", "rule": "fixture-reduce-counters"},
+    {"node": "/outcome", "rule": "fixture-final-take-wins"}
+  ]
+}
