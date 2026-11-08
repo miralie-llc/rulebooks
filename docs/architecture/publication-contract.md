@@ -22,7 +22,7 @@ A readable-only game needs a Game and RulebookEdition, plus Sources when externa
 
 Game IDs identify the game, including a distinct publisher edition where one exists. Rulebook IDs identify our editorial profiles; their positive integer revisions identify immutable snapshots. A game may have several profiles and revisions. `Game.defaultEdition` selects one exact profile revision, and `publication.games` selects one exact Game revision for each discovery entry. Changing that default creates a new Game metadata revision without creating a new game identity.
 
-The bundle is an exchange and validation boundary, not a requirement to edit a giant JSON file. Records can be authored separately; the assembler in issue #4 will gather them into a closed, reproducible publication. There is no assembler or public catalog in this change. Current bundles live only in test fixtures. Never copy a checkout or the test fixtures into site output.
+The bundle is an exchange and validation boundary, not a requirement to edit a giant JSON file. The [publication assembler](../development/publication-assembly.md) accepts a reviewed bundle or an explicit selection of separately authored records and produces a closed, reproducible public tree. Current game bundles remain test fixtures; an explicit fixture build is a developer demonstration, not a collected catalog. Never copy a checkout or test fixtures wholesale into site output.
 
 ### Boundary with acquisition and inferred rules
 
@@ -102,7 +102,7 @@ For review hashes, exclude only the record's top-level `review`; the manifest ha
 
 Files must resolve beneath the bundle directory, including after symlink resolution. Validation uses only local bundled files; source URLs and schema IDs are identifiers, never build-time fetches. Private research stores are not dependencies. A caller checking a new release supplies a trusted, previously validated bundle through `--previous`; the validator rejects changed immutable records, omitted history without withdrawal notices, reuse of the immediately previous release ID, and missing historical notices. The assembler/release workflow must supply that trusted baseline and enforce globally unique release IDs; a first isolated bundle cannot prove facts about prior releases.
 
-The schema itself is versioned independently of these records. A bundle retains its schema version context; don't export bare fragments and assume readers can infer their contract. The future assembler can select a physical file/download layout without changing game identities.
+The schema itself is versioned independently of these records. A bundle retains its schema version context; don't export bare fragments and assume readers can infer their contract. The assembler wraps individual record downloads with schema version and purpose and preserves immutable record URLs independently of discovery defaults.
 
 ## Compatibility and what comes next
 
