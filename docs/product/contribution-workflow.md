@@ -22,6 +22,8 @@ The semantic queue may be empty. Open a semantic item only after collected game 
 
 Draft → checks passed → human reviewed → accepted → published is the normal lifecycle. `Needs revision` returns to the author. `Withdrawn` removes a faulty artifact from recommended use while retaining a visible notice and permitted historical records.
 
+The [contribution-check guide](../development/contribution-checks.md) provides the implemented local and CI checks. The [PR template](../../.github/pull_request_template.md) records review expectations. These are the initial repository workflow; they do not implement the later editorial UI, trusted approval records or preview/release service.
+
 ### Minimum change-set envelope
 
 Every submission identifies author and responsible human, task, base commit, changed record IDs, cited evidence, scope, machine-check results, unresolved questions and requested reviewer. A semantic change also includes examples before/after, expected behavioral differences and affected dependents. This envelope should become the future editor UI's submission format.

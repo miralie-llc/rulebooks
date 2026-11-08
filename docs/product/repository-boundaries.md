@@ -33,7 +33,7 @@ Treat a public push, pull request, CI log or preview as publication. Private dra
 - Build the site from explicit approved publication inputs in a clean output directory. Do not copy the checkout, work-queue drafts, private captures or build logs wholesale.
 - Keep reports free of secret values. If a credential is exposed, revoke or rotate it and handle any history cleanup separately. See [GitHub's sensitive-data removal guidance](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository).
 
-These are required workflow properties; the [implementation plan](implementation-plan.md) tracks the tooling needed to enforce them. `.gitignore` prevents accidental additions but does not restrict access, remove tracked files or prevent copying sensitive content into another file.
+The [contribution-check guide](../development/contribution-checks.md) implements candidate/history scanning, maintained-path and link checks, and exact-candidate review reports. It distinguishes automated checks from human review and repository/deployment controls still to configure. `.gitignore` prevents accidental additions but does not restrict access, remove tracked files or prevent copying sensitive content into another file.
 
 ## License scope
 

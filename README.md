@@ -13,17 +13,21 @@ The repository contains the selected product plan, vocabulary, versioned product
 - [Publication contract: entities, relationships and first-game examples](docs/architecture/publication-contract.md)
 - [Deployment, monitoring and ownership](docs/product/operations.md)
 - [Public repository, private research and publication boundaries](docs/product/repository-boundaries.md)
+- [Contributor checks and local pre-publication review](docs/development/contribution-checks.md)
 - [Content and semantic work queues](work/README.md)
 - [RuleBooks vocabulary](docs/reference/vocabulary.md)
 - [Research and source register](docs/reference/sources.md)
 - [Design principles](docs/architecture/principles.md)
 
-Validate product work records with Python 3.11 and the same dependencies as CI:
+Run repository checks with Python 3.11 and the same dependencies as CI:
 
 ```sh
 python3 -m pip install -r tools/requirements-ci.txt
-python3 tools/validate_work.py
+python3 tools/install_gitleaks.py
+python3 tools/check_repository.py
 python3 -m unittest discover -s tests -v
 ```
 
-[Repository validation](.github/workflows/validate.yml) runs on pull requests and pushes to `main`. It checks product work records and publication contract tests; site builds and deployment will follow the [operations plan](docs/product/operations.md). Game examples under `tests/fixtures/` are contract tests, not collected or published catalog entries.
+Before a public push, follow the [local review procedure](docs/development/contribution-checks.md), including credential scans of candidate files and outgoing history. The commands above do not publish anything.
+
+[Repository validation](.github/workflows/validate.yml) runs on pull requests and pushes to `main`. It checks maintained paths/links, work records, credentials, publication contracts and contribution boundaries; site builds and deployment will follow the [operations plan](docs/product/operations.md). Game examples under `tests/fixtures/` are contract tests, not collected or published catalog entries.

@@ -4,9 +4,9 @@ Part of [proposal 0.3.0](README.md). Managed hosting with minimal maintenance is
 
 ## Setup sequence and current automation
 
-The [repository validation workflow](../../.github/workflows/validate.yml) checks product work records and publication contract tests on pull requests and pushes to `main`, with a manual run option. Contract tests cover fixture boundaries, exact references, attribution, coverage, digests and immutable history. The workflow uses a read-only repository token, no deployment secrets, pinned action commits and pinned Python dependencies. Run the same checks locally using the instructions in the [repository README](../../README.md).
+The [repository validation workflow](../../.github/workflows/validate.yml) checks maintained paths and documentation links, product work records, credentials and publication contract/boundary tests on pull requests and pushes to `main`, with a manual run option. Contract tests cover fixture boundaries, exact references, attribution, coverage, digests and immutable history. The workflow uses a read-only repository token, no deployment secrets, pinned action commits and pinned dependencies/scanner. The [contribution-check guide](../development/contribution-checks.md) defines local review, exact-candidate verification and enforcement limits.
 
-This first check does not build a site, scan for secrets, validate all documentation links or enforce branch protection. Those remaining contribution controls belong to [implementation issue #2](https://github.com/miralie-llc/rulebooks/issues/2). Pre-publication review and local credential checks remain required by the repository policy.
+These checks do not build a site, fetch external citations or enforce branch protection. Local pre-publication review remains required: CI runs after the triggering push has already disclosed its contents. Mandatory reviewers/repository rules and protected deployment promotion still need configuration before broader contributions and launch.
 
 Set up delivery in stages:
 

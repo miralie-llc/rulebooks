@@ -8,6 +8,11 @@ from pathlib import Path
 from jsonschema import Draft202012Validator, FormatChecker
 from jsonschema.exceptions import best_match
 
+if __package__:
+    from .input_policy import publication_path_problem
+else:
+    from input_policy import publication_path_problem
+
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA = ROOT / "schema/publication/0.1.0/bundle.schema.json"
 
@@ -80,6 +85,7 @@ def validate_bundle(bundle, root, *, allow_fixtures=False, previous=None):
         return records[key]
 
     def check_file(file):
+        require(publication_path_problem(file["path"]) is None, "Disallowed publication asset path")
         path = (root / file["path"]).resolve()
         require(path.is_relative_to(root) and path.is_file(), f"File must exist inside bundle root: {file['path']}")
         require(hashlib.sha256(path.read_bytes()).hexdigest() == file["sha256"], f"File digest mismatch: {file['path']}")

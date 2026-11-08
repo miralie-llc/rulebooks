@@ -1,8 +1,10 @@
-# Direct and transitive dependencies for the Python 3.11 queue-validation job.
-# Update together and run tools/validate_work.py before committing new pins.
+# Direct and transitive dependencies for Python 3.11 repository validation.
+# Update together and run repository checks and tests before committing new pins.
 attrs==26.1.0
 jsonschema==4.25.1
 jsonschema-specifications==2025.9.1
 referencing==0.37.0
 rpds-py==2026.9.1
 typing_extensions==4.16.0
+markdown-it-py==4.0.0
+mdurl==0.1.2
