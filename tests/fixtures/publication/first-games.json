@@ -1,0 +1,930 @@
+{
+  "schemaVersion": "0.1.0",
+  "purpose": "contract-fixture",
+  "records": [
+    {
+      "kind": "Game",
+      "id": "chess",
+      "revision": 1,
+      "testOnly": true,
+      "title": "Chess",
+      "defaultEdition": {
+        "id": "chess-fide-mechanics",
+        "revision": 1
+      }
+    },
+    {
+      "kind": "Game",
+      "id": "nim-normal-play",
+      "revision": 1,
+      "testOnly": true,
+      "title": "Normal-play Nim",
+      "defaultEdition": {
+        "id": "nim-one-two",
+        "revision": 1
+      }
+    },
+    {
+      "kind": "Game",
+      "id": "rock-paper-scissors",
+      "revision": 1,
+      "testOnly": true,
+      "title": "Rock-paper-scissors",
+      "defaultEdition": {
+        "id": "rps-single-round",
+        "revision": 1
+      }
+    },
+    {
+      "kind": "Source",
+      "id": "fide-laws-2023",
+      "revision": 1,
+      "testOnly": true,
+      "title": "FIDE Laws of Chess taking effect from 1 January 2023",
+      "author": "FIDE",
+      "edition": {
+        "label": "Effective 1 January 2023"
+      },
+      "url": "https://handbook.fide.com/chapter/E012023",
+      "accessed": "2026-11-07",
+      "reuse": "metadata-only"
+    },
+    {
+      "kind": "RulebookEdition",
+      "id": "chess-fide-mechanics",
+      "revision": 1,
+      "testOnly": true,
+      "gameId": "chess",
+      "label": "FIDE 2023 mechanics excerpt — contract fixture",
+      "scope": {
+        "summary": "An incomplete mechanics excerpt attributed to the FIDE Laws effective 1 January 2023.",
+        "includes": [
+          "Alternating play, objective, king safety and stalemate"
+        ],
+        "excludes": [
+          "Full setup, piece movement and special moves are not yet described in this excerpt",
+          "Clock, touch-move, conduct, draw claims and competition procedures are not represented"
+        ]
+      },
+      "dimensions": [
+        "game"
+      ],
+      "readingStatus": "partial",
+      "sections": [
+        {
+          "id": "play",
+          "title": "Players and objective",
+          "rules": [
+            {
+              "id": "turns",
+              "statement": "Two players control White and Black; White moves first and play alternates.",
+              "origin": {
+                "kind": "source",
+                "citations": [
+                  {
+                    "source": {
+                      "id": "fide-laws-2023",
+                      "revision": 1
+                    },
+                    "locator": "Articles 1.1–1.3"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "objective",
+              "statement": "Checkmate wins: the opposing king is attacked and there is no legal response.",
+              "origin": {
+                "kind": "source",
+                "citations": [
+                  {
+                    "source": {
+                      "id": "fide-laws-2023",
+                      "revision": 1
+                    },
+                    "locator": "Articles 1.4 and 5.1.1"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "legality",
+          "title": "King safety",
+          "rules": [
+            {
+              "id": "king-safety",
+              "statement": "A move may not leave or place the moving side’s king under attack.",
+              "origin": {
+                "kind": "source",
+                "citations": [
+                  {
+                    "source": {
+                      "id": "fide-laws-2023",
+                      "revision": 1
+                    },
+                    "locator": "Article 3.9.2"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "endings",
+          "title": "A drawing condition",
+          "rules": [
+            {
+              "id": "stalemate",
+              "statement": "The game is drawn when the player to move has no legal move and their king is not under attack.",
+              "origin": {
+                "kind": "source",
+                "citations": [
+                  {
+                    "source": {
+                      "id": "fide-laws-2023",
+                      "revision": 1
+                    },
+                    "locator": "Article 5.2.1"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "review": {
+        "authors": [
+          {
+            "name": "Fixture author (fictional)",
+            "kind": "human"
+          }
+        ],
+        "responsibleHuman": "Fixture owner (fictional)",
+        "reviewer": "Fixture reviewer (fictional)",
+        "reviewedAt": "2026-11-07T00:00:00Z",
+        "decision": "accepted",
+        "reviewedDigest": "6e61966bd8b04a56bc8902455006cf1f44112b75e460805ab2510ed10e257744"
+      }
+    },
+    {
+      "kind": "RulebookEdition",
+      "id": "nim-one-two",
+      "revision": 1,
+      "testOnly": true,
+      "gameId": "nim-normal-play",
+      "label": "Normal-play Nim [1, 2] — contract fixture",
+      "scope": {
+        "summary": "Two-player normal-play Nim with two heaps initially containing one and two counters.",
+        "includes": [
+          "Both heaps are visible",
+          "Player A moves first",
+          "Exactly one heap changes on a turn",
+          "Taking the final counter wins"
+        ],
+        "excludes": [
+          "Misère play",
+          "Other initial configurations",
+          "Clocks and tournament procedures"
+        ]
+      },
+      "dimensions": [
+        "game"
+      ],
+      "readingStatus": "complete",
+      "sections": [
+        {
+          "id": "setup",
+          "title": "Players and setup",
+          "rules": [
+            {
+              "id": "players",
+              "statement": "Two players, A and B, can see both heaps throughout play."
+            },
+            {
+              "id": "setup",
+              "statement": "Start with heap one containing one counter and heap two containing two counters. Player A moves first."
+            }
+          ]
+        },
+        {
+          "id": "turns",
+          "title": "A turn",
+          "rules": [
+            {
+              "id": "legal-action",
+              "statement": "On your turn choose one nonempty heap and remove a positive whole number of counters, no greater than that heap contains."
+            },
+            {
+              "id": "transition",
+              "statement": "Subtract the chosen number from the chosen heap and leave the other heap unchanged. An illegal choice leaves the position and player to move unchanged."
+            },
+            {
+              "id": "next-player",
+              "statement": "If counters remain after a legal move, the other player takes the next turn."
+            }
+          ]
+        },
+        {
+          "id": "ending",
+          "title": "End of play",
+          "rules": [
+            {
+              "id": "outcome",
+              "statement": "A player who removes the final counter wins immediately. There are no further turns or drawn outcomes."
+            }
+          ]
+        }
+      ],
+      "review": {
+        "authors": [
+          {
+            "name": "Fixture author (fictional)",
+            "kind": "human"
+          }
+        ],
+        "responsibleHuman": "Fixture owner (fictional)",
+        "reviewer": "Fixture reviewer (fictional)",
+        "reviewedAt": "2026-11-07T00:00:00Z",
+        "decision": "accepted",
+        "reviewedDigest": "dc5bb0758027923e869babd437ff3bf399eed027679d0f80e3d2e255467ed2ca"
+      },
+      "origin": {
+        "kind": "editorial",
+        "attribution": "RuleBooks contract-test authors: explicit fixture configuration, not a collected or reviewed catalog entry."
+      }
+    },
+    {
+      "kind": "RulebookEdition",
+      "id": "rps-single-round",
+      "revision": 1,
+      "testOnly": true,
+      "gameId": "rock-paper-scissors",
+      "label": "Single-round RPS — contract fixture",
+      "scope": {
+        "summary": "Two-player rock-paper-scissors, one simultaneous round; equal choices end in a draw.",
+        "includes": [
+          "One concealed commitment per player",
+          "Reveal only after both choices are fixed",
+          "One round with a win, loss or draw"
+        ],
+        "excludes": [
+          "Best-of matches and replaying ties",
+          "Gesture timing disputes and adjudication"
+        ]
+      },
+      "dimensions": [
+        "game"
+      ],
+      "readingStatus": "complete",
+      "sections": [
+        {
+          "id": "choice",
+          "title": "Commit and reveal",
+          "rules": [
+            {
+              "id": "choices",
+              "statement": "Each of two players chooses exactly one of rock, paper or scissors."
+            },
+            {
+              "id": "commitment",
+              "statement": "Each player fixes their choice without learning the other choice; a committed choice cannot be changed."
+            },
+            {
+              "id": "reveal",
+              "statement": "Reveal both choices only after both players have committed."
+            }
+          ]
+        },
+        {
+          "id": "result",
+          "title": "Resolve and stop",
+          "rules": [
+            {
+              "id": "dominance",
+              "statement": "Rock defeats scissors, scissors defeats paper, and paper defeats rock."
+            },
+            {
+              "id": "tie",
+              "statement": "Equal choices produce a draw."
+            },
+            {
+              "id": "ending",
+              "statement": "The round ends after the reveal with a winner and loser or a draw. A draw does not start another round."
+            }
+          ]
+        }
+      ],
+      "review": {
+        "authors": [
+          {
+            "name": "Fixture author (fictional)",
+            "kind": "human"
+          }
+        ],
+        "responsibleHuman": "Fixture owner (fictional)",
+        "reviewer": "Fixture reviewer (fictional)",
+        "reviewedAt": "2026-11-07T00:00:00Z",
+        "decision": "accepted",
+        "reviewedDigest": "de081fe6485844b5b27fef577fe66a25636cf5a70c84199f0b36c1a6dea3860c"
+      },
+      "origin": {
+        "kind": "editorial",
+        "attribution": "RuleBooks contract-test authors: explicit fixture configuration, not a collected or reviewed catalog entry."
+      }
+    },
+    {
+      "kind": "Concept",
+      "id": "state",
+      "revision": 1,
+      "testOnly": true,
+      "title": "State",
+      "meaning": "A fixture state stores the current counters and player.",
+      "category": "contract-fixture",
+      "laws": [
+        "Schema illustration only; no implemented semantic law is claimed."
+      ],
+      "examples": [
+        "Used to test exact references in the contract fixtures."
+      ],
+      "status": "experimental"
+    },
+    {
+      "kind": "Concept",
+      "id": "action",
+      "revision": 1,
+      "testOnly": true,
+      "title": "Action",
+      "meaning": "A fixture action identifies the heap and quantity.",
+      "category": "contract-fixture",
+      "laws": [
+        "Schema illustration only; no implemented semantic law is claimed."
+      ],
+      "examples": [
+        "Used to test exact references in the contract fixtures."
+      ],
+      "status": "experimental"
+    },
+    {
+      "kind": "Concept",
+      "id": "outcome",
+      "revision": 1,
+      "testOnly": true,
+      "title": "Outcome",
+      "meaning": "A fixture result distinguishes a winner from a drawn round.",
+      "category": "contract-fixture",
+      "laws": [
+        "Schema illustration only; no implemented semantic law is claimed."
+      ],
+      "examples": [
+        "Used to test exact references in the contract fixtures."
+      ],
+      "status": "experimental"
+    },
+    {
+      "kind": "DefinitionPackage",
+      "id": "fixture-conformance",
+      "revision": 1,
+      "testOnly": true,
+      "language": {
+        "id": "contract-fixture-not-a-gdl",
+        "version": "0.0.0-fixture.1"
+      },
+      "bgsm": "0.0.0-fixture.1",
+      "files": [
+        {
+          "path": "sources/conformance.txt",
+          "sha256": "34151b4acfd17c3d87df67296082617cc70e30f574c7fee6205150530f9682c8"
+        }
+      ],
+      "dependencies": [],
+      "exports": [
+        {
+          "id": "suite",
+          "file": "sources/conformance.txt"
+        }
+      ]
+    },
+    {
+      "kind": "DefinitionPackage",
+      "id": "fixture-nim",
+      "revision": 1,
+      "testOnly": true,
+      "language": {
+        "id": "contract-fixture-not-a-gdl",
+        "version": "0.0.0-fixture.1"
+      },
+      "bgsm": "0.0.0-fixture.1",
+      "files": [
+        {
+          "path": "sources/nim.txt",
+          "sha256": "0672927f9f9e1ab720105fec992f38a59d018c7936eab1310b1aa04a39d2795a"
+        }
+      ],
+      "dependencies": [],
+      "exports": [
+        {
+          "id": "game",
+          "file": "sources/nim.txt"
+        },
+        {
+          "id": "players",
+          "file": "sources/nim.txt"
+        },
+        {
+          "id": "setup",
+          "file": "sources/nim.txt"
+        },
+        {
+          "id": "legal-action",
+          "file": "sources/nim.txt"
+        },
+        {
+          "id": "transition",
+          "file": "sources/nim.txt"
+        },
+        {
+          "id": "next-player",
+          "file": "sources/nim.txt"
+        },
+        {
+          "id": "outcome",
+          "file": "sources/nim.txt"
+        }
+      ]
+    },
+    {
+      "kind": "DefinitionPackage",
+      "id": "fixture-rps",
+      "revision": 1,
+      "testOnly": true,
+      "language": {
+        "id": "contract-fixture-not-a-gdl",
+        "version": "0.0.0-fixture.1"
+      },
+      "bgsm": "0.0.0-fixture.1",
+      "files": [
+        {
+          "path": "sources/rps.txt",
+          "sha256": "1055d191cd9032906ef3065a13c35170ffc0f8fa3dac50be9e0d3d5393c15435"
+        }
+      ],
+      "dependencies": [],
+      "exports": [
+        {
+          "id": "outcome-table",
+          "file": "sources/rps.txt"
+        },
+        {
+          "id": "dominance",
+          "file": "sources/rps.txt"
+        },
+        {
+          "id": "tie",
+          "file": "sources/rps.txt"
+        }
+      ]
+    },
+    {
+      "kind": "BGSMRelease",
+      "version": "0.0.0-fixture.1",
+      "testOnly": true,
+      "status": "experimental",
+      "concepts": [
+        {
+          "id": "state",
+          "revision": 1
+        },
+        {
+          "id": "action",
+          "revision": 1
+        },
+        {
+          "id": "outcome",
+          "revision": 1
+        }
+      ],
+      "libraries": [],
+      "capabilities": [
+        "contract-test-references"
+      ],
+      "conformance": {
+        "id": "fixture-conformance",
+        "revision": 1
+      },
+      "changelog": "Fictional release for schema tests; no released BGSM semantics.",
+      "breaking": false,
+      "review": {
+        "authors": [
+          {
+            "name": "Fixture author (fictional)",
+            "kind": "human"
+          }
+        ],
+        "responsibleHuman": "Fixture owner (fictional)",
+        "reviewer": "Fixture reviewer (fictional)",
+        "reviewedAt": "2026-11-07T00:00:00Z",
+        "decision": "accepted",
+        "reviewedDigest": "76b9dfb4aaf47c906f5ed01fd220c51b04b1b7ea2b2b14f89e3420d9259095a8"
+      }
+    },
+    {
+      "kind": "Formalization",
+      "id": "fixture-nim-mapping",
+      "revision": 1,
+      "testOnly": true,
+      "edition": {
+        "id": "nim-one-two",
+        "revision": 1
+      },
+      "bgsm": "0.0.0-fixture.1",
+      "language": {
+        "id": "contract-fixture-not-a-gdl",
+        "version": "0.0.0-fixture.1"
+      },
+      "package": {
+        "id": "fixture-nim",
+        "revision": 1
+      },
+      "entry": "game",
+      "scope": {
+        "summary": "Two-player normal-play Nim with two heaps initially containing one and two counters.",
+        "includes": [
+          "Both heaps are visible",
+          "Player A moves first",
+          "Exactly one heap changes on a turn",
+          "Taking the final counter wins"
+        ],
+        "excludes": [
+          "Misère play",
+          "Other initial configurations",
+          "Clocks and tournament procedures"
+        ]
+      },
+      "coverage": [
+        {
+          "rule": "players",
+          "status": "represented",
+          "definitions": [
+            {
+              "package": {
+                "id": "fixture-nim",
+                "revision": 1
+              },
+              "definition": "players"
+            }
+          ],
+          "concepts": [
+            {
+              "id": "state",
+              "revision": 1
+            }
+          ]
+        },
+        {
+          "rule": "setup",
+          "status": "represented",
+          "definitions": [
+            {
+              "package": {
+                "id": "fixture-nim",
+                "revision": 1
+              },
+              "definition": "setup"
+            }
+          ],
+          "concepts": [
+            {
+              "id": "state",
+              "revision": 1
+            }
+          ]
+        },
+        {
+          "rule": "legal-action",
+          "status": "represented",
+          "definitions": [
+            {
+              "package": {
+                "id": "fixture-nim",
+                "revision": 1
+              },
+              "definition": "legal-action"
+            }
+          ],
+          "concepts": [
+            {
+              "id": "action",
+              "revision": 1
+            }
+          ]
+        },
+        {
+          "rule": "transition",
+          "status": "represented",
+          "definitions": [
+            {
+              "package": {
+                "id": "fixture-nim",
+                "revision": 1
+              },
+              "definition": "transition"
+            }
+          ],
+          "concepts": [
+            {
+              "id": "state",
+              "revision": 1
+            }
+          ]
+        },
+        {
+          "rule": "next-player",
+          "status": "represented",
+          "definitions": [
+            {
+              "package": {
+                "id": "fixture-nim",
+                "revision": 1
+              },
+              "definition": "next-player"
+            }
+          ],
+          "concepts": [
+            {
+              "id": "state",
+              "revision": 1
+            }
+          ]
+        },
+        {
+          "rule": "outcome",
+          "status": "represented",
+          "definitions": [
+            {
+              "package": {
+                "id": "fixture-nim",
+                "revision": 1
+              },
+              "definition": "outcome"
+            }
+          ],
+          "concepts": [
+            {
+              "id": "outcome",
+              "revision": 1
+            }
+          ]
+        }
+      ],
+      "review": {
+        "authors": [
+          {
+            "name": "Fixture author (fictional)",
+            "kind": "human"
+          }
+        ],
+        "responsibleHuman": "Fixture owner (fictional)",
+        "reviewer": "Fixture reviewer (fictional)",
+        "reviewedAt": "2026-11-07T00:00:00Z",
+        "decision": "accepted",
+        "reviewedDigest": "9346603004c0209b299afb885b1a92465ec016098fe50160a0e521c562392e03"
+      }
+    },
+    {
+      "kind": "Formalization",
+      "id": "fixture-rps-mapping",
+      "revision": 1,
+      "testOnly": true,
+      "edition": {
+        "id": "rps-single-round",
+        "revision": 1
+      },
+      "bgsm": "0.0.0-fixture.1",
+      "language": {
+        "id": "contract-fixture-not-a-gdl",
+        "version": "0.0.0-fixture.1"
+      },
+      "package": {
+        "id": "fixture-rps",
+        "revision": 1
+      },
+      "entry": "outcome-table",
+      "scope": {
+        "summary": "Only the result table is mapped in this fixture.",
+        "includes": [
+          "Dominance and ties"
+        ],
+        "excludes": [
+          "Choices, commitment, reveal and ending are unrepresented"
+        ]
+      },
+      "coverage": [
+        {
+          "rule": "choices",
+          "status": "unrepresented",
+          "reason": "This contract fixture intentionally models only the result table; it is not evidence of a BGSM limitation."
+        },
+        {
+          "rule": "commitment",
+          "status": "unrepresented",
+          "reason": "This contract fixture intentionally models only the result table; it is not evidence of a BGSM limitation."
+        },
+        {
+          "rule": "reveal",
+          "status": "unrepresented",
+          "reason": "This contract fixture intentionally models only the result table; it is not evidence of a BGSM limitation."
+        },
+        {
+          "rule": "dominance",
+          "status": "represented",
+          "definitions": [
+            {
+              "package": {
+                "id": "fixture-rps",
+                "revision": 1
+              },
+              "definition": "dominance"
+            }
+          ],
+          "concepts": [
+            {
+              "id": "outcome",
+              "revision": 1
+            }
+          ]
+        },
+        {
+          "rule": "tie",
+          "status": "represented",
+          "definitions": [
+            {
+              "package": {
+                "id": "fixture-rps",
+                "revision": 1
+              },
+              "definition": "tie"
+            }
+          ],
+          "concepts": [
+            {
+              "id": "outcome",
+              "revision": 1
+            }
+          ]
+        },
+        {
+          "rule": "ending",
+          "status": "unrepresented",
+          "reason": "This contract fixture intentionally models only the result table; it is not evidence of a BGSM limitation."
+        }
+      ],
+      "review": {
+        "authors": [
+          {
+            "name": "Fixture author (fictional)",
+            "kind": "human"
+          }
+        ],
+        "responsibleHuman": "Fixture owner (fictional)",
+        "reviewer": "Fixture reviewer (fictional)",
+        "reviewedAt": "2026-11-07T00:00:00Z",
+        "decision": "accepted",
+        "reviewedDigest": "5aa511782e23ab18a739af08ee2df3aee37deee0697b2f51f784f28ac8927c6f"
+      }
+    }
+  ],
+  "publication": {
+    "id": "first-games",
+    "repository": "https://github.com/miralie-llc/rulebooks",
+    "commit": "0000000000000000000000000000000000000000",
+    "releasedAt": "2026-11-07T00:00:00Z",
+    "owner": "Fixture owner (fictional)",
+    "notes": "CONTRACT TEST ONLY. Fictional reviews and semantic packages; not catalog data or execution evidence.",
+    "manifest": [
+      {
+        "kind": "Game",
+        "id": "chess",
+        "revision": 1,
+        "sha256": "330afcea4744fa72cca691bb973653e7bdd160363d8b4474060536ea7ed0b6db"
+      },
+      {
+        "kind": "Game",
+        "id": "nim-normal-play",
+        "revision": 1,
+        "sha256": "37574fa78ea328af1d79324c57e7706aa05bfbda88bed1bdeee518b450314381"
+      },
+      {
+        "kind": "Game",
+        "id": "rock-paper-scissors",
+        "revision": 1,
+        "sha256": "113afc047adc75916e14e1691672e9831b80818f93142f7a5a79300b59d337e1"
+      },
+      {
+        "kind": "Source",
+        "id": "fide-laws-2023",
+        "revision": 1,
+        "sha256": "f6296e1daaeaf3ffb4c7e982b260a21532841b560350d58a948f7e4345a806f8"
+      },
+      {
+        "kind": "RulebookEdition",
+        "id": "chess-fide-mechanics",
+        "revision": 1,
+        "sha256": "d00c21608b68b901acffd290b0a02cdd7d2ed805ee1d15a353bf03c0e05d72ca"
+      },
+      {
+        "kind": "RulebookEdition",
+        "id": "nim-one-two",
+        "revision": 1,
+        "sha256": "a0b9261e2497607fbe7ee2e649ce70d1298a2a2c55bf360a2b12fbbd73cd1feb"
+      },
+      {
+        "kind": "RulebookEdition",
+        "id": "rps-single-round",
+        "revision": 1,
+        "sha256": "d2031bf0c655d58faff2fab29c8a17662e8f8b160f83676e3b73bf0ccc4a6862"
+      },
+      {
+        "kind": "Concept",
+        "id": "state",
+        "revision": 1,
+        "sha256": "a7e7376bc615883d3485fad8d1126b1c2312ca10e038f9a6f543fbb1b23870e8"
+      },
+      {
+        "kind": "Concept",
+        "id": "action",
+        "revision": 1,
+        "sha256": "e0509483a6b8f5c01f912fbc26f15d3267d42c4b35df50cd2b17df0cd04cdca9"
+      },
+      {
+        "kind": "Concept",
+        "id": "outcome",
+        "revision": 1,
+        "sha256": "c4180cfce9f184727356bb7e09e1dd232e5701ee0b09428d8f18e839f5c4d43c"
+      },
+      {
+        "kind": "DefinitionPackage",
+        "id": "fixture-conformance",
+        "revision": 1,
+        "sha256": "72c1a598fd1e1989ab27c58452ea871d7fb160fd44b67b788dfd9ce8df1cb1be"
+      },
+      {
+        "kind": "DefinitionPackage",
+        "id": "fixture-nim",
+        "revision": 1,
+        "sha256": "a5a09c83e9adde4ba672891bf047b3241e09534b2c36013df8d4f5618bd8d1b5"
+      },
+      {
+        "kind": "DefinitionPackage",
+        "id": "fixture-rps",
+        "revision": 1,
+        "sha256": "bb0ce5f5a8af4bba5ced044571e515e5c7d709bd9373224d2b2dc69aea4d14f7"
+      },
+      {
+        "kind": "BGSMRelease",
+        "version": "0.0.0-fixture.1",
+        "sha256": "cad95fbb02eee8c06de6a6911aee38ace6322ec56bfc2753a5f1a3e87ab4b49c"
+      },
+      {
+        "kind": "Formalization",
+        "id": "fixture-nim-mapping",
+        "revision": 1,
+        "sha256": "fa23c257661488dd8356f998d894952ac9b7d9cca5e8c5036ad22fe54cceb761"
+      },
+      {
+        "kind": "Formalization",
+        "id": "fixture-rps-mapping",
+        "revision": 1,
+        "sha256": "90213b048d71a096b8e22ea66e825a6d9232e0675b88da1879e23de009f2bfd2"
+      }
+    ],
+    "games": [
+      {
+        "id": "chess",
+        "revision": 1
+      },
+      {
+        "id": "nim-normal-play",
+        "revision": 1
+      },
+      {
+        "id": "rock-paper-scissors",
+        "revision": 1
+      }
+    ],
+    "review": {
+      "authors": [
+        {
+          "name": "Fixture author (fictional)",
+          "kind": "human"
+        }
+      ],
+      "responsibleHuman": "Fixture owner (fictional)",
+      "reviewer": "Fixture reviewer (fictional)",
+      "reviewedAt": "2026-11-07T00:00:00Z",
+      "decision": "accepted",
+      "reviewedDigest": "0220c90fb6947ff711163be215c61da54d5f01fa50f1406d8f1e09e2418f9c50"
+    }
+  }
+}

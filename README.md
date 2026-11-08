@@ -4,12 +4,13 @@ RuleBooks.games is a public library of board and tabletop game rules and the hom
 
 RuleBooks owns the semantic specification and the planned basic public compiler/interpreter tooling. Gameplay products consume its published definitions.
 
-The repository contains the selected product plan, vocabulary and versioned product work queues. The public site and publication workflows are planned, not yet deployed.
+The repository contains the selected product plan, vocabulary, versioned product work queues, and publication contract 0.1.0 with validation and test fixtures. The public site and publication workflows are planned, not yet deployed.
 
 - [Product and operating proposal: selected direction](docs/product/README.md)
 - [Implementation plan and launch gates](docs/product/implementation-plan.md)
 - [Implementation project and engineering issues](https://github.com/orgs/miralie-llc/projects/4)
 - [Data addition and BGSM evolution](docs/product/contribution-workflow.md)
+- [Publication contract: entities, relationships and first-game examples](docs/architecture/publication-contract.md)
 - [Deployment, monitoring and ownership](docs/product/operations.md)
 - [Public repository, private research and publication boundaries](docs/product/repository-boundaries.md)
 - [Content and semantic work queues](work/README.md)
@@ -22,6 +23,7 @@ Validate product work records with Python 3.11 and the same dependencies as CI:
 ```sh
 python3 -m pip install -r tools/requirements-ci.txt
 python3 tools/validate_work.py
+python3 -m unittest discover -s tests -v
 ```
 
-[Repository validation](.github/workflows/validate.yml) runs on pull requests and pushes to `main`. It currently checks product work records; site builds and deployment will follow the [operations plan](docs/product/operations.md).
+[Repository validation](.github/workflows/validate.yml) runs on pull requests and pushes to `main`. It checks product work records and publication contract tests; site builds and deployment will follow the [operations plan](docs/product/operations.md). Game examples under `tests/fixtures/` are contract tests, not collected or published catalog entries.

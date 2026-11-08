@@ -100,4 +100,4 @@ The largest ongoing cost is likely to be reviewing meaning, not serving files. M
 
 Publisher editions and RuleBooks revisions are separate identities: Dominion first and second editions are distinct games grouped for discovery; corrections to our descriptions only advance our own record revisions. The content wishlist and semantic gap queues are [versioned repository data](../../work/README.md), not a requirement to use an external issue tracker.
 
-The next implementation unit is the publication contract plus one game-to-concept browsing slice. That gives us something inspectable before committing to broad language work or a large editorial UI.
+[Publication contract 0.1.0](../architecture/publication-contract.md) establishes the first schema and game-shaped test fixtures. The next product slice uses it in deterministic assembly and game-to-concept browsing, while content collection replaces fixture assumptions with reviewed rules. That gives us something inspectable before committing to broad language work or a large editorial UI.

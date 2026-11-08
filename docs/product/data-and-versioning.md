@@ -1,6 +1,6 @@
 # Data, authority and versioning
 
-Part of [proposal 0.3.0](README.md). This is the selected logical contract to implement. The current validator covers product work items only; a game-publication schema and validator remain implementation work.
+Part of [proposal 0.3.0](README.md). This is the selected logical model. [Publication contract 0.1.0](../architecture/publication-contract.md) now implements its first exchange schema, relationship validator and game-shaped test fixtures. The publication assembler, actual collected game entries and semantic runtime remain implementation work. Work-item validation remains separate.
 
 ## Small records with explicit relationships
 
@@ -77,7 +77,7 @@ Verification methods include structural checks, type/binding checks, scenario te
 
 | Version | Changes when | Compatibility rule |
 |---|---|---|
-| Publication schema | Storage/exchange shape changes | Additive compatible fields can retain a line; required-field/meaning changes need explicit migration |
+| Publication schema | Storage/exchange shape changes | Every shape change gets an exact new version; closed-schema readers must be updated even for optional additions. Required-field/meaning changes need explicit migration. |
 | Publisher edition | Publisher releases a distinct edition of the game | Separate Game identity, linked through GameFamily; preserve external label and source; never incremented by RuleBooks |
 | RuleBooks rulebook revision | Our published rules, explanations, citations or scope change | New immutable RulebookEdition revision, classifying editorial vs rule change; publisher edition stays fixed |
 | BGSM release | Semantic definitions, laws or capabilities change | Never change meaning at an existing version; breaking changes explicitly marked, including during 0.x |
@@ -112,4 +112,4 @@ Proposed routes include `/games/chess`, `/editions/<id>/<revision>`, `/bgsm/<ver
 
 Mutable discovery pages link to exact pins. Downloads resolve through one publication manifest, so a consumer cannot accidentally combine a new index with an old definition. Serve compact manifests and separate source/compiled/evidence downloads. Set a provisional 20 KiB budget for an individual game discovery JSON record; require justification for increases. This is a product budget, not an assertion about full chess definition size.
 
-Keep private research captures outside the public build input. Publish authorized original text and source metadata; separately track whether captures or excerpts may be redistributed. The repository already contains a [GPL-3.0 license](../../LICENSE); this proposal does not change it. Clarify the licensing scope for project-authored data, BGSM/specification and code before external contributions are accepted. Do not infer reuse permission for third-party material from a source URL or the repository license.
+Keep private research captures outside the public build input. Publish authorized original text and source metadata; separately track whether captures or excerpts may be redistributed. The repository already contains a [GPL-3.0 license](../../LICENSE); this proposal does not change it. The [license-scope policy](repository-boundaries.md#license-scope) explains its application to project-authored code, specification and original data; contributor terms remain a maintainer decision before external contributions are accepted. Do not infer reuse permission for third-party material from a source URL or the repository license.

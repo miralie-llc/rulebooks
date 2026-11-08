@@ -1,0 +1,3 @@
+CONTRACT FIXTURE ONLY. Not a GDL or an interpreter input.
+Exports: game, players, setup, legal-action, transition, next-player, outcome.
+These names test references and coverage, not execution or semantic correctness.

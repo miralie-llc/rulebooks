@@ -1,0 +1,1572 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulebooks.games/schema/publication/0.1.0/bundle.schema.json",
+  "title": "RuleBooks publication contract 0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "purpose",
+    "records",
+    "publication"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1.0"
+    },
+    "purpose": {
+      "enum": [
+        "publication",
+        "contract-fixture"
+      ]
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/GameFamily"
+          },
+          {
+            "$ref": "#/$defs/Game"
+          },
+          {
+            "$ref": "#/$defs/PublisherEdition"
+          },
+          {
+            "$ref": "#/$defs/Source"
+          },
+          {
+            "$ref": "#/$defs/RulebookEdition"
+          },
+          {
+            "$ref": "#/$defs/Concept"
+          },
+          {
+            "$ref": "#/$defs/BGSMRelease"
+          },
+          {
+            "$ref": "#/$defs/DefinitionPackage"
+          },
+          {
+            "$ref": "#/$defs/Formalization"
+          },
+          {
+            "$ref": "#/$defs/VerificationRecord"
+          },
+          {
+            "$ref": "#/$defs/BuildArtifact"
+          }
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "publication": {
+      "$ref": "#/$defs/publication"
+    }
+  },
+  "$defs": {
+    "pin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "revision"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "language": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "version"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(?:\\.(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summary",
+        "includes",
+        "excludes"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "includes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "excludes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      }
+    },
+    "file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[A-Za-z0-9_-]+(?:[A-Za-z0-9_./-]*[A-Za-z0-9_-])?$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authors",
+        "responsibleHuman",
+        "reviewer",
+        "reviewedAt",
+        "decision",
+        "reviewedDigest"
+      ],
+      "properties": {
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "kind"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "kind": {
+                "enum": [
+                  "human",
+                  "agent"
+                ]
+              }
+            }
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "responsibleHuman": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "reviewer": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "reviewedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "decision": {
+          "const": "accepted"
+        },
+        "reviewedDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "citation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "locator"
+      ],
+      "properties": {
+        "source": {
+          "$ref": "#/$defs/pin"
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      }
+    },
+    "origin": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "citations"
+          ],
+          "properties": {
+            "kind": {
+              "const": "source"
+            },
+            "citations": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/citation"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "attribution"
+          ],
+          "properties": {
+            "kind": {
+              "const": "editorial"
+            },
+            "attribution": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        }
+      ]
+    },
+    "definitionRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "package",
+        "definition"
+      ],
+      "properties": {
+        "package": {
+          "$ref": "#/$defs/pin"
+        },
+        "definition": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        }
+      }
+    },
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "statement"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule",
+        "status"
+      ],
+      "properties": {
+        "rule": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "status": {
+          "enum": [
+            "represented",
+            "partial",
+            "unrepresented",
+            "outside-declared-scope"
+          ]
+        },
+        "definitions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/definitionRef"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "concepts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pin"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "represented",
+                  "partial"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "definitions"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "partial",
+                  "unrepresented",
+                  "outside-declared-scope"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "reason"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "unrepresented",
+                  "outside-declared-scope"
+                ]
+              }
+            }
+          },
+          "then": {
+            "not": {
+              "required": [
+                "definitions"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "GameFamily": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "revision",
+        "title"
+      ],
+      "properties": {
+        "kind": {
+          "const": "GameFamily"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "testOnly": {
+          "const": true
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      }
+    },
+    "Game": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "revision",
+        "title",
+        "defaultEdition"
+      ],
+      "properties": {
+        "kind": {
+          "const": "Game"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "testOnly": {
+          "const": true
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "defaultEdition": {
+          "$ref": "#/$defs/pin"
+        },
+        "family": {
+          "$ref": "#/$defs/pin"
+        },
+        "publisherEdition": {
+          "$ref": "#/$defs/pin"
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      }
+    },
+    "PublisherEdition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "revision",
+        "gameId",
+        "issuer",
+        "label",
+        "source"
+      ],
+      "properties": {
+        "kind": {
+          "const": "PublisherEdition"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "testOnly": {
+          "const": true
+        },
+        "gameId": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "issuer": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "source": {
+          "$ref": "#/$defs/citation"
+        },
+        "released": {
+          "type": "string",
+          "format": "date"
+        },
+        "externalId": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "predecessor": {
+          "$ref": "#/$defs/pin"
+        }
+      }
+    },
+    "Source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "revision",
+        "title",
+        "edition",
+        "url",
+        "accessed",
+        "reuse"
+      ],
+      "properties": {
+        "kind": {
+          "const": "Source"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "testOnly": {
+          "const": true
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "author": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "edition": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "label"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "unknown"
+              ],
+              "properties": {
+                "unknown": {
+                  "const": true
+                }
+              }
+            }
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https?://"
+        },
+        "accessed": {
+          "type": "string",
+          "format": "date"
+        },
+        "reuse": {
+          "enum": [
+            "metadata-only",
+            "permission-recorded"
+          ]
+        },
+        "permissionNote": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "reuse": {
+                "const": "permission-recorded"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "permissionNote"
+            ]
+          }
+        }
+      ]
+    },
+    "RulebookEdition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "revision",
+        "gameId",
+        "label",
+        "scope",
+        "dimensions",
+        "readingStatus",
+        "sections",
+        "review"
+      ],
+      "properties": {
+        "kind": {
+          "const": "RulebookEdition"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "testOnly": {
+          "const": true
+        },
+        "gameId": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "scope": {
+          "$ref": "#/$defs/scope"
+        },
+        "dimensions": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "game",
+              "player",
+              "event",
+              "tournament",
+              "composition"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "readingStatus": {
+          "enum": [
+            "partial",
+            "complete"
+          ]
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "title",
+              "rules"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "rules": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/rule"
+                },
+                "minItems": 1,
+                "uniqueItems": true
+              }
+            }
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "review": {
+          "$ref": "#/$defs/review"
+        },
+        "previous": {
+          "$ref": "#/$defs/pin"
+        },
+        "change": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "summary"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "editorial",
+                "rules"
+              ]
+            },
+            "summary": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "revision": {
+                "minimum": 2
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "previous",
+              "change"
+            ]
+          }
+        }
+      ]
+    },
+    "Concept": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "revision",
+        "title",
+        "meaning",
+        "category",
+        "laws",
+        "examples",
+        "status"
+      ],
+      "properties": {
+        "kind": {
+          "const": "Concept"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "testOnly": {
+          "const": true
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "meaning": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "category": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "laws": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "examples": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "status": {
+          "enum": [
+            "experimental",
+            "recommended",
+            "deprecated"
+          ]
+        }
+      }
+    },
+    "BGSMRelease": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "version",
+        "status",
+        "concepts",
+        "libraries",
+        "capabilities",
+        "conformance",
+        "changelog",
+        "review",
+        "breaking"
+      ],
+      "properties": {
+        "kind": {
+          "const": "BGSMRelease"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(?:\\.(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
+        },
+        "testOnly": {
+          "const": true
+        },
+        "status": {
+          "enum": [
+            "experimental",
+            "recommended",
+            "archived"
+          ]
+        },
+        "concepts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pin"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "libraries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pin"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "conformance": {
+          "$ref": "#/$defs/pin"
+        },
+        "changelog": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "review": {
+          "$ref": "#/$defs/review"
+        },
+        "previous": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(?:\\.(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
+        },
+        "breaking": {
+          "type": "boolean"
+        },
+        "migration": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "breaking": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "migration"
+            ]
+          }
+        }
+      ]
+    },
+    "DefinitionPackage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "revision",
+        "language",
+        "bgsm",
+        "files",
+        "dependencies",
+        "exports"
+      ],
+      "properties": {
+        "kind": {
+          "const": "DefinitionPackage"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "testOnly": {
+          "const": true
+        },
+        "language": {
+          "$ref": "#/$defs/language"
+        },
+        "bgsm": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(?:\\.(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/file"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pin"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "exports": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "file"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "file": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            }
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      }
+    },
+    "Formalization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "revision",
+        "edition",
+        "bgsm",
+        "language",
+        "package",
+        "entry",
+        "scope",
+        "coverage",
+        "review"
+      ],
+      "properties": {
+        "kind": {
+          "const": "Formalization"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "testOnly": {
+          "const": true
+        },
+        "edition": {
+          "$ref": "#/$defs/pin"
+        },
+        "bgsm": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(?:\\.(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
+        },
+        "language": {
+          "$ref": "#/$defs/language"
+        },
+        "package": {
+          "$ref": "#/$defs/pin"
+        },
+        "entry": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "scope": {
+          "$ref": "#/$defs/scope"
+        },
+        "coverage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/coverage"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "review": {
+          "$ref": "#/$defs/review"
+        }
+      }
+    },
+    "VerificationRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "revision",
+        "formalization",
+        "subjectDigest",
+        "implementation",
+        "suite",
+        "method",
+        "scope",
+        "result",
+        "run"
+      ],
+      "properties": {
+        "kind": {
+          "const": "VerificationRecord"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "testOnly": {
+          "const": true
+        },
+        "formalization": {
+          "$ref": "#/$defs/pin"
+        },
+        "subjectDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "implementation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "version",
+            "buildDigest"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            },
+            "version": {
+              "type": "string",
+              "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(?:\\.(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
+            },
+            "buildDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        },
+        "suite": {
+          "$ref": "#/$defs/file"
+        },
+        "method": {
+          "enum": [
+            "structural",
+            "type-binding",
+            "scenarios",
+            "bounded-exhaustive",
+            "proof"
+          ]
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "bounds": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "result": {
+          "enum": [
+            "pass",
+            "fail",
+            "unknown"
+          ]
+        },
+        "run": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "at",
+            "url"
+          ],
+          "properties": {
+            "at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "url": {
+              "type": "string",
+              "format": "uri",
+              "pattern": "^https?://"
+            }
+          }
+        },
+        "report": {
+          "$ref": "#/$defs/file"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "bounded-exhaustive"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "bounds"
+            ]
+          }
+        }
+      ]
+    },
+    "BuildArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "revision",
+        "formalization",
+        "inputDigest",
+        "compiler",
+        "output",
+        "sourceMap"
+      ],
+      "properties": {
+        "kind": {
+          "const": "BuildArtifact"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "testOnly": {
+          "const": true
+        },
+        "formalization": {
+          "$ref": "#/$defs/pin"
+        },
+        "inputDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "compiler": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "version",
+            "buildDigest"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            },
+            "version": {
+              "type": "string",
+              "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(?:\\.(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
+            },
+            "buildDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        },
+        "output": {
+          "$ref": "#/$defs/file"
+        },
+        "sourceMap": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "rule",
+              "definition"
+            ],
+            "properties": {
+              "rule": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "definition": {
+                "$ref": "#/$defs/definitionRef"
+              }
+            }
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "target": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "language",
+            "runtime",
+            "supportedSubset",
+            "mappings"
+          ],
+          "properties": {
+            "language": {
+              "$ref": "#/$defs/language"
+            },
+            "runtime": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "version",
+                "buildDigest"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                },
+                "version": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(?:\\.(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
+                },
+                "buildDigest": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              }
+            },
+            "supportedSubset": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "mappings": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        }
+      }
+    },
+    "manifestEntry": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "id",
+            "revision",
+            "sha256"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "GameFamily",
+                "Game",
+                "PublisherEdition",
+                "Source",
+                "RulebookEdition",
+                "Concept",
+                "DefinitionPackage",
+                "Formalization",
+                "VerificationRecord",
+                "BuildArtifact"
+              ]
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "version",
+            "sha256"
+          ],
+          "properties": {
+            "kind": {
+              "const": "BGSMRelease"
+            },
+            "version": {
+              "type": "string",
+              "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(?:\\.(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        }
+      ]
+    },
+    "publication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "repository",
+        "commit",
+        "releasedAt",
+        "owner",
+        "notes",
+        "manifest",
+        "games",
+        "review"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "repository": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "releasedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "manifest": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/manifestEntry"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "games": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pin"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "recommendedFormalizations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pin"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "review": {
+          "$ref": "#/$defs/review"
+        },
+        "previous": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "sha256"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        },
+        "withdrawals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "record",
+              "reason"
+            ],
+            "properties": {
+              "record": {
+                "$ref": "#/$defs/manifestEntry"
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            }
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      }
+    }
+  },
+  "description": "Publication exchange contract. Also run the relationship and integrity validator; JSON Schema alone cannot verify references, coverage or hashes."
+}

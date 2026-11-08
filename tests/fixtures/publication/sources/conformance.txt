@@ -1,0 +1,1 @@
+CONTRACT FIXTURE ONLY. A named suite placeholder, not executable conformance evidence.

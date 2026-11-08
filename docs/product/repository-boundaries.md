@@ -35,6 +35,14 @@ Treat a public push, pull request, CI log or preview as publication. Private dra
 
 These are required workflow properties; the [implementation plan](implementation-plan.md) tracks the tooling needed to enforce them. `.gitignore` prevents accidental additions but does not restrict access, remove tracked files or prevent copying sensitive content into another file.
 
+## License scope
+
+The existing [GNU GPL version 3 license text](../../LICENSE) remains unchanged. Project-authored code, schema/specification documentation and original data/fixtures are maintained under that repository license, subject to any explicit existing third-party notices. This implementation introduces no separate data license, licensing exception or relicensing of existing material.
+
+Source metadata and citations do not license the cited material. The repository license supplies no permission to redistribute third-party rulebooks, illustrations, captures, excerpts or imported code. Preserve their applicable notices and establish permitted use before including them. A Source record marked `metadata-only` deliberately carries no redistribution claim; `permission-recorded` needs an explanatory note and underlying review.
+
+The publication contract records attribution and permission status, not a blanket rights clearance. Actual content intake must review original prose and source use. Contributor terms and any future decision to offer different licenses for code, specifications or original data remain an explicit maintainer decision before accepting external contributions; they are not silently selected by a schema fixture.
+
 ## Reference-storage contract
 
 Raw reference material needs durable restricted storage, distinct from disposable personal context. Configure local access through a setting such as `RULEBOOKS_REFERENCE_ROOT`; keep credentials in the storage provider's credential mechanism. Public site builds should not require access to raw captures.

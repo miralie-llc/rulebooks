@@ -1,0 +1,346 @@
+{
+  "schemaVersion": "0.1.0",
+  "purpose": "contract-fixture",
+  "records": [
+    {
+      "kind": "GameFamily",
+      "id": "fixture-orchard",
+      "revision": 1,
+      "testOnly": true,
+      "title": "Fictional Orchard — identity test only"
+    },
+    {
+      "kind": "Source",
+      "id": "fixture-publisher-catalog",
+      "revision": 1,
+      "testOnly": true,
+      "title": "Fictional publisher catalog — contract fixture",
+      "author": "Fictional publisher",
+      "edition": {
+        "unknown": true
+      },
+      "url": "https://example.invalid/fixture-publisher",
+      "accessed": "2026-11-07",
+      "reuse": "metadata-only"
+    },
+    {
+      "kind": "Game",
+      "id": "fixture-orchard-1",
+      "revision": 1,
+      "testOnly": true,
+      "title": "Fictional Orchard: First edition",
+      "defaultEdition": {
+        "id": "fixture-orchard-1-standard",
+        "revision": 2
+      },
+      "family": {
+        "id": "fixture-orchard",
+        "revision": 1
+      },
+      "publisherEdition": {
+        "id": "fixture-orchard-1-publisher",
+        "revision": 1
+      }
+    },
+    {
+      "kind": "PublisherEdition",
+      "id": "fixture-orchard-1-publisher",
+      "revision": 1,
+      "testOnly": true,
+      "gameId": "fixture-orchard-1",
+      "issuer": "Fictional publisher",
+      "label": "First edition",
+      "source": {
+        "source": {
+          "id": "fixture-publisher-catalog",
+          "revision": 1
+        },
+        "locator": "Fictional catalog entry 1"
+      }
+    },
+    {
+      "kind": "RulebookEdition",
+      "id": "fixture-orchard-1-standard",
+      "revision": 1,
+      "testOnly": true,
+      "gameId": "fixture-orchard-1",
+      "label": "First edition rules fixture",
+      "scope": {
+        "summary": "Fictional one-turn identity fixture",
+        "includes": [
+          "Single token and named player"
+        ],
+        "excludes": [
+          "No actual publisher or catalog claim"
+        ]
+      },
+      "dimensions": [
+        "game"
+      ],
+      "readingStatus": "complete",
+      "sections": [
+        {
+          "id": "play",
+          "title": "One-turn game",
+          "rules": [
+            {
+              "id": "outcome",
+              "statement": "Player A takes the only token and wins.",
+              "origin": {
+                "kind": "editorial",
+                "attribution": "RuleBooks contract-test authors: explicit fixture configuration, not a collected or reviewed catalog entry."
+              }
+            }
+          ]
+        }
+      ],
+      "review": {
+        "authors": [
+          {
+            "name": "Fixture author (fictional)",
+            "kind": "human"
+          }
+        ],
+        "responsibleHuman": "Fixture owner (fictional)",
+        "reviewer": "Fixture reviewer (fictional)",
+        "reviewedAt": "2026-11-07T00:00:00Z",
+        "decision": "accepted",
+        "reviewedDigest": "f71d85e9e8210aed46639f0dde074c28f4c44daffc0acd59d64361a35167ad88"
+      }
+    },
+    {
+      "kind": "RulebookEdition",
+      "id": "fixture-orchard-1-standard",
+      "revision": 2,
+      "testOnly": true,
+      "gameId": "fixture-orchard-1",
+      "label": "First edition rules fixture (label clarified)",
+      "scope": {
+        "summary": "Fictional one-turn identity fixture",
+        "includes": [
+          "Single token and named player"
+        ],
+        "excludes": [
+          "No actual publisher or catalog claim"
+        ]
+      },
+      "dimensions": [
+        "game"
+      ],
+      "readingStatus": "complete",
+      "sections": [
+        {
+          "id": "play",
+          "title": "One-turn game",
+          "rules": [
+            {
+              "id": "outcome",
+              "statement": "Player A takes the only token and wins.",
+              "origin": {
+                "kind": "editorial",
+                "attribution": "RuleBooks contract-test authors: explicit fixture configuration, not a collected or reviewed catalog entry."
+              }
+            }
+          ]
+        }
+      ],
+      "review": {
+        "authors": [
+          {
+            "name": "Fixture author (fictional)",
+            "kind": "human"
+          }
+        ],
+        "responsibleHuman": "Fixture owner (fictional)",
+        "reviewer": "Fixture reviewer (fictional)",
+        "reviewedAt": "2026-11-07T00:00:00Z",
+        "decision": "accepted",
+        "reviewedDigest": "0cabf3621a0557c9e29938340598231f52c1be5adc818485e873fb5871d52267"
+      },
+      "previous": {
+        "id": "fixture-orchard-1-standard",
+        "revision": 1
+      },
+      "change": {
+        "kind": "editorial",
+        "summary": "Clarify our label; the publisher edition and game rules are unchanged."
+      }
+    },
+    {
+      "kind": "Game",
+      "id": "fixture-orchard-2",
+      "revision": 1,
+      "testOnly": true,
+      "title": "Fictional Orchard: Second edition",
+      "defaultEdition": {
+        "id": "fixture-orchard-2-standard",
+        "revision": 1
+      },
+      "family": {
+        "id": "fixture-orchard",
+        "revision": 1
+      },
+      "publisherEdition": {
+        "id": "fixture-orchard-2-publisher",
+        "revision": 1
+      }
+    },
+    {
+      "kind": "PublisherEdition",
+      "id": "fixture-orchard-2-publisher",
+      "revision": 1,
+      "testOnly": true,
+      "gameId": "fixture-orchard-2",
+      "issuer": "Fictional publisher",
+      "label": "Second edition",
+      "source": {
+        "source": {
+          "id": "fixture-publisher-catalog",
+          "revision": 1
+        },
+        "locator": "Fictional catalog entry 2"
+      },
+      "predecessor": {
+        "id": "fixture-orchard-1-publisher",
+        "revision": 1
+      }
+    },
+    {
+      "kind": "RulebookEdition",
+      "id": "fixture-orchard-2-standard",
+      "revision": 1,
+      "testOnly": true,
+      "gameId": "fixture-orchard-2",
+      "label": "Second edition rules fixture",
+      "scope": {
+        "summary": "Fictional one-turn identity fixture",
+        "includes": [
+          "Single token and named player"
+        ],
+        "excludes": [
+          "No actual publisher or catalog claim"
+        ]
+      },
+      "dimensions": [
+        "game"
+      ],
+      "readingStatus": "complete",
+      "sections": [
+        {
+          "id": "play",
+          "title": "One-turn game",
+          "rules": [
+            {
+              "id": "outcome",
+              "statement": "Player B takes the only token and wins.",
+              "origin": {
+                "kind": "editorial",
+                "attribution": "RuleBooks contract-test authors: explicit fixture configuration, not a collected or reviewed catalog entry."
+              }
+            }
+          ]
+        }
+      ],
+      "review": {
+        "authors": [
+          {
+            "name": "Fixture author (fictional)",
+            "kind": "human"
+          }
+        ],
+        "responsibleHuman": "Fixture owner (fictional)",
+        "reviewer": "Fixture reviewer (fictional)",
+        "reviewedAt": "2026-11-07T00:00:00Z",
+        "decision": "accepted",
+        "reviewedDigest": "17e38828f7ef99ceb6a5bfe0da560f4c2e88e97f5060f3bb792467eb619dba3c"
+      }
+    }
+  ],
+  "publication": {
+    "id": "publisher-editions",
+    "repository": "https://github.com/miralie-llc/rulebooks",
+    "commit": "0000000000000000000000000000000000000000",
+    "releasedAt": "2026-11-07T00:00:00Z",
+    "owner": "Fixture owner (fictional)",
+    "notes": "CONTRACT TEST ONLY. Fictional reviews and semantic packages; not catalog data or execution evidence.",
+    "manifest": [
+      {
+        "kind": "GameFamily",
+        "id": "fixture-orchard",
+        "revision": 1,
+        "sha256": "01632fd178910be3a80804c2cbbf4897b09f34be2559cc214f73d12acda516e3"
+      },
+      {
+        "kind": "Source",
+        "id": "fixture-publisher-catalog",
+        "revision": 1,
+        "sha256": "82e794d5b44c1bb019560af8dc5f22be630d7d97aebc9eb8cf2c458dc0e61d14"
+      },
+      {
+        "kind": "Game",
+        "id": "fixture-orchard-1",
+        "revision": 1,
+        "sha256": "ae6eb572d0f0e8039d89a79591a04e47f282d393dd57f730de11f095480183e2"
+      },
+      {
+        "kind": "PublisherEdition",
+        "id": "fixture-orchard-1-publisher",
+        "revision": 1,
+        "sha256": "45114707e89bd303148bcc8d18766461ca29542547dfcdedafbae9cdb204454e"
+      },
+      {
+        "kind": "RulebookEdition",
+        "id": "fixture-orchard-1-standard",
+        "revision": 1,
+        "sha256": "b2865ae49da7848f5ccbf59586640be8efc345b24c9fa9294d384372c82673ec"
+      },
+      {
+        "kind": "RulebookEdition",
+        "id": "fixture-orchard-1-standard",
+        "revision": 2,
+        "sha256": "bb79fe9530749a9ce5f74a5a9ece8b1e2858cddef9b5d75042d62f35c625301d"
+      },
+      {
+        "kind": "Game",
+        "id": "fixture-orchard-2",
+        "revision": 1,
+        "sha256": "4daacb2ed9426771e5e3fa7d3309ac51cea92c59099590f7e7934a69007b90b2"
+      },
+      {
+        "kind": "PublisherEdition",
+        "id": "fixture-orchard-2-publisher",
+        "revision": 1,
+        "sha256": "790507e4b5893646092b8ac83b5de2baa1fd7e91b468c92f8469aaf0435ccf5a"
+      },
+      {
+        "kind": "RulebookEdition",
+        "id": "fixture-orchard-2-standard",
+        "revision": 1,
+        "sha256": "5926074a802e238d76746d5361d0eea23c2ab2326b9644879af4db346d0b0464"
+      }
+    ],
+    "games": [
+      {
+        "id": "fixture-orchard-1",
+        "revision": 1
+      },
+      {
+        "id": "fixture-orchard-2",
+        "revision": 1
+      }
+    ],
+    "review": {
+      "authors": [
+        {
+          "name": "Fixture author (fictional)",
+          "kind": "human"
+        }
+      ],
+      "responsibleHuman": "Fixture owner (fictional)",
+      "reviewer": "Fixture reviewer (fictional)",
+      "reviewedAt": "2026-11-07T00:00:00Z",
+      "decision": "accepted",
+      "reviewedDigest": "0ce8e539003200248c43bffcadde165fe39cb809372fc20dab02084401eef06a"
+    }
+  }
+}
