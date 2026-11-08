@@ -60,3 +60,9 @@ To add preview content, author records under `data/catalog/records/`, list them 
 ## Verification
 
 Python checks validate catalog boundaries, source/default pins, provenance, preview labeling, and retention of verified historical downloads. Site tests inspect the built routes, rule anchors, local links/assets, scope labels and JSON downloads. CI also runs repository checks and credential scans. Manual browser checks cover search, reset, native profile selection, keyboard navigation and narrow-screen reading. Content completeness and source interpretation still require editorial judgment.
+
+## BGSM and vocabulary explorer
+
+`/bgsm/` lists accepted model releases supplied by the verified publication, including historical records. `/bgsm/{version}/` renders release changes, status at publication, capabilities, libraries and conformance-package pins. `/bgsm/{version}/concepts/{id}/` renders the exact concept revision selected by that release, its laws/examples and reverse links to exact rule usages. Rule pages link back through their formalization coverage. Release membership and coverage do not establish runtime implementation or successful verification.
+
+The default catalog has no accepted BGSM release or invented concept mappings. `/vocabulary/0.2/` instead projects the maintained editorial vocabulary's tables, explicitly labeled as a mutable editorial draft rather than executable semantics. Only that maintained file supplies these definitions; personal research and context are never read. A future accepted model is populated by the existing publication contract, without changing these routes or guessing meaning from terminology.

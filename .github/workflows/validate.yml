@@ -54,3 +54,4 @@ jobs:
         run: |
           npm run build
           npm run test:site
+          python tests/check_site_fixtures.py

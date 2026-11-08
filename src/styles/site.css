@@ -1503,3 +1503,13 @@ em {
     min-height: 44px;
   }
 }
+
+.vocabulary-list div {
+  margin-block: 24px;
+}
+.vocabulary-list dt {
+  font-weight: 700;
+}
+.vocabulary-list dd {
+  margin: 6px 0 0;
+}

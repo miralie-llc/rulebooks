@@ -21,6 +21,8 @@ class SiteTests(unittest.TestCase):
         self.catalog = self.root / 'catalog'
         shutil.copytree(ROOT / 'data/catalog', self.catalog)
         self.entry = self.catalog / 'catalog.json'
+        (self.root/'docs/reference').mkdir(parents=True)
+        shutil.copyfile(ROOT/'docs/reference/vocabulary.md',self.root/'docs/reference/vocabulary.md')
 
     def change(self, name, modify):
         file = self.catalog / name

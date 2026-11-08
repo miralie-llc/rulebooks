@@ -43,7 +43,8 @@ const profileCount = new Set(editions.map((e) => e.id)).size;
                   Rules to explore.
                 </>
               )
-            }</span>
+            }</span
+          >
         </div>
       </div><p class="object-caption">Small games. Interesting rules.</p>
     </div>
@@ -74,9 +75,11 @@ const profileCount = new Set(editions.map((e) => e.id)).size;
         ><button type="button" data-filter="complete" aria-pressed="false"
           >Complete guides</button
         ><button type="button" data-filter="partial" aria-pressed="false"
-          >Partial guides</button>
+          >Partial guides</button
+        >
       </div><span id="result-count" class="result-count" aria-live="polite"
-        >{games.length} games</span>
+        >{games.length} games</span
+      >
     </div>
     <div class="game-grid">
       {games.map((game, index) => <GameCard game={game} number={index + 1} />)}

@@ -8,7 +8,8 @@ export const content = JSON.parse(
     "utf8",
   ),
 );
-export const isPreview = content.mode === "editorial-preview";
+export const isFixture = content.mode === "contract-fixture";
+export const isPreview = content.mode !== "publication";
 export const {
   record,
   games,
@@ -21,3 +22,6 @@ export const {
   citedSources,
   formalizations,
 } = catalogView(content);
+
+import { modelView } from "./model-view.mjs";
+export const model = modelView(content);

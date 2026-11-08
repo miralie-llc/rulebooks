@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import {
+  model,
   isPreview,
   content,
   record,
@@ -64,7 +65,8 @@ let ruleNumber = 0;
                 : "Partial guide"
             }</span
           ><span class="badge"
-            >{isPreview ? "Editorial draft" : "Reviewed edition"}</span>
+            >{isPreview ? "Editorial draft" : "Reviewed edition"}</span
+          >
         </div>
       </div><div class="edition-panel">
         <span class="eyebrow">YOU ARE READING</span><strong
@@ -86,7 +88,8 @@ let ruleNumber = 0;
                 {e.label} · revision {e.revision}
               </option>
             ))
-          }</select>
+          }</select
+        >
       </div>
     </header>
     {
@@ -126,11 +129,13 @@ let ruleNumber = 0;
           </ol><a href="#scope">Scope &amp; limitations</a><a href="#sources"
             >Sources</a
           ><a href="#versions">Profiles &amp; revisions</a><a
-            href="#representation">Structured representation</a>
+            href="#representation">Structured representation</a
+          >
         </nav><a class="download-link" href={downloadUrl(edition)} download
           >Download this rulebook <span
             >JSON <span aria-hidden="true">↓</span></span
-          ></a>
+          ></a
+        >
       </aside>
       <article class="rulebook-content" aria-label={`${game.title} rules`}>
         {
@@ -151,6 +156,12 @@ let ruleNumber = 0;
                       <li id={`rule-${rule.id}`}>
                         <p class="rule-statement">{rule.statement}</p>
                         <div class="rule-attribution">
+                          {model.ruleConcepts(edition, rule.id).map((link) => (
+                            <a href={link.href}>
+                              {link.concept.title} · BGSM {link.mapping.bgsm} ·{" "}
+                              {link.status}
+                            </a>
+                          ))}
                           <a
                             class="rule-permalink"
                             href={`${editionUrl(edition)}#rule-${rule.id}`}
@@ -313,7 +324,8 @@ let ruleNumber = 0;
               </p>
             )
           }<a class="text-link" href={downloadUrl(edition)} download
-            >Download readable-rule data ↗</a>
+            >Download readable-rule data ↗</a
+          >
         </section>
       </article>
     </div>

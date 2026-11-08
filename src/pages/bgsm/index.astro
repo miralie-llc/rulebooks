@@ -1,0 +1,61 @@
+---
+import Base from "../../layouts/Base.astro";
+import { model, content } from "../../lib/catalog.mjs";
+import { releaseUrl } from "../../lib/model-view.mjs";
+---
+
+<Base title="BGSM explorer | RuleBooks" active="model"
+  ><section class="prose-page shell">
+    <p class="eyebrow">THE BOARD GAME SEMANTIC MODEL</p><h1>
+      Shared meaning.<br /><em>Exact versions.</em>
+    </h1><p class="reader-deck">
+      Explore the concepts behind formal game definitions, the laws they obey,
+      and the rules that use them.
+    </p><h2>Model releases</h2>{
+      model.releases.length ? (
+        <ul class="version-list">
+          {model.releases.map((release) => (
+            <li>
+              <a href={releaseUrl(release.version)}>
+                BGSM {release.version}
+                <span>
+                  {release.status} · {release.concepts.length} concepts
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div class="scope-warning">
+          <>
+            <strong>No published BGSM release yet.</strong>
+            <p>
+              The readable game library is available. Accepted semantic
+              definitions and implementation evidence will appear here as the
+              model develops.
+            </p>
+          </>
+        </div>
+      )
+    }<h2>Three different kinds of knowledge</h2><dl class="source-details">
+      <dt>Editorial vocabulary</dt><dd>
+        Shared words for describing games. These definitions do not specify
+        executable operations.
+      </dd><dt>Versioned concepts</dt><dd>
+        Meanings, laws and examples pinned by a BGSM release. Experimental
+        concepts remain explicitly experimental.
+      </dd><dt>Implemented operations</dt><dd>
+        Behavior supported by a named runtime and checked within stated
+        conformance bounds. A concept's presence alone is not implementation
+        evidence.
+      </dd>
+    </dl><a
+      class="primary-link"
+      href={`/vocabulary/${content.vocabulary.version}/`}
+      >Read the editorial vocabulary →</a
+    ><p class="small-note">
+      Release status is recorded at publication time. Historical versions keep
+      their original status and meanings; newer versions do not rewrite them.
+    </p>
+  </section></Base
+>

@@ -1,6 +1,6 @@
 ---
 import "../styles/site.css";
-import { isPreview } from "../lib/catalog.mjs";
+import { isPreview, isFixture } from "../lib/catalog.mjs";
 const {
   title = "RuleBooks — A shared library of game rules",
   description = "Understand the rules. See the sources. Explore the games.",
@@ -35,6 +35,9 @@ const {
           href="/#library"
           aria-current={active === "games" ? "page" : undefined}>The library</a
         >
+        <a href="/bgsm/" aria-current={active === "model" ? "page" : undefined}
+          >The model</a
+        >
         <a href="/about/" aria-current={active === "about" ? "page" : undefined}
           >About the project</a
         >
@@ -43,7 +46,7 @@ const {
         >
       </nav>
     </header>
-    <main id="main"><slot /></main>
+    <main id="main">{isFixture && <aside class="scope-warning shell">Contract fixture — fictional test data. Not a collected or accepted game publication.</aside>}<slot /></main>
     <footer class="site-footer shell">
       <div>
         <a class="footer-brand" href="/">RuleBooks.</a><p>
@@ -58,7 +61,8 @@ const {
             isPreview
               ? "Catalog preview · Editorial drafts"
               : "Published catalog"
-          }</span>
+          }</span
+        >
       </div>
     </footer>
   </body>

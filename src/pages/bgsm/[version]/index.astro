@@ -1,0 +1,80 @@
+---
+import Base from "../../../layouts/Base.astro";
+import { model, record, downloadUrl } from "../../../lib/catalog.mjs";
+import { releaseUrl, conceptUrl } from "../../../lib/model-view.mjs";
+export function getStaticPaths() {
+  return model.releases.map((release) => ({
+    params: { version: release.version },
+    props: { release },
+  }));
+}
+const { release } = Astro.props;
+const concepts = model.concepts(release.version);
+const suite = record("DefinitionPackage", release.conformance);
+---
+
+<Base title={`BGSM ${release.version} | RuleBooks`} active="model"
+  ><section class="prose-page shell">
+    <a href="/bgsm/">← All model versions</a><p class="eyebrow">
+      {release.status} · STATUS AT PUBLICATION
+    </p><h1>BGSM {release.version}</h1><h2>What changed</h2><p>
+      {release.changelog}
+    </p>{
+      release.previous && (
+        <p>
+          Previous release:{" "}
+          <a href={releaseUrl(release.previous)}>{release.previous}</a>
+        </p>
+      )
+    }{
+      release.breaking && (
+        <div class="scope-warning">
+          <>
+            <strong>Breaking change.</strong>
+            <p>{release.migration}</p>
+          </>
+        </div>
+      )
+    }<h2>Concepts in this version</h2><ul class="version-list">
+      {
+        concepts.map((concept) => (
+          <li>
+            <a href={conceptUrl(release.version, concept.id)}>
+              {concept.title}
+              <span>
+                {concept.status} · record revision {concept.revision}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul><h2>Declared capabilities</h2>{
+      release.capabilities.length ? (
+        <ul>
+          {release.capabilities.map((c) => (
+            <li>{c}</li>
+          ))}
+        </ul>
+      ) : (
+        <p>No capabilities declared.</p>
+      )
+    }<p>
+      These are specification capabilities. Consult runtime verification records
+      before relying on executable support.
+    </p><h2>Conformance and libraries</h2><p>
+      <a href={downloadUrl(suite)}
+        >Conformance package: {suite.id} · revision {suite.revision}</a>
+    </p><ul>
+      {
+        release.libraries.map((pin) => (
+          <li>
+            <a href={downloadUrl(record("DefinitionPackage", pin))}>
+              {pin.id} · revision {pin.revision}
+            </a>
+          </li>
+        ))
+      }
+    </ul><a class="text-link" href={downloadUrl(release)}
+      >Download this BGSM release ↓</a>
+  </section></Base
+>

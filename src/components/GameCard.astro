@@ -32,7 +32,8 @@ const profiles = new Set(gameEditions(game).map((e) => e.id)).size;
           edition.readingStatus === "complete"
             ? "Complete within scope"
             : "Partial guide"
-        }</span>
+        }</span
+      >
     </div>
     <h3><a href={gameUrl(game)}>{game.title}</a></h3>
     <p>{edition.scope.summary}</p>

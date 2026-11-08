@@ -157,3 +157,64 @@ test("formalization coverage belongs to an exact edition revision", async () => 
     [],
   );
 });
+
+test("BGSM is explicitly empty while editorial vocabulary is browsable", () => {
+  assert.match(read("bgsm/index.html"), /No published BGSM release yet/);
+  const vocabulary = JSON.parse(read("data/vocabulary/0.2.json"));
+  assert.equal(vocabulary.status, "editorial-draft");
+  assert.ok(vocabulary.terms.length > 40);
+  const html = read("vocabulary/0.2/index.html");
+  assert.match(html, /NOT EXECUTABLE SEMANTICS/);
+  for (const term of vocabulary.terms)
+    assert.ok(html.includes(`id="term-${term.id}"`));
+});
+
+test("concept usages follow exact model, concept and rulebook pins in both directions", async () => {
+  const { modelView } = await import("../src/lib/model-view.mjs");
+  const fixture = JSON.parse(
+    fs.readFileSync("tests/fixtures/publication/first-games.json", "utf8"),
+  );
+  const view = modelView({
+    records: fixture.records,
+    games: fixture.publication.games,
+  });
+  const release = view.releases[0];
+  const concept = view
+    .concepts(release.version)
+    .find((c) => view.usages(release.version, c).length);
+  assert.ok(concept);
+  const usage = view.usages(release.version, concept)[0];
+  assert.ok(usage.rule.statement);
+  assert.ok(
+    view
+      .ruleConcepts(usage.edition, usage.rule.id)
+      .some(
+        (link) =>
+          link.concept.id === concept.id && link.href.includes(release.version),
+      ),
+  );
+  assert.equal(view.usages("99.0.0", concept).length, 0);
+  assert.equal(
+    view.usages(release.version, { ...concept, revision: 999 }).length,
+    0,
+  );
+  assert.equal(
+    view.ruleConcepts({ ...usage.edition, revision: 999 }, usage.rule.id)
+      .length,
+    0,
+  );
+  const archived = {
+    ...release,
+    version: "0.0.0-fixture.0",
+    status: "archived",
+  };
+  const history = modelView({
+    records: [...fixture.records, archived],
+    games: fixture.publication.games,
+  });
+  assert.equal(history.release(archived.version).status, "archived");
+  assert.equal(
+    history.concepts(archived.version)[0].revision,
+    release.concepts[0].revision,
+  );
+});

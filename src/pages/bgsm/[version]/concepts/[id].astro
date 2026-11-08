@@ -1,0 +1,71 @@
+---
+import Base from "../../../../layouts/Base.astro";
+import { model, downloadUrl } from "../../../../lib/catalog.mjs";
+import { releaseUrl, conceptUrl } from "../../../../lib/model-view.mjs";
+export function getStaticPaths() {
+  return model.releases.flatMap((release) =>
+    model
+      .concepts(release.version)
+      .map((concept) => ({
+        params: { version: release.version, id: concept.id },
+        props: { release, concept },
+      })),
+  );
+}
+const { release, concept } = Astro.props;
+const uses = model.usages(release.version, concept);
+const versions = model.releases.filter((r) =>
+  r.concepts.some((pin) => pin.id === concept.id),
+);
+---
+
+<Base
+  title={`${concept.title} · BGSM ${release.version} | RuleBooks`}
+  active="model"
+  ><section class="prose-page shell">
+    <a href={releaseUrl(release.version)}>← BGSM {release.version}</a><p
+      class="eyebrow"
+    >
+      VERSIONED CONCEPT · {concept.status}
+    </p><h1>{concept.title}</h1><p class="reader-deck">{concept.meaning}</p><p>
+      Concept revision {concept.revision} · {concept.category}. This
+      specification does not itself establish runtime implementation.
+    </p><h2>Laws</h2><ul>{concept.laws.map((law) => <li>{law}</li>)}</ul><h2>
+      Examples
+    </h2><ul>{concept.examples.map((example) => <li>{example}</li>)}</ul><h2>
+      Rules using this concept
+    </h2>{
+      uses.length ? (
+        <ul class="version-list">
+          {uses.map((use) => (
+            <li>
+              <a href={use.href}>
+                {use.rule.statement}
+                <span>
+                  {use.edition.label} · revision {use.edition.revision} ·{" "}
+                  {use.row.status}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>
+          No published rule mappings use this exact concept in this BGSM
+          version.
+        </p>
+      )
+    }<h2>Other model versions</h2><ul>
+      {
+        versions.map((r) => (
+          <li>
+            <a href={conceptUrl(r.version, concept.id)}>
+              BGSM {r.version} · {r.status}
+            </a>
+          </li>
+        ))
+      }
+    </ul><a class="text-link" href={downloadUrl(concept)}
+      >Download exact concept record ↓</a>
+  </section></Base
+>

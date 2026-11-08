@@ -1,0 +1,62 @@
+---
+import Base from "../../layouts/Base.astro";
+import { content } from "../../lib/catalog.mjs";
+export function getStaticPaths() {
+  return [
+    {
+      params: { version: content.vocabulary.version },
+      props: { vocabulary: content.vocabulary },
+    },
+  ];
+}
+const { vocabulary } = Astro.props;
+const groups = [...new Set(vocabulary.terms.map((t) => t.group))];
+---
+
+<Base
+  title={`Editorial vocabulary ${vocabulary.version} | RuleBooks`}
+  active="model"
+  ><section class="prose-page shell">
+    <a href="/bgsm/">← BGSM explorer</a><p class="eyebrow">
+      EDITORIAL DRAFT {vocabulary.version} · NOT EXECUTABLE SEMANTICS
+    </p><h1>Words we share.</h1><p class="reader-deck">
+      A common vocabulary for describing game rules. These are editorial
+      definitions, not implemented operations or a released BGSM specification.
+    </p><nav aria-label="Vocabulary sections">
+      <ul>
+        {
+          groups.map((group, i) => (
+            <li>
+              <a href={`#group-${i}`}>{group}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>{
+      groups.map((group, i) => (
+        <section class="detail-section" id={`group-${i}`}>
+          <>
+            <h2>{group}</h2>
+            <dl class="vocabulary-list">
+              {vocabulary.terms
+                .filter((t) => t.group === group)
+                .map((term) => (
+                  <div id={`term-${term.id}`}>
+                    <dt>
+                      <a href={`#term-${term.id}`}>{term.title}</a>
+                    </dt>
+                    <dd>{term.meaning}</dd>
+                  </div>
+                ))}
+            </dl>
+          </>
+        </section>
+      ))
+    }<a class="text-link" href={`/data/vocabulary/${vocabulary.version}.json`}
+      >Download editorial vocabulary ↓</a
+    ><p class="small-note">
+      This maintained editorial draft can change before acceptance. It is
+      distinct from immutable, published BGSM releases.
+    </p>
+  </section></Base
+>
