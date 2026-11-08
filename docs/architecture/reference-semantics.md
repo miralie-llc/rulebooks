@@ -49,3 +49,20 @@ The emitted inspection document retains the declarative program, exact pins, can
 The counter fixture is a developer-owned behavioral specimen, not collected Nim or a published game. Tests independently specify expected legal intents, state transitions and outcomes; reject illegal intents, forged events, unsafe bindings and unsupported versions; and verify exact weighted alternatives and nonmutation. All tests run in the existing clean CI environment. Adding host operations changes reviewed code and its build digest; adding a game only supplies constrained language data.
 
 The next slices exercise coin/weighted alternatives with emitted evidence (#9), then the reviewed, exact Nim scope with independent exhaustive comparison (#10). No general GDL/Ludii translation or public browser execution is claimed.
+
+## Executable chance specimens and actual evidence
+
+[The specimen suite](../../tests/fixtures/runtime/specimens.json) independently specifies two original developer examples: a fair coin with probabilities 1/2 and 1/2, and weighted alternatives with probabilities 1/4 and 3/4. Their rules map to real JSON source pointers; neither is a collected board-game entry.
+
+```sh
+python3 -m tools.runtime.specimens
+python3 -m unittest discover -s tests -p 'test_runtime_specimens.py' -v
+```
+
+The runner checks initial outcomes, the exact legal-intent set, rejection of the other actor, every resolved alternative, deterministic reduction, nonmutation, public observations and terminal outcomes with no further intents. Expected distributions and states are stored separately from the source programs. Tests demonstrate that changing a weight or effect causes verification to fail.
+
+The static site's `/tools/reference/` page shows the computed results, source and source map. Builds emit source JSON, ReferenceInspection, ReferenceVerification and the exact suite under an artifact-set digest in `/data/reference/`. The digest includes source bytes, implementation identity and suite/runner identity. The download inventory hashes the actual emitted files. Failed verification aborts the build; no successful record is emitted from an unchecked assertion.
+
+ReferenceVerification 0.1.0 is a developer-specimen report: `purpose`, `implementation`, `subjectDigest`, `suite` (including its byte hash and runner hash), `method`, `scope`, explicit `bounds`, `result`, `sampling`, and observed event/probability/state/outcome rows. Probabilities are numerator/denominator pairs. Its method is bounded exhaustive enumeration of the stated single-step specimen, not a proof about all programs or sampled frequencies. This envelope intentionally does not impersonate a game VerificationRecord: there is no accepted Formalization to pin yet. Publication of a real game still needs that existing contract and genuine acceptance.
+
+The site builds these small, public, deterministic specimens only. It never processes private references or executes contributed arbitrary host code. The reference library remains local/CI tooling; there is no public execution endpoint.

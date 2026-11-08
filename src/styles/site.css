@@ -1534,4 +1534,27 @@ em {
     gap: 8px 17px;
   }
 }
-@media (max-width: 760px) { .site-header nav .github-link { display: none; } }
+@media (max-width: 760px) {
+  .site-header nav .github-link {
+    display: none;
+  }
+}
+
+.evidence-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-block: 24px;
+}
+.evidence-table th,
+.evidence-table td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.prose-page pre {
+  max-width: 100%;
+  overflow: auto;
+  padding: 20px;
+  background: var(--card);
+  font-size: 12px;
+}

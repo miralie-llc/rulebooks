@@ -1,0 +1,154 @@
+{
+  "schemaVersion": "0.1.0",
+  "language": {
+    "id": "rulebooks-json",
+    "version": "0.1.0"
+  },
+  "bgsm": "0.1.0-draft.1",
+  "library": {
+    "id": "core",
+    "version": "0.1.0"
+  },
+  "id": "weighted-choice-fixture",
+  "capabilities": [
+    "finite-intents",
+    "public-state",
+    "deterministic-reduction",
+    "exact-chance"
+  ],
+  "players": [
+    "a",
+    "b"
+  ],
+  "initial": {
+    "face": "unresolved"
+  },
+  "actions": [
+    {
+      "id": "flip",
+      "parameters": {},
+      "legal": {
+        "op": "and",
+        "args": [
+          {
+            "op": "eq",
+            "args": [
+              {
+                "var": "actor"
+              },
+              "a"
+            ]
+          },
+          {
+            "op": "eq",
+            "args": [
+              {
+                "var": "state.face"
+              },
+              "unresolved"
+            ]
+          }
+        ]
+      },
+      "resolve": {
+        "chance": [
+          {
+            "weight": 1,
+            "value": "heads"
+          },
+          {
+            "weight": 3,
+            "value": "tails"
+          }
+        ]
+      },
+      "effects": {
+        "face": {
+          "var": "event"
+        }
+      }
+    }
+  ],
+  "outcome": {
+    "op": "object",
+    "args": [
+      [
+        "terminal",
+        {
+          "op": "not",
+          "args": [
+            {
+              "op": "eq",
+              "args": [
+                {
+                  "var": "state.face"
+                },
+                "unresolved"
+              ]
+            }
+          ]
+        }
+      ],
+      [
+        "winners",
+        {
+          "op": "if",
+          "args": [
+            {
+              "op": "eq",
+              "args": [
+                {
+                  "var": "state.face"
+                },
+                "unresolved"
+              ]
+            },
+            [],
+            {
+              "op": "if",
+              "args": [
+                {
+                  "op": "eq",
+                  "args": [
+                    {
+                      "var": "state.face"
+                    },
+                    "heads"
+                  ]
+                },
+                [
+                  "a"
+                ],
+                [
+                  "b"
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  "sourceMap": [
+    {
+      "node": "/initial",
+      "rule": "fixture-no-result-yet"
+    },
+    {
+      "node": "/actions/0/legal",
+      "rule": "fixture-a-flips-once"
+    },
+    {
+      "node": "/actions/0/resolve",
+      "rule": "fixture-weighted-choice-weights"
+    },
+    {
+      "node": "/actions/0/effects",
+      "rule": "fixture-record-face"
+    },
+    {
+      "node": "/outcome",
+      "rule": "fixture-face-determines-winner"
+    }
+  ]
+}

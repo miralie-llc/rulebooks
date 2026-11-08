@@ -16,6 +16,7 @@ from tools.references.contracts import validate_proposal
 from tools.site_vocabulary import vocabulary
 from tools.site_indexes import indexes
 from tools.site_gaps import selected_gaps
+from tools.runtime.specimens import build_specimens
 from tools.validate_publication import ROOT, digest, key_for, load_json, require
 
 SCHEMA = load_json(ROOT / 'schema/publication/0.1.0/bundle.schema.json')
@@ -134,6 +135,9 @@ def prepare(catalog_path, *, publication=None, expected_digest=None):
     outputs['content.json'] = canonical(content)
     if not publication:
         outputs['public/data/catalog.json'] = canonical(content)
+    specimen_files,specimens = build_specimens()
+    outputs.update(specimen_files)
+    outputs['specimens.json'] = canonical(specimens)
     generated,search,downloads,budget = indexes(content,outputs)
     outputs.update(generated)
     outputs['search.json'] = canonical(search)

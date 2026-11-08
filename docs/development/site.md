@@ -34,7 +34,7 @@ Every preview page labels its status and carries `noindex, nofollow`; downloaded
 | Rock-paper-scissors | Complete one-round casual profile, including ties and invalid reveals | Editorial/source acceptance; this deliberately differs from WRPSA match procedures |
 | Chess | Partial FIDE 2023 introduction with exact article citations | Full baseline, including movement and special moves, then acceptance |
 
-No entry currently claims BGSM mapping or executable verification. Source documents and original editorial choices are distinguished per rule. Nothing under `tests/fixtures/` populates the default site.
+No entry currently claims BGSM mapping or executable verification. Source documents and original editorial choices are distinguished per rule. Contract fixtures never populate the game catalog. The separate `/tools/reference/` page displays only explicitly selected, original developer specimens and their actual execution evidence.
 
 For a reviewed release, use [the assembler](publication-assembly.md), then pass its output and the independently retained receipt digest:
 
@@ -74,3 +74,5 @@ The default catalog has no accepted BGSM release or invented concept mappings. `
 `/data/discovery/games/{id}.json` contains only discovery metadata and coverage counts. The build rejects an individual discovery record exceeding 20 KiB and records measured sizes in `/data/discovery/budget.json`. Expanded records and evidence stay separate. `/downloads/` links the actual emitted files, with byte counts and SHA-256 values; `/data/downloads.json` is the machine-readable inventory (excluding itself). In reviewed mode, the original assembler manifests, receipts, source packages and artifacts remain unchanged. A hash from the same site identifies bytes; the independently retained assembly digest remains the trust anchor.
 
 `/gaps/` publishes only explicit selections from [data/site/gaps.json](../../data/site/gaps.json). Each selection pins a semantic work item's exact byte hash. The work must be in review or done, target an actual rulebook revision and include that exact record as evidence. The public projection keeps its status and selected evidence fields. An empty list is intentional until modeling produces an evidenced limitation. Missing formalizations never create gaps automatically. Changing selected work requires reviewing and updating its digest.
+
+The reference-specimen build executes only the two declared public programs in `tests/fixtures/runtime/specimens.json`, checks independent expected distributions and emits hashed developer evidence. This is separate from publication assembly and private-reference intake. Browsing the generated page does not execute game programs. See the [reference contract](../architecture/reference-semantics.md#executable-chance-specimens-and-actual-evidence).

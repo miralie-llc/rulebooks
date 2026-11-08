@@ -11,3 +11,5 @@ export const downloads = read("downloads");
 export const budget = read("budget");
 export const fileDownload = (path) =>
   downloads.files.find((file) => file.url === "/data/" + path);
+
+export const specimens = read("specimens");

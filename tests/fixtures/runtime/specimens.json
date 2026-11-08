@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "0.1.0",
+  "id": "chance-specimens",
+  "version": "0.1.0",
+  "purpose": "developer-fixture",
+  "cases": [
+    {
+      "file": "coin.json", "title": "Fair coin", "actor": "a", "intent": {"action": "flip", "params": {}},
+      "expected": [
+        {"event": "heads", "probability": [1, 2], "state": {"face": "heads"}, "outcome": {"terminal": true, "winners": ["a"]}},
+        {"event": "tails", "probability": [1, 2], "state": {"face": "tails"}, "outcome": {"terminal": true, "winners": ["b"]}}
+      ]
+    },
+    {
+      "file": "weighted-choice.json", "title": "Weighted alternatives", "actor": "a", "intent": {"action": "flip", "params": {}},
+      "expected": [
+        {"event": "heads", "probability": [1, 4], "state": {"face": "heads"}, "outcome": {"terminal": true, "winners": ["a"]}},
+        {"event": "tails", "probability": [3, 4], "state": {"face": "tails"}, "outcome": {"terminal": true, "winners": ["b"]}}
+      ]
+    }
+  ]
+}

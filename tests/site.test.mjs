@@ -80,14 +80,15 @@ test("collected catalog is actual draft content with scope, citations and exact 
   );
 });
 
-test("site has no fixture artifacts, private workflow files or raw captures", () => {
+test("site separates explicit developer specimens from private inputs and contract fixtures", () => {
   const files = walk(root).map((p) => path.relative(root, p));
   assert.ok(
-    !files.some((p) =>
+    !files.filter(p=>p!=="tools/reference/index.html" && !p.startsWith("data/reference/")).some((p) =>
       /(?:^|\/)(tests|work|reference|tools|node_modules)\//.test(p),
     ),
   );
   assert.ok(!files.some((p) => /\.(pdf|py|md)$/.test(p)));
+  for (const file of files.filter(p=>p.startsWith("data/reference/"))) assert.match(file,/^data\/reference\/(catalog\.json|[a-f0-9]{64}\/(source|inspection|verification|suite)\.json)$/);
   for (const file of files.filter((p) => /\.(json|html)$/.test(p))) {
     assert.doesNotMatch(
       read(file),
@@ -302,4 +303,20 @@ test("coverage never converts a mapping into successful executable verification"
       .result,
     "fail",
   );
+});
+
+test("executable developer specimens are separate from the collected games", () => {
+  const specimens = JSON.parse(read("data/reference/catalog.json"));
+  assert.equal(specimens.purpose, "developer-fixture");
+  assert.equal(specimens.entries.length, 2);
+  assert.equal(catalog.games.length, 3);
+  const page = read("tools/reference/index.html");
+  assert.match(page, /Developer specimens, not collected games/);
+  assert.match(page, /does not sample random play/);
+  for (const entry of specimens.entries) {
+    assert.equal(entry.verification.result, "pass");
+    assert.equal(entry.verification.sampling, false);
+    assert.equal(entry.verification.bounds.events, 2);
+    assert.ok(entry.files.some((file) => file.label === "verification.json"));
+  }
 });

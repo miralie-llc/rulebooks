@@ -2,7 +2,7 @@
 
 RuleBooks.games is a public library of board and tabletop game rules and the home of the Board Game Semantic Model (BGSM). Readable game editions can exist before they have formal representations. Versioned formalizations connect those rules to shared semantics, with explicit coverage, sources and verification evidence. New games expose gaps; reviewed changes evolve BGSM without rewriting existing publications.
 
-RuleBooks owns the semantic specification and the planned basic public compiler/interpreter tooling. Gameplay products consume its published definitions.
+RuleBooks owns the semantic specification and a bounded experimental public reference compiler/interpreter. Gameplay products consume its published definitions.
 
 The repository contains the selected product plan, vocabulary, versioned product work queues, and publication and draft game-knowledge contracts 0.1.0 with validation and test fixtures. Local tools support optional private reference intake, reviewed rule projection and reproducible public-data assembly. The Astro site now browses actual editorial draft rules for Nim, rock-paper-scissors and chess, and can render verified publication assemblies. Cloudflare deployment remains planned.
 
@@ -37,4 +37,4 @@ python3 -m unittest discover -s tests -v
 
 Before a public push, follow the [local review procedure](docs/development/contribution-checks.md), including credential scans of candidate files and outgoing history. The commands above do not publish anything.
 
-[Repository validation](.github/workflows/validate.yml) runs on pull requests and pushes to `main`. It checks maintained paths/links, work records, credentials, publication contracts and contribution boundaries; it also builds and checks the static Astro site. Deployment follows the [operations plan](docs/product/operations.md). Game examples under `tests/fixtures/` are contract tests, not collected or published catalog entries.
+[Repository validation](.github/workflows/validate.yml) runs on pull requests and pushes to `main`. It checks maintained paths/links, work records, credentials, publication contracts and contribution boundaries; it also builds and checks the static Astro site. Deployment follows the [operations plan](docs/product/operations.md). Contract fixtures are never collected game entries. Original chance specimens are shown separately in the reference-tool explorer with actual, bounded execution evidence.

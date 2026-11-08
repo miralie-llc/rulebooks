@@ -1,0 +1,104 @@
+---
+import Base from "../../layouts/Base.astro";
+import { specimens } from "../../lib/site-indexes.mjs";
+---
+
+<Base title="Reference execution specimens | RuleBooks" active="model"
+  ><section class="prose-page shell">
+    <a href="/bgsm/">← BGSM explorer</a><p class="eyebrow">
+      EXPERIMENTAL REFERENCE TOOLING
+    </p><h1>See the rules run.</h1><div class="scope-warning">
+      <strong>Developer specimens, not collected games.</strong><p>
+        These original examples exercise the bounded reference engine under BGSM
+        draft 0.1.0-draft.1. They are not an accepted model release or proof of
+        full-game support.
+      </p>
+    </div><p>
+      Each build evaluates the complete stated distribution and checks it
+      against separate expected results. It does not sample random play.
+    </p>{
+      specimens.entries.map((entry) => (
+        <section class="detail-section" id={entry.id}>
+          <>
+            <h2>{entry.title}</h2>
+            <p>
+              {entry.verification.result} · {entry.verification.method}
+            </p>
+            <p>{entry.verification.scope}</p>
+            <p>
+              Bounds: {entry.verification.bounds.initialStates} initial state,{" "}
+              {entry.verification.bounds.legalIntents} legal intent,{" "}
+              {entry.verification.bounds.events} resolved alternatives.
+            </p>
+            <table class="evidence-table">
+              <>
+                <thead>
+                  <tr>
+                    <>
+                      <th>Event</th>
+                      <th>Probability</th>
+                      <th>Terminal winner</th>
+                    </>
+                  </tr>
+                </thead>
+                <tbody>
+                  {entry.verification.observed.map((row) => (
+                    <tr>
+                      <td>{row.event}</td>
+                      <td>
+                        {row.probability[0]}/{row.probability[1]}
+                      </td>
+                      <td>{row.outcome.winners.join(", ") || "Draw"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </>
+            </table>
+            <p>
+              Implementation: {entry.verification.implementation.id}{" "}
+              {entry.verification.implementation.version}. Language:{" "}
+              {entry.source.language.id} {entry.source.language.version}. Core
+              library: {entry.source.library.version}.
+            </p>
+            <details>
+              <>
+                <summary>Inspect the authored definition</summary>
+                <pre>
+                  <code>{JSON.stringify(entry.source, null, 2)}</code>
+                </pre>
+              </>
+            </details>
+            <details>
+              <>
+                <summary>Inspect the rule-to-source map</summary>
+                <ul>
+                  {entry.inspection.sourceMap.map((link) => (
+                    <li>
+                      {link.rule} → <code>{link.node}</code>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            </details>
+            <ul class="download-list">
+              {entry.files.map((file) => (
+                <li>
+                  <a href={file.url} download>
+                    {file.label}
+                  </a>
+                  <small>{file.bytes} bytes · SHA-256</small>
+                  <code>{file.sha256}</code>
+                </li>
+              ))}
+            </ul>
+          </>
+        </section>
+      ))
+    }<p class="small-note">
+      Developer evidence has its own versioned ReferenceVerification envelope
+      because it verifies a specimen, not an accepted game Formalization. Game
+      publication will use VerificationRecord with an exact formalization pin
+      and subject digest.
+    </p>
+  </section></Base
+>

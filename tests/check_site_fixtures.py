@@ -15,6 +15,7 @@ sys.path.insert(0,str(ROOT))
 from tools.assemble_publication import canonical, record_path
 from tools.site_vocabulary import vocabulary
 from tools.site_indexes import indexes
+from tools.runtime.specimens import build_specimens
 
 
 class Links(HTMLParser):
@@ -53,6 +54,11 @@ def check():
         target.write_bytes(canonical(fixture_content['vocabulary']))
         (cache/'public/data/gaps.json').write_bytes(canonical(fixture_content['gaps']))
         outputs={p.relative_to(cache).as_posix():p.read_bytes() for p in (cache/'public').rglob('*') if p.is_file()}
+        specimen_files,specimens=build_specimens()
+        outputs.update(specimen_files)
+        for name,raw in specimen_files.items():
+            target=cache/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw)
+        (cache/'specimens.json').write_bytes(canonical(specimens))
         generated,search,downloads,budget=indexes(fixture_content,outputs)
         for name,raw in generated.items():
             target=cache/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw)
