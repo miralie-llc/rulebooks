@@ -20,3 +20,5 @@ python3 tools/validate_work.py
 ```
 
 This checks schema, identity, queue placement, dependency integrity/cycles and local evidence paths. It does not establish source truth, detect all confidential text or approve publication. Public site views must select reviewed fields/items explicitly rather than copying this directory wholesale.
+
+Use the [submission templates and editorial diff guide](../docs/development/editorial-review.md) to review changed work and records. Templates gather context around these canonical files; they do not create a second product-work database.

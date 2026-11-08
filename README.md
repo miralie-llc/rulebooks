@@ -17,6 +17,7 @@ The repository contains the selected product plan, vocabulary, versioned product
 - [Deployment, monitoring and ownership](docs/product/operations.md)
 - [Public repository, private research and publication boundaries](docs/product/repository-boundaries.md)
 - [Contributor checks and local pre-publication review](docs/development/contribution-checks.md)
+- [Editorial submissions and exact rule/behavior diffs](docs/development/editorial-review.md)
 - [Private reference intake and public source promotion](docs/development/reference-intake.md)
 - [Companion collection workflow handoff contract](docs/development/reference-handoff.md)
 - [Producing draft game knowledge: rules, structure, evidence and questions](docs/development/game-knowledge-producer.md)
