@@ -1,0 +1,75 @@
+{
+  "kind": "RulebookEdition",
+  "id": "chess-example",
+  "revision": 1,
+  "label": "Synthetic reviewed projection \u2014 not a published game",
+  "scope": {
+    "summary": "Contract test only; not reviewed game content.",
+    "includes": [
+      "The explicitly stated example configuration"
+    ],
+    "excludes": [
+      "Any claim of authoritative or complete collected rules",
+      "Special moves are not covered; this is an incomplete mechanics excerpt."
+    ]
+  },
+  "readingStatus": "partial",
+  "gameId": "chess",
+  "dimensions": [
+    "game"
+  ],
+  "sections": [
+    {
+      "id": "rules",
+      "title": "Selected readable rules",
+      "rules": [
+        {
+          "id": "white-first",
+          "statement": "White moves first; players then alternate moves.",
+          "origin": {
+            "kind": "source",
+            "citations": [
+              {
+                "source": {
+                  "id": "fixture-chess-sheet",
+                  "revision": 1
+                },
+                "locator": "white-first"
+              }
+            ]
+          }
+        },
+        {
+          "id": "king-safety",
+          "statement": "A move must not leave the moving side\u2019s king under attack.",
+          "origin": {
+            "kind": "source",
+            "citations": [
+              {
+                "source": {
+                  "id": "fixture-chess-sheet",
+                  "revision": 1
+                },
+                "locator": "king-safety"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "review": {
+    "authors": [
+      {
+        "name": "Fixture tool (fictional)",
+        "kind": "agent"
+      }
+    ],
+    "responsibleHuman": "Fixture owner (fictional)",
+    "reviewer": "Fixture reviewer (fictional)",
+    "reviewedAt": "2026-11-07T13:00:00Z",
+    "decision": "accepted",
+    "reviewedDigest": "6cb11655fe629fd9c31e66c70ba05778ea6aa3ca9d997cd77c47487082e9abc4"
+  },
+  "testOnly": true
+}

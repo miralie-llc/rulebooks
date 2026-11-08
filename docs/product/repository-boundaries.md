@@ -47,6 +47,10 @@ The publication contract records attribution and permission status, not a blanke
 
 Raw reference material needs durable restricted storage, distinct from disposable personal context. Configure local access through a setting such as `RULEBOOKS_REFERENCE_ROOT`; keep credentials in the storage provider's credential mechanism. Public site builds should not require access to raw captures.
 
+The first [implemented intake workflow](../development/reference-intake.md) uses restricted local/shared filesystem storage outside Git. It stores content-addressed originals, versioned extracts and private review records; explicit promotion writes only reviewed Source metadata/citations to [`data/sources/`](../../data/sources/README.md). Machine-specific locations stay in private operational context. Backups/restore are implemented commands; scheduling, independent backup placement and cross-host access still require operator setup.
+
+[Draft game knowledge and editorial traces](../architecture/draft-game-knowledge.md) also remain private research, in a separate workspace outside the managed reference store. The managed store does not accept arbitrary draft JSON files. Only the explicitly reviewed RulebookEdition projection and public source dependencies proceed toward publication; preserve private evidence, questions and decisions with independent backup/retention. Repository examples are synthetic test fixtures, not research records.
+
 The ingestion pipeline must:
 
 1. Assign a stable source ID and record the game/publisher edition, title, locator, acquisition method and use/redistribution status. Keep private procurement details separate.

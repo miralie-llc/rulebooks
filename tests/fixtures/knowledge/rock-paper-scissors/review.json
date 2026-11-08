@@ -1,0 +1,198 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "GameKnowledgeReview",
+  "id": "rock-paper-scissors-research-review",
+  "revision": 1,
+  "testOnly": true,
+  "draft": {
+    "id": "rock-paper-scissors-research",
+    "revision": 1,
+    "digest": "23b7cb65d2bf04bf9586c8a55371ca5bea4981475e42a54d87d551bf6891d8a6"
+  },
+  "target": {
+    "id": "rock-paper-scissors-example",
+    "revision": 1,
+    "label": "Synthetic reviewed projection \u2014 not a published game",
+    "scope": {
+      "summary": "One round of concealed-choice rock-paper-scissors, with a draw ending the round.",
+      "includes": [
+        "Commitment, reveal and one-round results"
+      ],
+      "excludes": [
+        "Match scoring and physical gesture conventions",
+        "Physical gesture and timing conventions remain unspecified."
+      ]
+    },
+    "readingStatus": "partial"
+  },
+  "sections": [
+    {
+      "id": "rules",
+      "title": "Selected readable rules"
+    }
+  ],
+  "sourceMappings": [],
+  "decisions": [
+    {
+      "ruleId": "players",
+      "decision": "accept",
+      "reason": "Fictional review confirms this statement only within the named fixture scope.",
+      "sectionId": "rules",
+      "output": {
+        "id": "players",
+        "statement": "Two players take part.",
+        "origin": {
+          "kind": "editorial",
+          "attribution": "Original synthetic configuration by fictional fixture author."
+        }
+      }
+    },
+    {
+      "ruleId": "choices",
+      "decision": "accept",
+      "reason": "Fictional review confirms this statement only within the named fixture scope.",
+      "sectionId": "rules",
+      "output": {
+        "id": "choices",
+        "statement": "Each player can choose rock, paper or scissors.",
+        "origin": {
+          "kind": "editorial",
+          "attribution": "Original synthetic configuration by fictional fixture author."
+        }
+      }
+    },
+    {
+      "ruleId": "setup",
+      "decision": "accept",
+      "reason": "Fictional review confirms this statement only within the named fixture scope.",
+      "sectionId": "rules",
+      "output": {
+        "id": "setup",
+        "statement": "Start with neither player committed to a choice.",
+        "origin": {
+          "kind": "editorial",
+          "attribution": "Original synthetic configuration by fictional fixture author."
+        }
+      }
+    },
+    {
+      "ruleId": "commit",
+      "decision": "accept",
+      "reason": "Fictional review confirms this statement only within the named fixture scope.",
+      "sectionId": "rules",
+      "output": {
+        "id": "commit",
+        "statement": "Both players commit before either choice is revealed.",
+        "origin": {
+          "kind": "editorial",
+          "attribution": "Original synthetic configuration by fictional fixture author."
+        }
+      }
+    },
+    {
+      "ruleId": "choose",
+      "decision": "accept",
+      "reason": "Fictional review confirms this statement only within the named fixture scope.",
+      "sectionId": "rules",
+      "output": {
+        "id": "choose",
+        "statement": "Each player selects and commits one choice.",
+        "origin": {
+          "kind": "editorial",
+          "attribution": "Original synthetic configuration by fictional fixture author."
+        }
+      }
+    },
+    {
+      "ruleId": "fixed",
+      "decision": "accept",
+      "reason": "Fictional review confirms this statement only within the named fixture scope.",
+      "sectionId": "rules",
+      "output": {
+        "id": "fixed",
+        "statement": "A committed choice cannot be changed during this round.",
+        "origin": {
+          "kind": "editorial",
+          "attribution": "Original synthetic configuration by fictional fixture author."
+        }
+      }
+    },
+    {
+      "ruleId": "concealed",
+      "decision": "accept",
+      "reason": "Fictional review confirms this statement only within the named fixture scope.",
+      "sectionId": "rules",
+      "output": {
+        "id": "concealed",
+        "statement": "Keep each choice hidden from the opponent until both have committed, then reveal both.",
+        "origin": {
+          "kind": "editorial",
+          "attribution": "Original synthetic configuration by fictional fixture author."
+        }
+      }
+    },
+    {
+      "ruleId": "dominance",
+      "decision": "accept",
+      "reason": "Fictional review confirms this statement only within the named fixture scope.",
+      "sectionId": "rules",
+      "output": {
+        "id": "dominance",
+        "statement": "Rock defeats scissors, scissors defeats paper, and paper defeats rock; the player with the defeating choice wins.",
+        "origin": {
+          "kind": "editorial",
+          "attribution": "Original synthetic configuration by fictional fixture author."
+        }
+      }
+    },
+    {
+      "ruleId": "draw",
+      "decision": "accept",
+      "reason": "Fictional review confirms this statement only within the named fixture scope.",
+      "sectionId": "rules",
+      "output": {
+        "id": "draw",
+        "statement": "Equal choices end this round as a draw.",
+        "origin": {
+          "kind": "editorial",
+          "attribution": "Original synthetic configuration by fictional fixture author."
+        }
+      }
+    },
+    {
+      "ruleId": "repeat-ties",
+      "decision": "reject",
+      "reason": "A following round may belong to a match or house convention. It does not override this original one-round definition."
+    }
+  ],
+  "questions": [
+    {
+      "questionId": "tie-policy",
+      "decision": "resolved",
+      "reason": "Reject the replay inference for this profile; preserve the observation for later match-profile research.",
+      "evidenceIds": [
+        "draw-evidence",
+        "repeat-ties-evidence"
+      ]
+    },
+    {
+      "questionId": "gesture-conventions",
+      "decision": "deferred",
+      "reason": "The fixture concerns abstract choices, not physical timing.",
+      "publicNote": "Physical gesture and timing conventions remain unspecified."
+    }
+  ],
+  "review": {
+    "authors": [
+      {
+        "name": "Fixture tool (fictional)",
+        "kind": "agent"
+      }
+    ],
+    "responsibleHuman": "Fixture owner (fictional)",
+    "reviewer": "Fixture reviewer (fictional)",
+    "reviewedAt": "2026-11-07T13:00:00Z",
+    "decision": "accepted",
+    "reviewedDigest": "54b785cb33cc258346e02191d95ef722a3c13b7b17e7f7e9abaad93132615eaf"
+  }
+}

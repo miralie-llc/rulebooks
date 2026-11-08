@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "reference-handoff",
+  "handoffId": "fixture-rps-observation-handoff",
+  "capture": {
+    "sourceId": "fixture-rps-observation",
+    "gameId": "rock-paper-scissors",
+    "title": "Invented repeated-round observation",
+    "sourceEdition": {
+      "label": "Synthetic contract fixture 1"
+    },
+    "acquisition": {
+      "method": "created",
+      "acquiredAt": "2026-11-07T12:00:00Z"
+    },
+    "redistribution": {
+      "status": "permitted",
+      "basis": "Original synthetic contract fixture."
+    }
+  },
+  "original": {
+    "path": "artifacts/fixture-rps-observation.txt",
+    "sha256": "6471810d9639017f31c9aa7c395f87adcc307957e8eed37a9f8e9c127e121b48",
+    "size": 134,
+    "mediaType": "text/plain"
+  }
+}

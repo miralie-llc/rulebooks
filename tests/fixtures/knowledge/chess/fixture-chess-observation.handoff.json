@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "reference-handoff",
+  "handoffId": "fixture-chess-observation-handoff",
+  "capture": {
+    "sourceId": "fixture-chess-observation",
+    "gameId": "chess",
+    "title": "Invented chess observation transcript",
+    "sourceEdition": {
+      "label": "Synthetic contract fixture 1"
+    },
+    "acquisition": {
+      "method": "created",
+      "acquiredAt": "2026-11-07T12:00:00Z"
+    },
+    "redistribution": {
+      "status": "permitted",
+      "basis": "Original synthetic contract fixture."
+    }
+  },
+  "original": {
+    "path": "artifacts/fixture-chess-observation.txt",
+    "sha256": "702926607bb53606ec4cac459e6d7c19985dd2bdc944ec1af3030b53eea7f0b1",
+    "size": 106,
+    "mediaType": "text/plain"
+  }
+}

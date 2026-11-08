@@ -1,0 +1,1239 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulebooks.games/schema/knowledge/0.1.0/knowledge.schema.json",
+  "title": "Private draft game knowledge and editorial decisions 0.1.0",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/draft"
+    },
+    {
+      "$ref": "#/$defs/review"
+    },
+    {
+      "$ref": "#/$defs/trace"
+    }
+  ],
+  "$defs": {
+    "pin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "revision",
+        "digest"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "handoffId",
+        "path",
+        "sha256",
+        "id",
+        "manifestDigest"
+      ],
+      "properties": {
+        "handoffId": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "manifestDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "locator": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "page"
+          ],
+          "properties": {
+            "kind": {
+              "const": "page"
+            },
+            "page": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "label"
+          ],
+          "properties": {
+            "kind": {
+              "const": "section"
+            },
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "startMs",
+            "endMs"
+          ],
+          "properties": {
+            "kind": {
+              "const": "time"
+            },
+            "startMs": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "endMs": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "startByte",
+            "endByte"
+          ],
+          "properties": {
+            "kind": {
+              "const": "bytes"
+            },
+            "startByte": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "endByte": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        }
+      ]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "title",
+        "edition"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "kind": {
+          "enum": [
+            "document",
+            "playthrough",
+            "editorial"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "edition": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "label"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "unknown"
+              ],
+              "properties": {
+                "unknown": {
+                  "const": true
+                }
+              }
+            }
+          ]
+        },
+        "attribution": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/artifact"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "applicability": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "editorial"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "attribution"
+            ],
+            "not": {
+              "required": [
+                "artifacts"
+              ]
+            }
+          },
+          "else": {
+            "required": [
+              "artifacts"
+            ],
+            "not": {
+              "required": [
+                "attribution"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "run": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "tool",
+        "createdAt",
+        "sourceIds"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "tool": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "version"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "version": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "sourceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "configuration": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "agent": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "provider",
+            "model",
+            "promptDigest"
+          ],
+          "properties": {
+            "provider": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "model": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "promptDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "sourceId",
+        "runId",
+        "locator",
+        "observation"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "sourceId": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "runId": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "locator": {
+          "$ref": "#/$defs/locator"
+        },
+        "observation": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "artifactId": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        }
+      }
+    },
+    "evidenceLink": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidenceId",
+        "relation"
+      ],
+      "properties": {
+        "evidenceId": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "relation": {
+          "enum": [
+            "supports",
+            "contradicts",
+            "context"
+          ]
+        }
+      }
+    },
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "statement",
+        "topic",
+        "dimension",
+        "basis",
+        "runId",
+        "evidence"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "topic": {
+          "enum": [
+            "players",
+            "components",
+            "setup",
+            "turns",
+            "actions",
+            "constraints",
+            "information",
+            "scoring",
+            "ending"
+          ]
+        },
+        "dimension": {
+          "enum": [
+            "game",
+            "player",
+            "event",
+            "tournament",
+            "composition"
+          ]
+        },
+        "basis": {
+          "enum": [
+            "explicit",
+            "inferred",
+            "editorial"
+          ]
+        },
+        "runId": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidenceLink"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "premises": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "entityIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "basis": {
+                "const": "inferred"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "rationale"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "basis": {
+                "const": "editorial"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "rationale"
+            ]
+          }
+        }
+      ]
+    },
+    "entity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "name",
+        "description",
+        "ruleIds"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "kind": {
+          "enum": [
+            "player",
+            "component",
+            "space",
+            "resource",
+            "phase",
+            "action",
+            "outcome"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "ruleIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "action": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "actorIds",
+            "conditionRuleIds",
+            "effectRuleIds"
+          ],
+          "properties": {
+            "actorIds": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "uniqueItems": true,
+              "minItems": 1
+            },
+            "conditionRuleIds": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "uniqueItems": true
+            },
+            "effectRuleIds": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "uniqueItems": true,
+              "minItems": 1
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "action"
+            ]
+          },
+          "then": {
+            "properties": {
+              "kind": {
+                "const": "action"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "question": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "question",
+        "kind",
+        "blocks",
+        "ruleIds",
+        "evidenceIds",
+        "runId"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "question": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "kind": {
+          "enum": [
+            "missing-information",
+            "ambiguity",
+            "conflict",
+            "identity",
+            "interpretation"
+          ]
+        },
+        "blocks": {
+          "enum": [
+            "publication",
+            "completeness",
+            "none"
+          ]
+        },
+        "ruleIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "runId": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "topic",
+        "status",
+        "ruleIds",
+        "note"
+      ],
+      "properties": {
+        "topic": {
+          "enum": [
+            "players",
+            "components",
+            "setup",
+            "turns",
+            "actions",
+            "constraints",
+            "information",
+            "scoring",
+            "ending"
+          ]
+        },
+        "status": {
+          "enum": [
+            "described",
+            "partial",
+            "unknown",
+            "outside-scope"
+          ]
+        },
+        "ruleIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      }
+    },
+    "draft": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "kind",
+        "id",
+        "revision",
+        "game",
+        "profile",
+        "sources",
+        "runs",
+        "evidence",
+        "rules",
+        "questions",
+        "coverage"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "0.1.0"
+        },
+        "kind": {
+          "const": "GameKnowledgeDraft"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "previous": {
+          "$ref": "#/$defs/pin"
+        },
+        "testOnly": {
+          "const": true
+        },
+        "game": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "title"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "publisherEdition": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        "profile": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "label",
+            "scope"
+          ],
+          "properties": {
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "scope": {
+              "$ref": "https://rulebooks.games/schema/publication/0.1.0/bundle.schema.json#/$defs/scope"
+            }
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "runs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/run"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/rule"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "entities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/entity"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/question"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "coverage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/coverage"
+          },
+          "minItems": 9,
+          "uniqueItems": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "revision": {
+                "minimum": 2
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "previous"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "previous"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "decision": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "ruleId",
+            "decision",
+            "reason",
+            "sectionId",
+            "output"
+          ],
+          "properties": {
+            "ruleId": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            },
+            "decision": {
+              "const": "accept"
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "sectionId": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            },
+            "output": {
+              "$ref": "https://rulebooks.games/schema/publication/0.1.0/bundle.schema.json#/$defs/rule"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "ruleId",
+            "decision",
+            "reason"
+          ],
+          "properties": {
+            "ruleId": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            },
+            "decision": {
+              "enum": [
+                "reject",
+                "defer"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        }
+      ]
+    },
+    "questionDecision": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "questionId",
+            "decision",
+            "reason",
+            "evidenceIds"
+          ],
+          "properties": {
+            "questionId": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            },
+            "decision": {
+              "const": "resolved"
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "evidenceIds": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "minItems": 0,
+              "uniqueItems": true
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "questionId",
+            "decision",
+            "reason",
+            "publicNote"
+          ],
+          "properties": {
+            "questionId": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            },
+            "decision": {
+              "const": "deferred"
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "publicNote": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        }
+      ]
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "kind",
+        "id",
+        "revision",
+        "draft",
+        "target",
+        "sections",
+        "sourceMappings",
+        "decisions",
+        "questions",
+        "review"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "0.1.0"
+        },
+        "kind": {
+          "const": "GameKnowledgeReview"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "testOnly": {
+          "const": true
+        },
+        "draft": {
+          "$ref": "#/$defs/pin"
+        },
+        "target": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "revision",
+            "label",
+            "scope",
+            "readingStatus"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "scope": {
+              "$ref": "https://rulebooks.games/schema/publication/0.1.0/bundle.schema.json#/$defs/scope"
+            },
+            "readingStatus": {
+              "enum": [
+                "partial",
+                "complete"
+              ]
+            },
+            "previous": {
+              "$ref": "https://rulebooks.games/schema/publication/0.1.0/bundle.schema.json#/$defs/pin"
+            },
+            "change": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind",
+                "summary"
+              ],
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "editorial",
+                    "rules"
+                  ]
+                },
+                "summary": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                }
+              }
+            }
+          }
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "title"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            }
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "sourceMappings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "draftSourceId",
+              "source"
+            ],
+            "properties": {
+              "draftSourceId": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "source": {
+                "$ref": "https://rulebooks.games/schema/publication/0.1.0/bundle.schema.json#/$defs/pin"
+              }
+            }
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "decisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/decision"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/questionDecision"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "review": {
+          "$ref": "https://rulebooks.games/schema/publication/0.1.0/bundle.schema.json#/$defs/review"
+        }
+      }
+    },
+    "trace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "kind",
+        "draft",
+        "editorialReview",
+        "sourceRecords",
+        "editionDigest",
+        "handoffs"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "0.1.0"
+        },
+        "kind": {
+          "const": "KnowledgePromotionTrace"
+        },
+        "draft": {
+          "$ref": "#/$defs/draft"
+        },
+        "editorialReview": {
+          "$ref": "#/$defs/review"
+        },
+        "sourceRecords": {
+          "type": "array",
+          "items": {
+            "$ref": "https://rulebooks.games/schema/publication/0.1.0/bundle.schema.json#/$defs/Source"
+          }
+        },
+        "editionDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "handoffs": {
+          "type": "array",
+          "items": {
+            "$ref": "https://rulebooks.games/schema/reference/0.1.0/records.schema.json#/$defs/handoff"
+          }
+        }
+      }
+    }
+  }
+}

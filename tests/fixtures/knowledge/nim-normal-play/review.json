@@ -1,0 +1,162 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "GameKnowledgeReview",
+  "id": "nim-normal-play-research-review",
+  "revision": 1,
+  "testOnly": true,
+  "draft": {
+    "id": "nim-normal-play-research",
+    "revision": 1,
+    "digest": "9f0831ad6898c1cb043fef613174436bc1fcdd9dddf2aa22d9bee6c31c84df92"
+  },
+  "target": {
+    "id": "nim-normal-play-example",
+    "revision": 1,
+    "label": "Synthetic reviewed projection \u2014 not a published game",
+    "scope": {
+      "summary": "An original normal-play Nim fixture with two labeled heaps initially [1, 2].",
+      "includes": [
+        "Two players, perfect information and the stated initial configuration"
+      ],
+      "excludes": [
+        "Other initial configurations and mis\u00e8re play"
+      ]
+    },
+    "readingStatus": "complete"
+  },
+  "sections": [
+    {
+      "id": "rules",
+      "title": "Selected readable rules"
+    }
+  ],
+  "sourceMappings": [],
+  "decisions": [
+    {
+      "ruleId": "players",
+      "decision": "accept",
+      "reason": "Fictional review confirms this statement only within the named fixture scope.",
+      "sectionId": "rules",
+      "output": {
+        "id": "players",
+        "statement": "There are two players, A and B.",
+        "origin": {
+          "kind": "editorial",
+          "attribution": "Original synthetic configuration by fictional fixture author."
+        }
+      }
+    },
+    {
+      "ruleId": "heaps",
+      "decision": "accept",
+      "reason": "Fictional review confirms this statement only within the named fixture scope.",
+      "sectionId": "rules",
+      "output": {
+        "id": "heaps",
+        "statement": "Counters occupy two labeled heaps.",
+        "origin": {
+          "kind": "editorial",
+          "attribution": "Original synthetic configuration by fictional fixture author."
+        }
+      }
+    },
+    {
+      "ruleId": "setup",
+      "decision": "accept",
+      "reason": "Fictional review confirms this statement only within the named fixture scope.",
+      "sectionId": "rules",
+      "output": {
+        "id": "setup",
+        "statement": "Heap one starts with one counter and heap two with two; A starts.",
+        "origin": {
+          "kind": "editorial",
+          "attribution": "Original synthetic configuration by fictional fixture author."
+        }
+      }
+    },
+    {
+      "ruleId": "alternate",
+      "decision": "accept",
+      "reason": "Fictional review confirms this statement only within the named fixture scope.",
+      "sectionId": "rules",
+      "output": {
+        "id": "alternate",
+        "statement": "Players alternate taking one turn.",
+        "origin": {
+          "kind": "editorial",
+          "attribution": "Original synthetic configuration by fictional fixture author."
+        }
+      }
+    },
+    {
+      "ruleId": "remove",
+      "decision": "accept",
+      "reason": "Fictional review confirms this statement only within the named fixture scope.",
+      "sectionId": "rules",
+      "output": {
+        "id": "remove",
+        "statement": "On a turn, remove a positive number of counters from exactly one nonempty heap.",
+        "origin": {
+          "kind": "editorial",
+          "attribution": "Original synthetic configuration by fictional fixture author."
+        }
+      }
+    },
+    {
+      "ruleId": "bounds",
+      "decision": "accept",
+      "reason": "Fictional review confirms this statement only within the named fixture scope.",
+      "sectionId": "rules",
+      "output": {
+        "id": "bounds",
+        "statement": "Do not remove more counters than the selected heap contains.",
+        "origin": {
+          "kind": "editorial",
+          "attribution": "Original synthetic configuration by fictional fixture author."
+        }
+      }
+    },
+    {
+      "ruleId": "visible",
+      "decision": "accept",
+      "reason": "Fictional review confirms this statement only within the named fixture scope.",
+      "sectionId": "rules",
+      "output": {
+        "id": "visible",
+        "statement": "Both players can see both heap sizes throughout play.",
+        "origin": {
+          "kind": "editorial",
+          "attribution": "Original synthetic configuration by fictional fixture author."
+        }
+      }
+    },
+    {
+      "ruleId": "last-wins",
+      "decision": "accept",
+      "reason": "Fictional review confirms this statement only within the named fixture scope.",
+      "sectionId": "rules",
+      "output": {
+        "id": "last-wins",
+        "statement": "Taking the last counter ends the game and wins for the mover.",
+        "origin": {
+          "kind": "editorial",
+          "attribution": "Original synthetic configuration by fictional fixture author."
+        }
+      }
+    }
+  ],
+  "questions": [],
+  "review": {
+    "authors": [
+      {
+        "name": "Fixture tool (fictional)",
+        "kind": "agent"
+      }
+    ],
+    "responsibleHuman": "Fixture owner (fictional)",
+    "reviewer": "Fixture reviewer (fictional)",
+    "reviewedAt": "2026-11-07T13:00:00Z",
+    "decision": "accepted",
+    "reviewedDigest": "f3a041fbe98ac62463757417a00d8b90c9a5690cc286196e8035e077cad99635"
+  }
+}

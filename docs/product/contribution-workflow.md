@@ -2,6 +2,10 @@
 
 Part of [proposal 0.3.0](README.md). The same workflow must serve a maintainer, a human editor and an AI-assisted change set.
 
+Any human or software process can produce content. Already-reviewed records can be authored or exported directly against the [publication contract](../architecture/publication-contract.md), retaining their actual authorship, review and provenance. An editor is a responsibility that the producer's existing process may fulfill, not a required new person or a second RuleBooks editorial pass. Public validation and release selection still apply. The draft-knowledge workflow below is optional; direct publication inputs do not require private reference intake or a RuleBooks-managed evidence store.
+
+For tools that infer rules from documents and playthroughs, the [producer contract](../development/game-knowledge-producer.md) defines the private draft submission. The [knowledge review workflow](../architecture/draft-game-knowledge.md) records explicit decisions and projects selected statements into a RulebookEdition while retaining evidence, rejected inferences and unresolved questions privately. This implements the research-to-readable-rules boundary; publication assembly and trusted release approvals remain separate.
+
 ## The two queues
 
 Maintain a **content queue** for game wishlists, publisher-edition identification, readable rules, source corrections and mappings, and a **semantic queue** for concrete gaps, library changes, BGSM proposals and conformance work. These are canonical product data in [`work/content/` and `work/semantic/`](../../work/README.md), versioned alongside rules and model changes. A website dashboard is a view of these records. GitHub software issues are separate; optional discussion links do not become a competing queue database.
@@ -23,6 +27,8 @@ The semantic queue may be empty. Open a semantic item only after collected game 
 Draft → checks passed → human reviewed → accepted → published is the normal lifecycle. `Needs revision` returns to the author. `Withdrawn` removes a faulty artifact from recommended use while retaining a visible notice and permitted historical records.
 
 The [contribution-check guide](../development/contribution-checks.md) provides the implemented local and CI checks. The [PR template](../../.github/pull_request_template.md) records review expectations. These are the initial repository workflow; they do not implement the later editorial UI, trusted approval records or preview/release service.
+
+For source collection, use the [private reference intake workflow](../development/reference-intake.md). Capture originals and exact extract revisions outside Git, review a separate public metadata proposal, and promote only the accepted Source/citations. The initial CLI records an operator's review assertion and digest; it is not the later authenticated editorial approval service.
 
 ### Minimum change-set envelope
 

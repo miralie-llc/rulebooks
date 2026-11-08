@@ -1,0 +1,270 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "GameKnowledgeDraft",
+  "id": "chess-research",
+  "revision": 1,
+  "testOnly": true,
+  "game": {
+    "id": "chess",
+    "title": "Chess \u2014 synthetic mechanics excerpt"
+  },
+  "profile": {
+    "label": "Synthetic contract demonstration",
+    "scope": {
+      "summary": "Contract test only; not reviewed game content.",
+      "includes": [
+        "The explicitly stated example configuration"
+      ],
+      "excludes": [
+        "Any claim of authoritative or complete collected rules"
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "fixture-chess-sheet",
+      "kind": "document",
+      "title": "Synthetic chess teaching sheet",
+      "edition": {
+        "label": "Synthetic contract fixture 1"
+      },
+      "artifacts": [
+        {
+          "id": "original",
+          "handoffId": "fixture-chess-sheet-handoff",
+          "path": "artifacts/fixture-chess-sheet.txt",
+          "sha256": "18ab4e71df952edea4ee3bed07d058aa8743d08ac5a7356d0a1aa58c94cbe123",
+          "manifestDigest": "b6bef11499b4790b4b0b092085f922f79b4948399996eecd025ff06cc4598abd"
+        }
+      ]
+    },
+    {
+      "id": "fixture-chess-observation",
+      "kind": "playthrough",
+      "title": "Invented chess observation transcript",
+      "edition": {
+        "label": "Synthetic contract fixture 1"
+      },
+      "artifacts": [
+        {
+          "id": "original",
+          "handoffId": "fixture-chess-observation-handoff",
+          "path": "artifacts/fixture-chess-observation.txt",
+          "sha256": "702926607bb53606ec4cac459e6d7c19985dd2bdc944ec1af3030b53eea7f0b1",
+          "manifestDigest": "34e8295f07cb515920455672036c5dedba2b56e9cc3d59fc9e1a0b73e9bed835"
+        }
+      ]
+    }
+  ],
+  "runs": [
+    {
+      "id": "fixture-run",
+      "tool": {
+        "name": "synthetic-knowledge-producer",
+        "version": "0.1.0"
+      },
+      "createdAt": "2026-11-07T12:00:00Z",
+      "sourceIds": [
+        "fixture-chess-sheet",
+        "fixture-chess-observation"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "white-first-evidence",
+      "sourceId": "fixture-chess-sheet",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "section",
+        "label": "white-first"
+      },
+      "observation": "White moves first; players then alternate moves.",
+      "artifactId": "original"
+    },
+    {
+      "id": "king-safety-evidence",
+      "sourceId": "fixture-chess-sheet",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "section",
+        "label": "king-safety"
+      },
+      "observation": "A move must not leave the moving side\u2019s king under attack.",
+      "artifactId": "original"
+    },
+    {
+      "id": "rook-frozen-evidence",
+      "sourceId": "fixture-chess-observation",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "time",
+        "startMs": 12000,
+        "endMs": 25000
+      },
+      "observation": "In this invented short sequence, the king moved and no rook moved afterward.",
+      "artifactId": "original"
+    },
+    {
+      "id": "rook-counterevidence",
+      "sourceId": "fixture-chess-sheet",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "section",
+        "label": "Ordinary rook movement"
+      },
+      "observation": "The teaching sheet describes ordinary rook movement without a permanent restriction triggered by a king move.",
+      "artifactId": "original"
+    }
+  ],
+  "rules": [
+    {
+      "id": "white-first",
+      "statement": "White moves first; players then alternate moves.",
+      "topic": "turns",
+      "dimension": "game",
+      "basis": "explicit",
+      "runId": "fixture-run",
+      "evidence": [
+        {
+          "evidenceId": "white-first-evidence",
+          "relation": "supports"
+        }
+      ]
+    },
+    {
+      "id": "king-safety",
+      "statement": "A move must not leave the moving side\u2019s king under attack.",
+      "topic": "constraints",
+      "dimension": "game",
+      "basis": "explicit",
+      "runId": "fixture-run",
+      "evidence": [
+        {
+          "evidenceId": "king-safety-evidence",
+          "relation": "supports"
+        }
+      ],
+      "entityIds": [
+        "king"
+      ]
+    },
+    {
+      "id": "rook-frozen",
+      "statement": "After the king moves, its rooks can never move again.",
+      "topic": "actions",
+      "dimension": "game",
+      "basis": "inferred",
+      "runId": "fixture-run",
+      "evidence": [
+        {
+          "evidenceId": "rook-frozen-evidence",
+          "relation": "supports"
+        },
+        {
+          "evidenceId": "rook-counterevidence",
+          "relation": "contradicts"
+        }
+      ],
+      "rationale": "Candidate generalization from the recorded observation; requires review."
+    }
+  ],
+  "entities": [
+    {
+      "id": "king",
+      "kind": "component",
+      "name": "King",
+      "description": "The king whose safety constrains legal moves.",
+      "ruleIds": [
+        "king-safety"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "rook-conflict",
+      "kind": "conflict",
+      "question": "Does the observed absence of rook moves establish a permanent prohibition?",
+      "blocks": "publication",
+      "ruleIds": [
+        "rook-frozen"
+      ],
+      "evidenceIds": [
+        "rook-frozen-evidence",
+        "rook-counterevidence"
+      ],
+      "runId": "fixture-run"
+    },
+    {
+      "id": "missing-special-moves",
+      "kind": "missing-information",
+      "question": "What are the complete conditions for special moves?",
+      "blocks": "completeness",
+      "ruleIds": [],
+      "evidenceIds": [],
+      "runId": "fixture-run"
+    }
+  ],
+  "coverage": [
+    {
+      "topic": "actions",
+      "status": "partial",
+      "ruleIds": [
+        "rook-frozen"
+      ],
+      "note": "Synthetic excerpt only."
+    },
+    {
+      "topic": "components",
+      "status": "unknown",
+      "ruleIds": [],
+      "note": "Synthetic excerpt only."
+    },
+    {
+      "topic": "constraints",
+      "status": "partial",
+      "ruleIds": [
+        "king-safety"
+      ],
+      "note": "Synthetic excerpt only."
+    },
+    {
+      "topic": "ending",
+      "status": "unknown",
+      "ruleIds": [],
+      "note": "Synthetic excerpt only."
+    },
+    {
+      "topic": "information",
+      "status": "unknown",
+      "ruleIds": [],
+      "note": "Synthetic excerpt only."
+    },
+    {
+      "topic": "players",
+      "status": "unknown",
+      "ruleIds": [],
+      "note": "Synthetic excerpt only."
+    },
+    {
+      "topic": "scoring",
+      "status": "unknown",
+      "ruleIds": [],
+      "note": "Synthetic excerpt only."
+    },
+    {
+      "topic": "setup",
+      "status": "unknown",
+      "ruleIds": [],
+      "note": "Synthetic excerpt only."
+    },
+    {
+      "topic": "turns",
+      "status": "partial",
+      "ruleIds": [
+        "white-first"
+      ],
+      "note": "Synthetic excerpt only."
+    }
+  ]
+}

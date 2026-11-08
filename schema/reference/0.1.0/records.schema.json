@@ -1,0 +1,729 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulebooks.games/schema/reference/0.1.0/records.schema.json",
+  "title": "Private reference intake and public source promotion 0.1.0",
+  "$defs": {
+    "object": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 268435456
+        },
+        "mediaType": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      },
+      "required": [
+        "sha256",
+        "size",
+        "mediaType"
+      ]
+    },
+    "captureMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "gameId": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "publisherEdition": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "sourceEdition": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                }
+              },
+              "required": [
+                "label"
+              ]
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "unknown": {
+                  "const": true
+                }
+              },
+              "required": [
+                "unknown"
+              ]
+            }
+          ]
+        },
+        "acquisition": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "method": {
+              "enum": [
+                "downloaded",
+                "purchased",
+                "scanned",
+                "provided",
+                "created"
+              ]
+            },
+            "acquiredAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "privateLocator": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "privateNote": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "required": [
+            "method",
+            "acquiredAt"
+          ]
+        },
+        "redistribution": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "status": {
+              "enum": [
+                "unknown",
+                "restricted",
+                "permitted"
+              ]
+            },
+            "basis": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "permitted"
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "basis"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "sourceId",
+        "gameId",
+        "title",
+        "sourceEdition",
+        "acquisition",
+        "redistribution"
+      ]
+    },
+    "extractMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "extractor": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "version": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "options": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "name",
+            "version",
+            "options"
+          ]
+        },
+        "anchors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "locator": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "startByte": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "endByte": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "page": {
+                "type": "integer",
+                "minimum": 1
+              }
+            },
+            "required": [
+              "locator",
+              "startByte",
+              "endByte"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "extractor",
+        "anchors"
+      ]
+    },
+    "proposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "$ref": "https://rulebooks.games/schema/publication/0.1.0/bundle.schema.json#/$defs/Source"
+        },
+        "citations": {
+          "type": "array",
+          "items": {
+            "$ref": "https://rulebooks.games/schema/publication/0.1.0/bundle.schema.json#/$defs/citation"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "source",
+        "citations"
+      ]
+    },
+    "capture": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": "0.1.0"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "kind": {
+          "const": "capture"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{32}$"
+        },
+        "metadata": {
+          "$ref": "#/$defs/captureMetadata"
+        },
+        "object": {
+          "$ref": "#/$defs/object"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "createdAt",
+        "kind",
+        "id",
+        "metadata",
+        "object"
+      ]
+    },
+    "extract": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": "0.1.0"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "kind": {
+          "const": "extract"
+        },
+        "captureId": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{32}$"
+        },
+        "captureDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "originalDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "metadata": {
+          "$ref": "#/$defs/extractMetadata"
+        },
+        "object": {
+          "$ref": "#/$defs/object"
+        },
+        "previousDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "createdAt",
+        "kind",
+        "captureId",
+        "captureDigest",
+        "originalDigest",
+        "metadata",
+        "object"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "metadata": {
+                "properties": {
+                  "revision": {
+                    "minimum": 2
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "previousDigest"
+            ]
+          }
+        }
+      ]
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": "0.1.0"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "kind": {
+          "const": "review"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{32}$"
+        },
+        "captureId": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{32}$"
+        },
+        "captureDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "proposal": {
+          "$ref": "#/$defs/proposal"
+        },
+        "proposalDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "reviewer": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "decision": {
+          "const": "accepted"
+        },
+        "extract": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "recordDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          },
+          "required": [
+            "id",
+            "revision",
+            "recordDigest"
+          ]
+        },
+        "extractionQuality": {
+          "enum": [
+            "accepted",
+            "not-used"
+          ]
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "createdAt",
+        "kind",
+        "id",
+        "captureId",
+        "captureDigest",
+        "proposal",
+        "proposalDigest",
+        "reviewer",
+        "decision",
+        "extractionQuality"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "extract"
+            ]
+          },
+          "then": {
+            "properties": {
+              "extractionQuality": {
+                "const": "accepted"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "extractionQuality": {
+                "const": "not-used"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "promotion": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": "0.1.0"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "kind": {
+          "const": "promotion"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{32}$"
+        },
+        "reviewId": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{32}$"
+        },
+        "reviewDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "source": {
+          "$ref": "https://rulebooks.games/schema/publication/0.1.0/bundle.schema.json#/$defs/pin"
+        },
+        "outputDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "createdAt",
+        "kind",
+        "id",
+        "reviewId",
+        "reviewDigest",
+        "source",
+        "outputDigest"
+      ]
+    },
+    "publicSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": "0.1.0"
+        },
+        "source": {
+          "$ref": "https://rulebooks.games/schema/publication/0.1.0/bundle.schema.json#/$defs/Source"
+        },
+        "citations": {
+          "type": "array",
+          "items": {
+            "$ref": "https://rulebooks.games/schema/publication/0.1.0/bundle.schema.json#/$defs/citation"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "review": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "reviewer": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            },
+            "reviewedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "proposalDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          },
+          "required": [
+            "reviewer",
+            "reviewedAt",
+            "proposalDigest"
+          ]
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "source",
+        "citations",
+        "review"
+      ]
+    },
+    "handoffFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 268435456
+        },
+        "mediaType": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      },
+      "required": [
+        "path",
+        "sha256",
+        "size",
+        "mediaType"
+      ]
+    },
+    "handoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": "0.1.0"
+        },
+        "kind": {
+          "const": "reference-handoff"
+        },
+        "handoffId": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "capture": {
+          "$ref": "#/$defs/captureMetadata"
+        },
+        "original": {
+          "$ref": "#/$defs/handoffFile"
+        },
+        "derived": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "file": {
+                "$ref": "#/$defs/handoffFile"
+              },
+              "metadata": {
+                "$ref": "#/$defs/extractMetadata"
+              }
+            },
+            "required": [
+              "file",
+              "metadata"
+            ]
+          }
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "kind",
+        "handoffId",
+        "capture",
+        "original"
+      ]
+    },
+    "handoffReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": "0.1.0"
+        },
+        "kind": {
+          "const": "handoff-receipt"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "handoff": {
+          "$ref": "#/$defs/handoff"
+        },
+        "manifestDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "captureId": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{32}$"
+        },
+        "extracts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "revision": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "recordDigest": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            },
+            "required": [
+              "id",
+              "revision",
+              "recordDigest"
+            ]
+          }
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "kind",
+        "createdAt",
+        "handoff",
+        "manifestDigest",
+        "captureId",
+        "extracts"
+      ]
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/capture"
+    },
+    {
+      "$ref": "#/$defs/extract"
+    },
+    {
+      "$ref": "#/$defs/review"
+    },
+    {
+      "$ref": "#/$defs/promotion"
+    },
+    {
+      "$ref": "#/$defs/publicSource"
+    },
+    {
+      "$ref": "#/$defs/handoff"
+    },
+    {
+      "$ref": "#/$defs/handoffReceipt"
+    }
+  ]
+}

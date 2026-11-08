@@ -1,0 +1,123 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "GameKnowledgeReview",
+  "id": "chess-research-review",
+  "revision": 1,
+  "testOnly": true,
+  "draft": {
+    "id": "chess-research",
+    "revision": 1,
+    "digest": "01ea37450d59801e444acb81b8633d5dbca10140f6b6307ade571c13203434a5"
+  },
+  "target": {
+    "id": "chess-example",
+    "revision": 1,
+    "label": "Synthetic reviewed projection \u2014 not a published game",
+    "scope": {
+      "summary": "Contract test only; not reviewed game content.",
+      "includes": [
+        "The explicitly stated example configuration"
+      ],
+      "excludes": [
+        "Any claim of authoritative or complete collected rules",
+        "Special moves are not covered; this is an incomplete mechanics excerpt."
+      ]
+    },
+    "readingStatus": "partial"
+  },
+  "sections": [
+    {
+      "id": "rules",
+      "title": "Selected readable rules"
+    }
+  ],
+  "sourceMappings": [
+    {
+      "draftSourceId": "fixture-chess-sheet",
+      "source": {
+        "id": "fixture-chess-sheet",
+        "revision": 1
+      }
+    }
+  ],
+  "decisions": [
+    {
+      "ruleId": "white-first",
+      "decision": "accept",
+      "reason": "Fictional review confirms this statement only within the named fixture scope.",
+      "sectionId": "rules",
+      "output": {
+        "id": "white-first",
+        "statement": "White moves first; players then alternate moves.",
+        "origin": {
+          "kind": "source",
+          "citations": [
+            {
+              "source": {
+                "id": "fixture-chess-sheet",
+                "revision": 1
+              },
+              "locator": "white-first"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ruleId": "king-safety",
+      "decision": "accept",
+      "reason": "Fictional review confirms this statement only within the named fixture scope.",
+      "sectionId": "rules",
+      "output": {
+        "id": "king-safety",
+        "statement": "A move must not leave the moving side\u2019s king under attack.",
+        "origin": {
+          "kind": "source",
+          "citations": [
+            {
+              "source": {
+                "id": "fixture-chess-sheet",
+                "revision": 1
+              },
+              "locator": "king-safety"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ruleId": "rook-frozen",
+      "decision": "reject",
+      "reason": "Absence of an observed move does not prove illegality; this inference conflicts with the teaching sheet."
+    }
+  ],
+  "questions": [
+    {
+      "questionId": "rook-conflict",
+      "decision": "resolved",
+      "reason": "Reject the overgeneralization. No castling rule is inferred from this observation.",
+      "evidenceIds": [
+        "rook-counterevidence"
+      ]
+    },
+    {
+      "questionId": "missing-special-moves",
+      "decision": "deferred",
+      "reason": "Collection has not established these conditions.",
+      "publicNote": "Special moves are not covered; this is an incomplete mechanics excerpt."
+    }
+  ],
+  "review": {
+    "authors": [
+      {
+        "name": "Fixture tool (fictional)",
+        "kind": "agent"
+      }
+    ],
+    "responsibleHuman": "Fixture owner (fictional)",
+    "reviewer": "Fixture reviewer (fictional)",
+    "reviewedAt": "2026-11-07T13:00:00Z",
+    "decision": "accepted",
+    "reviewedDigest": "177426b636372a53b400b75c517d314ef313fe1e142f6e78fbb4d95d01e1a9eb"
+  }
+}

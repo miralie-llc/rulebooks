@@ -88,7 +88,7 @@ def prepublish(root, *, candidate, head="HEAD", base=None, binary=None, tool_ide
             findings += scan(binary, "dir", messages, directory)
     # Structural checks run only after credential scans, reducing accidental log disclosure.
     checks = validate_candidate(files) if not findings else None
-    checker = inventory({"tools/" + path.name:path.read_bytes() for path in (ROOT / "tools").iterdir()
+    checker = inventory({path.relative_to(ROOT).as_posix():path.read_bytes() for path in (ROOT / "tools").rglob('*')
                          if path.is_file() and path.suffix in {".py", ".json", ".txt"}})
     return {"reportVersion":"0.1.0", "candidate":candidate, "head":head, "base":base,
             "outgoingCommits":commits, "snapshot":inventory(files), "scanner":tool_identity,

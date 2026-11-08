@@ -7,6 +7,7 @@ from pathlib import Path, PurePosixPath
 import posixpath
 import re
 import subprocess
+import sys
 import tempfile
 import unicodedata
 from html.parser import HTMLParser
@@ -14,6 +15,11 @@ from urllib.parse import unquote, urlsplit
 
 from markdown_it import MarkdownIt
 from jsonschema import ValidationError
+
+if not __package__:
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.references.contracts import validate_public_source
+from tools.validate_knowledge import validate_fixture as validate_knowledge_fixture
 
 if __package__:
     from .input_policy import repository_path_problem
@@ -195,7 +201,25 @@ def validate_candidate(files):
                 raise CheckError("Persisted publication fixtures must be explicitly marked as test data")
             validate_bundle(bundle, path.parent, allow_fixtures=True)
             fixtures += 1
-    return {"files":len(files), "localLinks":links, "workRecords":count, "publicationFixtures":fixtures}
+        sources = 0
+        knowledge_fixtures = 0
+        for path in sorted((root / 'tests/fixtures/knowledge').glob('*/draft.json')):
+            validate_knowledge_fixture(path.parent)
+            knowledge_fixtures += 1
+        for name, data in files.items():
+            if name.endswith('.json'):
+                value = json.loads(data)
+                if isinstance(value, dict) and value.get('kind') in {'GameKnowledgeDraft', 'GameKnowledgeReview', 'KnowledgePromotionTrace'}:
+                    if not name.startswith('tests/fixtures/knowledge/') or not value.get('testOnly'):
+                        raise CheckError('Private knowledge drafts/reviews/traces are not repository content')
+        for path in sorted((root / "data/sources").rglob('*.json')):
+            value = validate_public_source(load_json(path))
+            source = value['source']
+            expected = root / 'data/sources' / source['id'] / (str(source['revision']) + '.json')
+            if path != expected:
+                raise CheckError('Public source filename must match its exact Source ID/revision')
+            sources += 1
+    return {"files":len(files), "localLinks":links, "workRecords":count, "publicationFixtures":fixtures, "publicSources":sources, "knowledgeFixtures":knowledge_fixtures}
 
 
 def main():

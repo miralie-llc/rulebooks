@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "reference-handoff",
+  "handoffId": "fixture-chess-sheet-handoff",
+  "capture": {
+    "sourceId": "fixture-chess-sheet",
+    "gameId": "chess",
+    "title": "Synthetic chess teaching sheet",
+    "sourceEdition": {
+      "label": "Synthetic contract fixture 1"
+    },
+    "acquisition": {
+      "method": "created",
+      "acquiredAt": "2026-11-07T12:00:00Z"
+    },
+    "redistribution": {
+      "status": "permitted",
+      "basis": "Original synthetic contract fixture."
+    }
+  },
+  "original": {
+    "path": "artifacts/fixture-chess-sheet.txt",
+    "sha256": "18ab4e71df952edea4ee3bed07d058aa8743d08ac5a7356d0a1aa58c94cbe123",
+    "size": 212,
+    "mediaType": "text/plain"
+  }
+}

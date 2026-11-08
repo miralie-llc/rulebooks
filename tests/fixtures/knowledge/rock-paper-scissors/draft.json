@@ -1,0 +1,446 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "GameKnowledgeDraft",
+  "id": "rock-paper-scissors-research",
+  "revision": 1,
+  "testOnly": true,
+  "game": {
+    "id": "rock-paper-scissors",
+    "title": "Rock-paper-scissors \u2014 one round"
+  },
+  "profile": {
+    "label": "Synthetic contract demonstration",
+    "scope": {
+      "summary": "One round of concealed-choice rock-paper-scissors, with a draw ending the round.",
+      "includes": [
+        "Commitment, reveal and one-round results"
+      ],
+      "excludes": [
+        "Match scoring and physical gesture conventions"
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "fixture-rps-definition",
+      "kind": "editorial",
+      "title": "Original one-round RPS fixture",
+      "edition": {
+        "label": "Synthetic contract fixture 1"
+      },
+      "attribution": "Original test definition by fictional fixture author; not a collected catalog entry."
+    },
+    {
+      "id": "fixture-rps-observation",
+      "kind": "playthrough",
+      "title": "Invented repeated-round observation",
+      "edition": {
+        "label": "Synthetic contract fixture 1"
+      },
+      "artifacts": [
+        {
+          "id": "original",
+          "handoffId": "fixture-rps-observation-handoff",
+          "path": "artifacts/fixture-rps-observation.txt",
+          "sha256": "6471810d9639017f31c9aa7c395f87adcc307957e8eed37a9f8e9c127e121b48",
+          "manifestDigest": "f6eaca7ba1420f61993017f55fa10b23832ece4556fe5a678a6c7f0276e51f8c"
+        }
+      ]
+    }
+  ],
+  "runs": [
+    {
+      "id": "fixture-run",
+      "tool": {
+        "name": "synthetic-knowledge-producer",
+        "version": "0.1.0"
+      },
+      "createdAt": "2026-11-07T12:00:00Z",
+      "sourceIds": [
+        "fixture-rps-definition",
+        "fixture-rps-observation"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "players-evidence",
+      "sourceId": "fixture-rps-definition",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "section",
+        "label": "players"
+      },
+      "observation": "Two players take part."
+    },
+    {
+      "id": "choices-evidence",
+      "sourceId": "fixture-rps-definition",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "section",
+        "label": "choices"
+      },
+      "observation": "Each player can choose rock, paper or scissors."
+    },
+    {
+      "id": "setup-evidence",
+      "sourceId": "fixture-rps-definition",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "section",
+        "label": "setup"
+      },
+      "observation": "Start with neither player committed to a choice."
+    },
+    {
+      "id": "commit-evidence",
+      "sourceId": "fixture-rps-definition",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "section",
+        "label": "commit"
+      },
+      "observation": "Both players commit before either choice is revealed."
+    },
+    {
+      "id": "choose-evidence",
+      "sourceId": "fixture-rps-definition",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "section",
+        "label": "choose"
+      },
+      "observation": "Each player selects and commits one choice."
+    },
+    {
+      "id": "fixed-evidence",
+      "sourceId": "fixture-rps-definition",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "section",
+        "label": "fixed"
+      },
+      "observation": "A committed choice cannot be changed during this round."
+    },
+    {
+      "id": "concealed-evidence",
+      "sourceId": "fixture-rps-definition",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "section",
+        "label": "concealed"
+      },
+      "observation": "Keep each choice hidden from the opponent until both have committed, then reveal both."
+    },
+    {
+      "id": "dominance-evidence",
+      "sourceId": "fixture-rps-definition",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "section",
+        "label": "dominance"
+      },
+      "observation": "Rock defeats scissors, scissors defeats paper, and paper defeats rock; the player with the defeating choice wins."
+    },
+    {
+      "id": "draw-evidence",
+      "sourceId": "fixture-rps-definition",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "section",
+        "label": "draw"
+      },
+      "observation": "Equal choices end this round as a draw."
+    },
+    {
+      "id": "repeat-ties-evidence",
+      "sourceId": "fixture-rps-observation",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "time",
+        "startMs": 3000,
+        "endMs": 9000
+      },
+      "observation": "The invented clip shows equal choices followed by another round.",
+      "artifactId": "original"
+    }
+  ],
+  "rules": [
+    {
+      "id": "players",
+      "statement": "Two players take part.",
+      "topic": "players",
+      "dimension": "game",
+      "basis": "editorial",
+      "runId": "fixture-run",
+      "evidence": [
+        {
+          "evidenceId": "players-evidence",
+          "relation": "supports"
+        }
+      ],
+      "rationale": "This is an explicitly authored fixture configuration, not an inferred historical rule."
+    },
+    {
+      "id": "choices",
+      "statement": "Each player can choose rock, paper or scissors.",
+      "topic": "components",
+      "dimension": "game",
+      "basis": "editorial",
+      "runId": "fixture-run",
+      "evidence": [
+        {
+          "evidenceId": "choices-evidence",
+          "relation": "supports"
+        }
+      ],
+      "rationale": "This is an explicitly authored fixture configuration, not an inferred historical rule."
+    },
+    {
+      "id": "setup",
+      "statement": "Start with neither player committed to a choice.",
+      "topic": "setup",
+      "dimension": "game",
+      "basis": "editorial",
+      "runId": "fixture-run",
+      "evidence": [
+        {
+          "evidenceId": "setup-evidence",
+          "relation": "supports"
+        }
+      ],
+      "rationale": "This is an explicitly authored fixture configuration, not an inferred historical rule."
+    },
+    {
+      "id": "commit",
+      "statement": "Both players commit before either choice is revealed.",
+      "topic": "turns",
+      "dimension": "game",
+      "basis": "editorial",
+      "runId": "fixture-run",
+      "evidence": [
+        {
+          "evidenceId": "commit-evidence",
+          "relation": "supports"
+        }
+      ],
+      "rationale": "This is an explicitly authored fixture configuration, not an inferred historical rule."
+    },
+    {
+      "id": "choose",
+      "statement": "Each player selects and commits one choice.",
+      "topic": "actions",
+      "dimension": "game",
+      "basis": "editorial",
+      "runId": "fixture-run",
+      "evidence": [
+        {
+          "evidenceId": "choose-evidence",
+          "relation": "supports"
+        }
+      ],
+      "rationale": "This is an explicitly authored fixture configuration, not an inferred historical rule."
+    },
+    {
+      "id": "fixed",
+      "statement": "A committed choice cannot be changed during this round.",
+      "topic": "constraints",
+      "dimension": "game",
+      "basis": "editorial",
+      "runId": "fixture-run",
+      "evidence": [
+        {
+          "evidenceId": "fixed-evidence",
+          "relation": "supports"
+        }
+      ],
+      "rationale": "This is an explicitly authored fixture configuration, not an inferred historical rule."
+    },
+    {
+      "id": "concealed",
+      "statement": "Keep each choice hidden from the opponent until both have committed, then reveal both.",
+      "topic": "information",
+      "dimension": "game",
+      "basis": "editorial",
+      "runId": "fixture-run",
+      "evidence": [
+        {
+          "evidenceId": "concealed-evidence",
+          "relation": "supports"
+        }
+      ],
+      "rationale": "This is an explicitly authored fixture configuration, not an inferred historical rule."
+    },
+    {
+      "id": "dominance",
+      "statement": "Rock defeats scissors, scissors defeats paper, and paper defeats rock; the player with the defeating choice wins.",
+      "topic": "ending",
+      "dimension": "game",
+      "basis": "editorial",
+      "runId": "fixture-run",
+      "evidence": [
+        {
+          "evidenceId": "dominance-evidence",
+          "relation": "supports"
+        }
+      ],
+      "rationale": "This is an explicitly authored fixture configuration, not an inferred historical rule."
+    },
+    {
+      "id": "draw",
+      "statement": "Equal choices end this round as a draw.",
+      "topic": "ending",
+      "dimension": "game",
+      "basis": "editorial",
+      "runId": "fixture-run",
+      "evidence": [
+        {
+          "evidenceId": "draw-evidence",
+          "relation": "supports"
+        }
+      ],
+      "rationale": "This is an explicitly authored fixture configuration, not an inferred historical rule."
+    },
+    {
+      "id": "repeat-ties",
+      "statement": "Equal choices always require a replay until someone wins.",
+      "topic": "ending",
+      "dimension": "game",
+      "basis": "inferred",
+      "runId": "fixture-run",
+      "evidence": [
+        {
+          "evidenceId": "repeat-ties-evidence",
+          "relation": "supports"
+        },
+        {
+          "evidenceId": "draw-evidence",
+          "relation": "contradicts"
+        }
+      ],
+      "rationale": "Candidate generalization from the recorded observation; requires review."
+    }
+  ],
+  "entities": [
+    {
+      "id": "commit-phase",
+      "kind": "phase",
+      "name": "Commitment",
+      "description": "Choices become fixed without disclosure.",
+      "ruleIds": [
+        "commit",
+        "fixed",
+        "concealed"
+      ]
+    },
+    {
+      "id": "draw-outcome",
+      "kind": "outcome",
+      "name": "Draw",
+      "description": "Equal choices end the selected one-round profile.",
+      "ruleIds": [
+        "draw"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "tie-policy",
+      "kind": "conflict",
+      "question": "Does the observed next round establish a mandatory replay in this one-round profile?",
+      "blocks": "publication",
+      "ruleIds": [
+        "repeat-ties"
+      ],
+      "evidenceIds": [
+        "repeat-ties-evidence",
+        "draw-evidence"
+      ],
+      "runId": "fixture-run"
+    },
+    {
+      "id": "gesture-conventions",
+      "kind": "missing-information",
+      "question": "Which physical gestures and timing conventions should an over-the-table profile use?",
+      "blocks": "none",
+      "ruleIds": [],
+      "evidenceIds": [],
+      "runId": "fixture-run"
+    }
+  ],
+  "coverage": [
+    {
+      "topic": "actions",
+      "status": "described",
+      "ruleIds": [
+        "choose"
+      ],
+      "note": "Explicit fixture definition."
+    },
+    {
+      "topic": "components",
+      "status": "described",
+      "ruleIds": [
+        "choices"
+      ],
+      "note": "Explicit fixture definition."
+    },
+    {
+      "topic": "constraints",
+      "status": "described",
+      "ruleIds": [
+        "fixed"
+      ],
+      "note": "Explicit fixture definition."
+    },
+    {
+      "topic": "ending",
+      "status": "described",
+      "ruleIds": [
+        "dominance",
+        "draw",
+        "repeat-ties"
+      ],
+      "note": "Explicit fixture definition."
+    },
+    {
+      "topic": "information",
+      "status": "described",
+      "ruleIds": [
+        "concealed"
+      ],
+      "note": "Explicit fixture definition."
+    },
+    {
+      "topic": "players",
+      "status": "described",
+      "ruleIds": [
+        "players"
+      ],
+      "note": "Explicit fixture definition."
+    },
+    {
+      "topic": "scoring",
+      "status": "outside-scope",
+      "ruleIds": [],
+      "note": "No separate accumulated score in this configuration."
+    },
+    {
+      "topic": "setup",
+      "status": "described",
+      "ruleIds": [
+        "setup"
+      ],
+      "note": "Explicit fixture definition."
+    },
+    {
+      "topic": "turns",
+      "status": "described",
+      "ruleIds": [
+        "commit"
+      ],
+      "note": "Explicit fixture definition."
+    }
+  ]
+}

@@ -2,6 +2,8 @@
 
 Part of [proposal 0.3.0](README.md). This is the selected logical model. [Publication contract 0.1.0](../architecture/publication-contract.md) now implements its first exchange schema, relationship validator and game-shaped test fixtures. The publication assembler, actual collected game entries and semantic runtime remain implementation work. Work-item validation remains separate.
 
+Before publication, [draft game knowledge 0.1.0](../architecture/draft-game-knowledge.md) represents tools' proposed rules, gameplay entities, observations, inference provenance and unresolved questions. Explicit editorial decisions project accepted claims into the published model below while retaining a private trace. This research contract is separate from both file intake and BGSM.
+
 ## Small records with explicit relationships
 
 `Required` means required for a published record of that type. Drafts may be incomplete. Optional objects are absent when unused; consumers do not receive hundreds of empty fields.

@@ -3,7 +3,7 @@
 from pathlib import PurePosixPath
 
 ROOT_FILES = {"README.md", "AGENTS.md", "LICENSE", ".gitignore", ".env.example"}
-SOURCE_ROOTS = {".github", "docs", "schema", "tools", "tests", "work"}
+SOURCE_ROOTS = {".github", "docs", "schema", "tools", "tests", "work", "data"}
 SOURCE_SUFFIXES = {".md", ".json", ".py", ".txt", ".yml", ".yaml", ".toml", ".sh"}
 PRIVATE_ROOTS = {"reference", "LOCAL_CONTEXT.md"}
 EXCLUDED_PARTS = {

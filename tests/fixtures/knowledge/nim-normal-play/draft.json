@@ -1,0 +1,372 @@
+{
+  "schemaVersion": "0.1.0",
+  "kind": "GameKnowledgeDraft",
+  "id": "nim-normal-play-research",
+  "revision": 1,
+  "testOnly": true,
+  "game": {
+    "id": "nim-normal-play",
+    "title": "Normal-play Nim \u2014 heaps [1, 2]"
+  },
+  "profile": {
+    "label": "Synthetic contract demonstration",
+    "scope": {
+      "summary": "An original normal-play Nim fixture with two labeled heaps initially [1, 2].",
+      "includes": [
+        "Two players, perfect information and the stated initial configuration"
+      ],
+      "excludes": [
+        "Other initial configurations and mis\u00e8re play"
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "fixture-nim-definition",
+      "kind": "editorial",
+      "title": "Original bounded normal-play Nim fixture",
+      "edition": {
+        "label": "Synthetic contract fixture 1"
+      },
+      "attribution": "Original test definition by fictional fixture author; not a collected catalog entry."
+    }
+  ],
+  "runs": [
+    {
+      "id": "fixture-run",
+      "tool": {
+        "name": "synthetic-knowledge-producer",
+        "version": "0.1.0"
+      },
+      "createdAt": "2026-11-07T12:00:00Z",
+      "sourceIds": [
+        "fixture-nim-definition"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "players-evidence",
+      "sourceId": "fixture-nim-definition",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "section",
+        "label": "players"
+      },
+      "observation": "There are two players, A and B."
+    },
+    {
+      "id": "heaps-evidence",
+      "sourceId": "fixture-nim-definition",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "section",
+        "label": "heaps"
+      },
+      "observation": "Counters occupy two labeled heaps."
+    },
+    {
+      "id": "setup-evidence",
+      "sourceId": "fixture-nim-definition",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "section",
+        "label": "setup"
+      },
+      "observation": "Heap one starts with one counter and heap two with two; A starts."
+    },
+    {
+      "id": "alternate-evidence",
+      "sourceId": "fixture-nim-definition",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "section",
+        "label": "alternate"
+      },
+      "observation": "Players alternate taking one turn."
+    },
+    {
+      "id": "remove-evidence",
+      "sourceId": "fixture-nim-definition",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "section",
+        "label": "remove"
+      },
+      "observation": "On a turn, remove a positive number of counters from exactly one nonempty heap."
+    },
+    {
+      "id": "bounds-evidence",
+      "sourceId": "fixture-nim-definition",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "section",
+        "label": "bounds"
+      },
+      "observation": "Do not remove more counters than the selected heap contains."
+    },
+    {
+      "id": "visible-evidence",
+      "sourceId": "fixture-nim-definition",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "section",
+        "label": "visible"
+      },
+      "observation": "Both players can see both heap sizes throughout play."
+    },
+    {
+      "id": "last-wins-evidence",
+      "sourceId": "fixture-nim-definition",
+      "runId": "fixture-run",
+      "locator": {
+        "kind": "section",
+        "label": "last-wins"
+      },
+      "observation": "Taking the last counter ends the game and wins for the mover."
+    }
+  ],
+  "rules": [
+    {
+      "id": "players",
+      "statement": "There are two players, A and B.",
+      "topic": "players",
+      "dimension": "game",
+      "basis": "editorial",
+      "runId": "fixture-run",
+      "evidence": [
+        {
+          "evidenceId": "players-evidence",
+          "relation": "supports"
+        }
+      ],
+      "rationale": "This is an explicitly authored fixture configuration, not an inferred historical rule."
+    },
+    {
+      "id": "heaps",
+      "statement": "Counters occupy two labeled heaps.",
+      "topic": "components",
+      "dimension": "game",
+      "basis": "editorial",
+      "runId": "fixture-run",
+      "evidence": [
+        {
+          "evidenceId": "heaps-evidence",
+          "relation": "supports"
+        }
+      ],
+      "rationale": "This is an explicitly authored fixture configuration, not an inferred historical rule."
+    },
+    {
+      "id": "setup",
+      "statement": "Heap one starts with one counter and heap two with two; A starts.",
+      "topic": "setup",
+      "dimension": "game",
+      "basis": "editorial",
+      "runId": "fixture-run",
+      "evidence": [
+        {
+          "evidenceId": "setup-evidence",
+          "relation": "supports"
+        }
+      ],
+      "rationale": "This is an explicitly authored fixture configuration, not an inferred historical rule."
+    },
+    {
+      "id": "alternate",
+      "statement": "Players alternate taking one turn.",
+      "topic": "turns",
+      "dimension": "game",
+      "basis": "editorial",
+      "runId": "fixture-run",
+      "evidence": [
+        {
+          "evidenceId": "alternate-evidence",
+          "relation": "supports"
+        }
+      ],
+      "rationale": "This is an explicitly authored fixture configuration, not an inferred historical rule."
+    },
+    {
+      "id": "remove",
+      "statement": "On a turn, remove a positive number of counters from exactly one nonempty heap.",
+      "topic": "actions",
+      "dimension": "game",
+      "basis": "editorial",
+      "runId": "fixture-run",
+      "evidence": [
+        {
+          "evidenceId": "remove-evidence",
+          "relation": "supports"
+        }
+      ],
+      "rationale": "This is an explicitly authored fixture configuration, not an inferred historical rule.",
+      "entityIds": [
+        "heap",
+        "remove-action"
+      ]
+    },
+    {
+      "id": "bounds",
+      "statement": "Do not remove more counters than the selected heap contains.",
+      "topic": "constraints",
+      "dimension": "game",
+      "basis": "editorial",
+      "runId": "fixture-run",
+      "evidence": [
+        {
+          "evidenceId": "bounds-evidence",
+          "relation": "supports"
+        }
+      ],
+      "rationale": "This is an explicitly authored fixture configuration, not an inferred historical rule."
+    },
+    {
+      "id": "visible",
+      "statement": "Both players can see both heap sizes throughout play.",
+      "topic": "information",
+      "dimension": "game",
+      "basis": "editorial",
+      "runId": "fixture-run",
+      "evidence": [
+        {
+          "evidenceId": "visible-evidence",
+          "relation": "supports"
+        }
+      ],
+      "rationale": "This is an explicitly authored fixture configuration, not an inferred historical rule."
+    },
+    {
+      "id": "last-wins",
+      "statement": "Taking the last counter ends the game and wins for the mover.",
+      "topic": "ending",
+      "dimension": "game",
+      "basis": "editorial",
+      "runId": "fixture-run",
+      "evidence": [
+        {
+          "evidenceId": "last-wins-evidence",
+          "relation": "supports"
+        }
+      ],
+      "rationale": "This is an explicitly authored fixture configuration, not an inferred historical rule."
+    }
+  ],
+  "entities": [
+    {
+      "id": "heap",
+      "kind": "space",
+      "name": "Heap",
+      "description": "A labeled group of visible counters.",
+      "ruleIds": [
+        "heaps",
+        "setup",
+        "remove"
+      ]
+    },
+    {
+      "id": "remove-action",
+      "kind": "action",
+      "name": "Remove counters",
+      "description": "Remove counters from one heap on the current turn.",
+      "ruleIds": [
+        "remove",
+        "bounds"
+      ],
+      "action": {
+        "actorIds": [
+          "current-player"
+        ],
+        "conditionRuleIds": [
+          "bounds"
+        ],
+        "effectRuleIds": [
+          "remove"
+        ]
+      }
+    },
+    {
+      "id": "current-player",
+      "kind": "player",
+      "name": "Current player",
+      "description": "The player whose turn it is.",
+      "ruleIds": [
+        "players",
+        "alternate"
+      ]
+    }
+  ],
+  "questions": [],
+  "coverage": [
+    {
+      "topic": "actions",
+      "status": "described",
+      "ruleIds": [
+        "remove"
+      ],
+      "note": "Explicit fixture definition."
+    },
+    {
+      "topic": "components",
+      "status": "described",
+      "ruleIds": [
+        "heaps"
+      ],
+      "note": "Explicit fixture definition."
+    },
+    {
+      "topic": "constraints",
+      "status": "described",
+      "ruleIds": [
+        "bounds"
+      ],
+      "note": "Explicit fixture definition."
+    },
+    {
+      "topic": "ending",
+      "status": "described",
+      "ruleIds": [
+        "last-wins"
+      ],
+      "note": "Explicit fixture definition."
+    },
+    {
+      "topic": "information",
+      "status": "described",
+      "ruleIds": [
+        "visible"
+      ],
+      "note": "Explicit fixture definition."
+    },
+    {
+      "topic": "players",
+      "status": "described",
+      "ruleIds": [
+        "players"
+      ],
+      "note": "Explicit fixture definition."
+    },
+    {
+      "topic": "scoring",
+      "status": "outside-scope",
+      "ruleIds": [],
+      "note": "No separate accumulated score in this configuration."
+    },
+    {
+      "topic": "setup",
+      "status": "described",
+      "ruleIds": [
+        "setup"
+      ],
+      "note": "Explicit fixture definition."
+    },
+    {
+      "topic": "turns",
+      "status": "described",
+      "ruleIds": [
+        "alternate"
+      ],
+      "note": "Explicit fixture definition."
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+Synthetic test teaching sheet, not an acquired authority.
+White moves first; turns alternate.
+A move must not leave its own king under attack.
+Ordinary rook movement is not permanently prohibited by a king move.

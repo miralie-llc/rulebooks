@@ -1,0 +1,106 @@
+{
+  "kind": "RulebookEdition",
+  "id": "nim-normal-play-example",
+  "revision": 1,
+  "label": "Synthetic reviewed projection \u2014 not a published game",
+  "scope": {
+    "summary": "An original normal-play Nim fixture with two labeled heaps initially [1, 2].",
+    "includes": [
+      "Two players, perfect information and the stated initial configuration"
+    ],
+    "excludes": [
+      "Other initial configurations and mis\u00e8re play"
+    ]
+  },
+  "readingStatus": "complete",
+  "gameId": "nim-normal-play",
+  "dimensions": [
+    "game"
+  ],
+  "sections": [
+    {
+      "id": "rules",
+      "title": "Selected readable rules",
+      "rules": [
+        {
+          "id": "players",
+          "statement": "There are two players, A and B.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "Original synthetic configuration by fictional fixture author."
+          }
+        },
+        {
+          "id": "heaps",
+          "statement": "Counters occupy two labeled heaps.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "Original synthetic configuration by fictional fixture author."
+          }
+        },
+        {
+          "id": "setup",
+          "statement": "Heap one starts with one counter and heap two with two; A starts.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "Original synthetic configuration by fictional fixture author."
+          }
+        },
+        {
+          "id": "alternate",
+          "statement": "Players alternate taking one turn.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "Original synthetic configuration by fictional fixture author."
+          }
+        },
+        {
+          "id": "remove",
+          "statement": "On a turn, remove a positive number of counters from exactly one nonempty heap.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "Original synthetic configuration by fictional fixture author."
+          }
+        },
+        {
+          "id": "bounds",
+          "statement": "Do not remove more counters than the selected heap contains.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "Original synthetic configuration by fictional fixture author."
+          }
+        },
+        {
+          "id": "visible",
+          "statement": "Both players can see both heap sizes throughout play.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "Original synthetic configuration by fictional fixture author."
+          }
+        },
+        {
+          "id": "last-wins",
+          "statement": "Taking the last counter ends the game and wins for the mover.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "Original synthetic configuration by fictional fixture author."
+          }
+        }
+      ]
+    }
+  ],
+  "review": {
+    "authors": [
+      {
+        "name": "Fixture tool (fictional)",
+        "kind": "agent"
+      }
+    ],
+    "responsibleHuman": "Fixture owner (fictional)",
+    "reviewer": "Fixture reviewer (fictional)",
+    "reviewedAt": "2026-11-07T13:00:00Z",
+    "decision": "accepted",
+    "reviewedDigest": "34eb0888f2aa6e54d7a35ec347f3c34b153d4124517c9399997a777c443164e2"
+  },
+  "testOnly": true
+}

@@ -24,6 +24,12 @@ Game IDs identify the game, including a distinct publisher edition where one exi
 
 The bundle is an exchange and validation boundary, not a requirement to edit a giant JSON file. Records can be authored separately; the assembler in issue #4 will gather them into a closed, reproducible publication. There is no assembler or public catalog in this change. Current bundles live only in test fixtures. Never copy a checkout or the test fixtures into site output.
 
+### Boundary with acquisition and inferred rules
+
+This is a reviewed publication contract, not a draft submission schema. `RulebookEdition` requires accepted review; acquisition tools must not fabricate that review to submit their findings. The separate [reference handoff](../development/reference-handoff.md) imports original files and derivatives. The [draft game-knowledge contract](draft-game-knowledge.md) represents tools' proposed rules, evidence, gameplay structure and unresolved questions before editorial approval.
+
+Its reviewed projection explicitly maps accepted proposals into edition rule IDs and preserves the full draft and editorial decisions in a private trace bound to the generated edition digest. The current public `origin`/`citation` fields retain attribution; scope exclusions disclose deferred questions without exporting private research. Formalization and package records below provide versioned relationships; they are not themselves an implemented semantic language. A generated edition still requires complete publication assembly, trusted approval and release validation.
+
 ## What the first three games teach the contract
 
 | Work-list game | Concrete test scope | Contract consequence |

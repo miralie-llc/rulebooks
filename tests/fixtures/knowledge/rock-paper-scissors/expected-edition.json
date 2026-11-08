@@ -1,0 +1,115 @@
+{
+  "kind": "RulebookEdition",
+  "id": "rock-paper-scissors-example",
+  "revision": 1,
+  "label": "Synthetic reviewed projection \u2014 not a published game",
+  "scope": {
+    "summary": "One round of concealed-choice rock-paper-scissors, with a draw ending the round.",
+    "includes": [
+      "Commitment, reveal and one-round results"
+    ],
+    "excludes": [
+      "Match scoring and physical gesture conventions",
+      "Physical gesture and timing conventions remain unspecified."
+    ]
+  },
+  "readingStatus": "partial",
+  "gameId": "rock-paper-scissors",
+  "dimensions": [
+    "game"
+  ],
+  "sections": [
+    {
+      "id": "rules",
+      "title": "Selected readable rules",
+      "rules": [
+        {
+          "id": "players",
+          "statement": "Two players take part.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "Original synthetic configuration by fictional fixture author."
+          }
+        },
+        {
+          "id": "choices",
+          "statement": "Each player can choose rock, paper or scissors.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "Original synthetic configuration by fictional fixture author."
+          }
+        },
+        {
+          "id": "setup",
+          "statement": "Start with neither player committed to a choice.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "Original synthetic configuration by fictional fixture author."
+          }
+        },
+        {
+          "id": "commit",
+          "statement": "Both players commit before either choice is revealed.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "Original synthetic configuration by fictional fixture author."
+          }
+        },
+        {
+          "id": "choose",
+          "statement": "Each player selects and commits one choice.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "Original synthetic configuration by fictional fixture author."
+          }
+        },
+        {
+          "id": "fixed",
+          "statement": "A committed choice cannot be changed during this round.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "Original synthetic configuration by fictional fixture author."
+          }
+        },
+        {
+          "id": "concealed",
+          "statement": "Keep each choice hidden from the opponent until both have committed, then reveal both.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "Original synthetic configuration by fictional fixture author."
+          }
+        },
+        {
+          "id": "dominance",
+          "statement": "Rock defeats scissors, scissors defeats paper, and paper defeats rock; the player with the defeating choice wins.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "Original synthetic configuration by fictional fixture author."
+          }
+        },
+        {
+          "id": "draw",
+          "statement": "Equal choices end this round as a draw.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "Original synthetic configuration by fictional fixture author."
+          }
+        }
+      ]
+    }
+  ],
+  "review": {
+    "authors": [
+      {
+        "name": "Fixture tool (fictional)",
+        "kind": "agent"
+      }
+    ],
+    "responsibleHuman": "Fixture owner (fictional)",
+    "reviewer": "Fixture reviewer (fictional)",
+    "reviewedAt": "2026-11-07T13:00:00Z",
+    "decision": "accepted",
+    "reviewedDigest": "e26b4b3ae0992e5233a86c03495d4ece6d26122cc5288ae18696d821551c0351"
+  },
+  "testOnly": true
+}
