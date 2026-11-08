@@ -8,6 +8,7 @@ The repository contains the selected product plan, vocabulary and versioned prod
 
 - [Product and operating proposal: selected direction](docs/product/README.md)
 - [Implementation plan and launch gates](docs/product/implementation-plan.md)
+- [Implementation project and engineering issues](https://github.com/orgs/miralie-llc/projects/4)
 - [Data addition and BGSM evolution](docs/product/contribution-workflow.md)
 - [Deployment, monitoring and ownership](docs/product/operations.md)
 - [Public repository, private research and publication boundaries](docs/product/repository-boundaries.md)

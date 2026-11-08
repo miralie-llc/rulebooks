@@ -43,7 +43,7 @@ Before a public push, apply the [pre-publication review boundary](repository-bou
 9. Add contributor forms/templates over the Git-backed product queues, automated diff reports and preview/release workflow. Implement pre-public-push checks and private-reference intake before scaling AI collection.
 10. Configure hosting/monitoring/backup and perform the launch rehearsal.
 
-Each item should become a small set of implementation issues with an owner and acceptance examples. These are planned items, not issues already created in an external tracker.
+Engineering issues, dependencies and implementation status are tracked in the [RuleBooks implementation project](https://github.com/orgs/miralie-llc/projects/4). This document defines the milestone sequence and release gates. Game collection and evidenced semantic work remain in the [repository product queues](../../work/README.md).
 
 ## Launch checklist
 
