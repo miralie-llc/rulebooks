@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "0.1.0",
+  "id": "content-rps-baseline",
+  "queue": "content",
+  "kind": "wishlist",
+  "title": "Add readable rock-paper-scissors rules",
+  "status": "proposed",
+  "target": {"kind": "candidate-game", "id": "rock-paper-scissors"},
+  "acceptance": [
+    "Specify the baseline, including choice commitment, reveal, ties and ending conditions.",
+    "Provide reviewed readable rules and attributable sources or editorial origin.",
+    "Record any information-boundary limitation as a separate semantic gap after triage; do not require formalization to publish the readable entry."
+  ],
+  "evidence": [{"path": "docs/product/README.md", "note": "First public version permits reference-only or partial RPS support."}]
+}

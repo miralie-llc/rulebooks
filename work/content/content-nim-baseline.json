@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "0.1.0",
+  "id": "content-nim-baseline",
+  "queue": "content",
+  "kind": "wishlist",
+  "title": "Add a readable normal-play Nim baseline",
+  "status": "proposed",
+  "target": {"kind": "candidate-game", "id": "nim-normal-play"},
+  "acceptance": [
+    "Choose and document a precise normal-play configuration and its sources or original editorial origin.",
+    "Review objective, setup, turns, legal actions and outcome with stable rule IDs.",
+    "Publish truthful formalization coverage separately from reading completeness."
+  ],
+  "evidence": [{"path": "docs/product/README.md", "note": "First public version includes Nim; executable support is a separate release gate."}]
+}

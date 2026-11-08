@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RuleBooks product work item 0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "queue", "kind", "title", "status", "target", "acceptance"],
+  "properties": {
+    "schemaVersion": {"const": "0.1.0"},
+    "id": {"type": "string", "pattern": "^(content|semantic)-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "queue": {"enum": ["content", "semantic"]},
+    "kind": {"enum": ["wishlist", "content-task", "semantic-gap", "semantic-proposal"]},
+    "title": {"type": "string", "minLength": 1},
+    "status": {"enum": ["proposed", "ready", "in-progress", "review", "blocked", "deferred", "done"]},
+    "target": {
+      "type": "object", "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": {"enum": ["candidate-game", "game", "rulebook", "formalization", "concept"]},
+        "id": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1}
+      }
+    },
+    "acceptance": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "dependsOn": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "evidence": {
+      "type": "array", "items": {
+        "type": "object", "additionalProperties": false, "required": ["path", "note"],
+        "properties": {"path": {"type": "string", "minLength": 1}, "note": {"type": "string", "minLength": 1}}
+      }
+    },
+    "gap": {
+      "type": "object", "additionalProperties": false,
+      "required": ["classification", "problem", "expected", "example"],
+      "properties": {
+        "classification": {"enum": ["needs-triage", "semantics", "library", "notation", "implementation", "adapter", "source-interpretation"]},
+        "problem": {"type": "string", "minLength": 1},
+        "expected": {"type": "string", "minLength": 1},
+        "example": {"type": "string", "minLength": 1}
+      }
+    },
+    "blockedReason": {"type": "string", "minLength": 1},
+    "resolution": {"type": "string", "minLength": 1}
+  },
+  "allOf": [
+    {"if": {"properties": {"queue": {"const": "content"}}}, "then": {"properties": {"kind": {"enum": ["wishlist", "content-task"]}}}, "else": {"properties": {"kind": {"enum": ["semantic-gap", "semantic-proposal"]}}}},
+    {"if": {"properties": {"kind": {"const": "semantic-gap"}}}, "then": {"required": ["gap"]}},
+    {"if": {"properties": {"status": {"const": "blocked"}}}, "then": {"required": ["blockedReason"]}},
+    {"if": {"properties": {"status": {"const": "done"}}}, "then": {"required": ["resolution"]}}
+  ]
+}

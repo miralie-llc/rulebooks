@@ -1,0 +1,30 @@
+# Private research, captures and local work. These are not publication inputs.
+/reference/
+/.private/
+/.scratch/
+/.cache/
+/LOCAL_CONTEXT.md
+
+# Local credentials and environment configuration.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+.netrc
+/.aws/
+
+# Reproducible build output and tool caches.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+node_modules/
+/dist/
+/.astro/
+/coverage/
+**/bin/
+**/obj/
+.DS_Store
