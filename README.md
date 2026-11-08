@@ -17,9 +17,11 @@ The repository contains the selected product plan, vocabulary and versioned prod
 - [Research and source register](docs/reference/sources.md)
 - [Design principles](docs/architecture/principles.md)
 
-Validate product work records with Python 3.10+ and jsonschema 4.x:
+Validate product work records with Python 3.11 and the same dependencies as CI:
 
 ```sh
-python3 -m pip install 'jsonschema>=4,<5'
+python3 -m pip install -r tools/requirements-ci.txt
 python3 tools/validate_work.py
 ```
+
+[Repository validation](.github/workflows/validate.yml) runs on pull requests and pushes to `main`. It currently checks product work records; site builds and deployment will follow the [operations plan](docs/product/operations.md).

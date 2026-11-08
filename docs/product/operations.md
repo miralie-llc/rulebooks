@@ -1,6 +1,20 @@
 # Deployment, monitoring and product management
 
-Part of [proposal 0.3.0](README.md). Managed hosting with minimal maintenance is the selected direction; the specific provider remains a recommendation. These are planned operating procedures, not deployed services or configured automation.
+Part of [proposal 0.3.0](README.md). Managed hosting with minimal maintenance is the selected direction; Cloudflare Pages is the recommended host. Repository validation is implemented as described below. Hosting, deployment and monitoring remain planned.
+
+## Setup sequence and current automation
+
+The [repository validation workflow](../../.github/workflows/validate.yml) checks product work records on pull requests and pushes to `main`, with a manual run option. It uses a read-only repository token, no deployment secrets, pinned action commits and pinned Python dependencies. Run the same validator locally using the instructions in the [repository README](../../README.md).
+
+This first check does not build a site, scan for secrets, validate all documentation links or enforce branch protection. Those remaining contribution controls belong to [implementation issue #2](https://github.com/miralie-llc/rulebooks/issues/2). Pre-publication review and local credential checks remain required by the repository policy.
+
+Set up delivery in stages:
+
+1. **Now:** run validation against the existing repository data. Extend checks when publication contracts and the site build exist.
+2. **First buildable catalog slice:** create a Cloudflare Pages Direct Upload project and upload an approved static build as a preview. Use GitHub Actions to build the artifact; Cloudflare serves the prebuilt output. This does not require connecting Cloudflare's GitHub app to other repositories or organizations.
+3. **Before public launch:** add artifact retention and digest verification, protected production promotion, the custom domain, smoke checks, rollback and external monitoring. Track this in [implementation issue #12](https://github.com/miralie-llc/rulebooks/issues/12). Promote the reviewed artifact without rebuilding it.
+
+Cloudflare setup will require the intended account and domain, plus a deployment token restricted to the relevant Cloudflare account with Pages permissions. Store that token in the appropriate GitHub deployment environment; never put it in Git, work records or chat. Keep production credentials out of pull-request validation. Select any preview access controls before uploading material. [Cloudflare CI deployment documentation](https://developers.cloudflare.com/pages/how-to/use-direct-upload-with-continuous-integration/)
 
 ## Who does what
 

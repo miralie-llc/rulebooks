@@ -1,6 +1,6 @@
 # RuleBooks: product and operating proposal
 
-**Proposal 0.3.0 · 7 November 2026 · Planning document; services and workflows below are not yet deployed.**
+**Proposal 0.3.0 · 7 November 2026 · Product plan; see [operations](operations.md) for implemented automation and remaining setup.**
 
 RuleBooks is a public library of game rules and the home of the Board Game Semantic Model (BGSM). People can learn a game's rules, inspect how those rules are represented, and discover what the model can and cannot yet express. Adding games improves the model; improving the model makes more games expressible. Neither activity waits for the other to be complete.
 
