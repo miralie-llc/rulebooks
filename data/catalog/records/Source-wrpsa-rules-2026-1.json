@@ -1,0 +1,13 @@
+{
+  "kind": "Source",
+  "id": "wrpsa-rules-2026",
+  "revision": 1,
+  "title": "Official Rock Paper Scissors Rules",
+  "edition": {
+    "label": "Version 1.0 (2026 edition)"
+  },
+  "url": "https://wrpsa.com/rules",
+  "accessed": "2026-11-07",
+  "reuse": "metadata-only",
+  "author": "World Rock Paper Scissors Association"
+}

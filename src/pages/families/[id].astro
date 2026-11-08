@@ -1,0 +1,34 @@
+---
+import Base from "../../layouts/Base.astro";
+import GameCard from "../../components/GameCard.astro";
+import { games, families } from "../../lib/catalog.mjs";
+export function getStaticPaths() {
+  const chosen = new Map();
+  for (const family of families) {
+    if (
+      !chosen.has(family.id) ||
+      chosen.get(family.id).revision < family.revision
+    )
+      chosen.set(family.id, family);
+  }
+  return [...chosen.values()].map((family) => ({
+    params: { id: family.id },
+    props: { family },
+  }));
+}
+const { family } = Astro.props;
+const members = games.filter((game) => game.family?.id === family.id);
+---
+
+<Base title={`${family.title} family | RuleBooks`}
+  ><section class="family-page shell">
+    <a class="text-link" href="/#library">← The library</a><p class="eyebrow">
+      GAME FAMILY
+    </p><h1>{family.title}</h1><p class="reader-deck">
+      Related games, with their own clearly identified rules. A family groups
+      games for discovery; it does not combine their rulebooks.
+    </p><div class="game-grid">
+      {members.map((game, i) => <GameCard game={game} number={i + 1} />)}
+    </div>
+  </section></Base
+>

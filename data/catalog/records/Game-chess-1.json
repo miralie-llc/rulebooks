@@ -1,0 +1,15 @@
+{
+  "kind": "Game",
+  "id": "chess",
+  "revision": 1,
+  "title": "Chess",
+  "defaultEdition": {
+    "id": "chess-fide-introduction",
+    "revision": 1
+  },
+  "tags": [
+    "2-players",
+    "perfect-information",
+    "strategy"
+  ]
+}

@@ -1,0 +1,151 @@
+{
+  "kind": "RulebookEdition",
+  "id": "rps-one-round",
+  "revision": 1,
+  "gameId": "rock-paper-scissors",
+  "label": "One round · ties end in a draw",
+  "scope": {
+    "summary": "Choose in secret, reveal together. Three choices form a circle: each defeats one and loses to the other.",
+    "includes": [
+      "Two players, three gestures, one simultaneous reveal and a single-round result"
+    ],
+    "excludes": [
+      "Match scoring and mandatory tie replays",
+      "Refereeing, penalties and tournament procedures"
+    ]
+  },
+  "dimensions": [
+    "game"
+  ],
+  "readingStatus": "complete",
+  "sections": [
+    {
+      "id": "objective",
+      "title": "The objective",
+      "rules": [
+        {
+          "id": "win-round",
+          "statement": "Choose the gesture that defeats your opponent’s gesture.",
+          "origin": {
+            "kind": "source",
+            "citations": [
+              {
+                "source": {
+                  "id": "wrpsa-rules-2026",
+                  "revision": 1
+                },
+                "locator": "Match Format: Round Resolution"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "setup",
+      "title": "Get ready",
+      "rules": [
+        {
+          "id": "two-players",
+          "statement": "Two players face each other. Agree to play exactly one round.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "RuleBooks one-round profile: exactly one simultaneous choice per player, with a draw ending tied play. This is not the WRPSA match format, which replays ties."
+          }
+        },
+        {
+          "id": "gestures",
+          "statement": "Use a closed fist for rock, a flat hand for paper, and two extended fingers for scissors.",
+          "origin": {
+            "kind": "source",
+            "citations": [
+              {
+                "source": {
+                  "id": "wrpsa-rules-2026",
+                  "revision": 1
+                },
+                "locator": "Throw Mechanics: The Three Valid Throws"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "turns",
+      "title": "Choose and reveal",
+      "rules": [
+        {
+          "id": "keep-secret",
+          "statement": "Choose before the reveal and do not show your choice early.",
+          "origin": {
+            "kind": "source",
+            "citations": [
+              {
+                "source": {
+                  "id": "wrpsa-rules-2026",
+                  "revision": 1
+                },
+                "locator": "Throw Mechanics: Throw Timing"
+              }
+            ]
+          }
+        },
+        {
+          "id": "reveal",
+          "statement": "Count together: rock, paper, scissors, shoot. Both reveal on shoot; do not wait to react to the other hand.",
+          "origin": {
+            "kind": "source",
+            "citations": [
+              {
+                "source": {
+                  "id": "wrpsa-rules-2026",
+                  "revision": 1
+                },
+                "locator": "Throw Mechanics; Throw Timing"
+              }
+            ]
+          }
+        },
+        {
+          "id": "invalid-reveal",
+          "statement": "If the reveal is mistimed or a gesture is unclear, reset the attempt without scoring it.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "RuleBooks casual-play convention for this one-round profile; not the WRPSA foul schedule."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ending",
+      "title": "Compare the result",
+      "rules": [
+        {
+          "id": "dominance",
+          "statement": "Rock defeats scissors. Scissors defeats paper. Paper defeats rock.",
+          "origin": {
+            "kind": "source",
+            "citations": [
+              {
+                "source": {
+                  "id": "wrpsa-rules-2026",
+                  "revision": 1
+                },
+                "locator": "Match Format: Round Resolution"
+              }
+            ]
+          }
+        },
+        {
+          "id": "draw",
+          "statement": "Matching gestures end this round in a draw. Otherwise, the player with the defeating gesture wins.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "RuleBooks one-round profile: exactly one simultaneous choice per player, with a draw ending tied play. This is not the WRPSA match format, which replays ties."
+          }
+        }
+      ]
+    }
+  ]
+}

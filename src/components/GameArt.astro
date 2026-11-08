@@ -1,0 +1,68 @@
+---
+const { gameId, hero = false } = Astro.props;
+const type =
+  gameId === "chess"
+    ? "chess"
+    : gameId === "rock-paper-scissors"
+      ? "rps"
+      : gameId === "nim-normal-play"
+        ? "nim"
+        : "generic";
+---
+
+<div
+  class:list={["game-art", `art-${type}`, { "art-hero": hero }]}
+  aria-hidden="true"
+>
+  {
+    type === "nim" && (
+      <div class="nim-art">
+        {[3, 4, 5].map((n, i) => (
+          <div class="heap">
+            <span class="heap-number">0{i + 1}</span>
+            {Array.from({ length: n }, () => (
+              <span class="counter" />
+            ))}
+          </div>
+        ))}
+        <span class="art-note">ONE HEAP. YOUR MOVE.</span>
+      </div>
+    )
+  }
+  {
+    type === "chess" && (
+      <div class="chess-board">
+        {Array.from({ length: 36 }, (_, i) => (
+          <span
+            class:list={[
+              "square",
+              { dark: (Math.floor(i / 6) + (i % 6)) % 2 === 1 },
+            ]}
+          >
+            {i === 8 ? "♚" : i === 21 ? "♘" : i === 27 ? "♙" : ""}
+          </span>
+        ))}
+      </div>
+    )
+  }
+  {
+    type === "rps" && (
+      <div class="rps-art">
+        <>
+          <span class="throw rock">
+            ●<small>ROCK</small>
+          </span>
+          <span class="cycle-arrow">↗</span>
+          <span class="throw paper">
+            ▰<small>PAPER</small>
+          </span>
+          <span class="throw scissors">
+            ✂<small>SCISSORS</small>
+          </span>
+          <span class="art-note">THREE CHOICES. ONE MOMENT.</span>
+        </>
+      </div>
+    )
+  }
+  {type === "generic" && <span class="generic-art">R</span>}
+</div>

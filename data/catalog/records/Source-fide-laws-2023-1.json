@@ -1,0 +1,13 @@
+{
+  "kind": "Source",
+  "id": "fide-laws-2023",
+  "revision": 1,
+  "title": "FIDE Laws of Chess",
+  "edition": {
+    "label": "Effective 1 January 2023"
+  },
+  "url": "https://handbook.fide.com/chapter/E012023",
+  "accessed": "2026-11-07",
+  "reuse": "metadata-only",
+  "author": "FIDE"
+}

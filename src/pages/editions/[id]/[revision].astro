@@ -1,0 +1,15 @@
+---
+import Rulebook from "../../../components/Rulebook.astro";
+import { allGames, editions } from "../../../lib/catalog.mjs";
+export function getStaticPaths() {
+  return editions
+    .filter((edition) => allGames.some((g) => g.id === edition.gameId))
+    .map((edition) => ({
+      params: { id: edition.id, revision: String(edition.revision) },
+      props: { edition, game: allGames.find((g) => g.id === edition.gameId) },
+    }));
+}
+const { game, edition } = Astro.props;
+---
+
+<Rulebook game={game} edition={edition} pinned />

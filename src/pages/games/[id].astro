@@ -1,0 +1,10 @@
+---
+import Rulebook from "../../components/Rulebook.astro";
+import { allGames, defaultEdition } from "../../lib/catalog.mjs";
+export function getStaticPaths() {
+  return allGames.map((game) => ({ params: { id: game.id }, props: { game } }));
+}
+const { game } = Astro.props;
+---
+
+<Rulebook game={game} edition={defaultEdition(game)} />

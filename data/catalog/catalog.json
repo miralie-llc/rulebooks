@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "0.1.0",
+  "mode": "editorial-preview",
+  "authorship": {
+    "name": "Codex",
+    "kind": "agent"
+  },
+  "recordFiles": [
+    "records/Source-fide-laws-2023-1.json",
+    "records/Source-cornell-nim-2004-1.json",
+    "records/Source-wrpsa-rules-2026-1.json",
+    "records/GameFamily-nim-1.json",
+    "records/Game-nim-normal-play-1.json",
+    "records/Game-rock-paper-scissors-1.json",
+    "records/Game-chess-1.json",
+    "records/RulebookEdition-nim-three-heaps-1.json",
+    "records/RulebookEdition-nim-one-two-1.json",
+    "records/RulebookEdition-rps-one-round-1.json",
+    "records/RulebookEdition-chess-fide-introduction-1.json"
+  ],
+  "games": [
+    {
+      "id": "nim-normal-play",
+      "revision": 1
+    },
+    {
+      "id": "rock-paper-scissors",
+      "revision": 1
+    },
+    {
+      "id": "chess",
+      "revision": 1
+    }
+  ]
+}

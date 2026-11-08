@@ -1,0 +1,143 @@
+{
+  "kind": "RulebookEdition",
+  "id": "nim-three-heaps",
+  "revision": 1,
+  "gameId": "nim-normal-play",
+  "label": "Three heaps · 3, 4, 5",
+  "scope": {
+    "summary": "Take counters from one heap at a time. Leave your opponent without a move by taking the last counter.",
+    "includes": [
+      "Two players, visible heaps initially [3, 4, 5], Player A first, normal-play ending"
+    ],
+    "excludes": [
+      "Misère play, where taking the last counter loses",
+      "Other starting arrangements are not part of this profile"
+    ]
+  },
+  "dimensions": [
+    "game"
+  ],
+  "readingStatus": "complete",
+  "sections": [
+    {
+      "id": "objective",
+      "title": "The objective",
+      "rules": [
+        {
+          "id": "last-counter",
+          "statement": "Win by removing the final counter from the board.",
+          "origin": {
+            "kind": "source",
+            "citations": [
+              {
+                "source": {
+                  "id": "cornell-nim-2004",
+                  "revision": 1
+                },
+                "locator": "Rules: normal-play winning condition"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "setup",
+      "title": "Set up the game",
+      "rules": [
+        {
+          "id": "players",
+          "statement": "Choose two players, A and B. Player A takes the first turn.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "RuleBooks teaching setup: these heap sizes, visible play and Player A starting are explicit choices for this profile."
+          }
+        },
+        {
+          "id": "starting-heaps",
+          "statement": "Place counters in separate heaps of 3, 4, 5. Both players can see every heap.",
+          "origin": {
+            "kind": "editorial",
+            "attribution": "RuleBooks teaching setup: these heap sizes, visible play and Player A starting are explicit choices for this profile."
+          }
+        }
+      ]
+    },
+    {
+      "id": "turns",
+      "title": "Take a turn",
+      "rules": [
+        {
+          "id": "alternate",
+          "statement": "After each turn, the other player moves.",
+          "origin": {
+            "kind": "source",
+            "citations": [
+              {
+                "source": {
+                  "id": "cornell-nim-2004",
+                  "revision": 1
+                },
+                "locator": "Rules: alternating turns"
+              }
+            ]
+          }
+        },
+        {
+          "id": "remove-counters",
+          "statement": "Choose one nonempty heap and remove one or more counters from it, up to the whole heap.",
+          "origin": {
+            "kind": "source",
+            "citations": [
+              {
+                "source": {
+                  "id": "cornell-nim-2004",
+                  "revision": 1
+                },
+                "locator": "Rules: choosing one pile"
+              }
+            ]
+          }
+        },
+        {
+          "id": "one-heap",
+          "statement": "You cannot remove counters from two heaps on the same turn.",
+          "origin": {
+            "kind": "source",
+            "citations": [
+              {
+                "source": {
+                  "id": "cornell-nim-2004",
+                  "revision": 1
+                },
+                "locator": "Example: taking from only one pile"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ending",
+      "title": "End the game",
+      "rules": [
+        {
+          "id": "finish",
+          "statement": "The game stops as soon as all heaps are empty. The player who just moved wins.",
+          "origin": {
+            "kind": "source",
+            "citations": [
+              {
+                "source": {
+                  "id": "cornell-nim-2004",
+                  "revision": 1
+                },
+                "locator": "Rules: final removal"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

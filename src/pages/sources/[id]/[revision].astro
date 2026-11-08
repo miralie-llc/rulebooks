@@ -1,0 +1,56 @@
+---
+import Base from "../../../layouts/Base.astro";
+import {
+  sources,
+  editions,
+  citedSources,
+  editionUrl,
+  downloadUrl,
+} from "../../../lib/catalog.mjs";
+export function getStaticPaths() {
+  return sources.map((source) => ({
+    params: { id: source.id, revision: String(source.revision) },
+    props: { source },
+  }));
+}
+const { source } = Astro.props;
+const uses = editions.filter((e) =>
+  citedSources(e).some(
+    (s) => s.id === source.id && s.revision === source.revision,
+  ),
+);
+---
+
+<Base title={`${source.title} | RuleBooks`}
+  ><section class="prose-page shell">
+    <a class="text-link" href="/#library">← The library</a><p class="eyebrow">
+      SOURCE RECORD · REVISION {source.revision}
+    </p><h1>{source.title}</h1><p class="reader-deck">{source.author}</p><dl
+      class="source-details"
+    >
+      <dt>Source edition</dt><dd>
+        {source.edition.label || "Not identified"}
+      </dd><dt>Accessed</dt><dd>{source.accessed}</dd><dt>Public reuse</dt><dd>
+        {
+          source.reuse === "metadata-only"
+            ? "Metadata and citations only; the source text is not redistributed here."
+            : "Permission recorded in the source metadata."
+        }
+      </dd>
+    </dl><a class="primary-link" href={source.url}
+      >Open the original source ↗</a
+    ><h2>Cited in these profiles</h2><ul class="version-list">
+      {
+        uses.map((e) => (
+          <li>
+            <a href={editionUrl(e)}>
+              {e.label}
+              <span>Revision {e.revision} ↗</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul><a class="text-link" href={downloadUrl(source)} download
+      >Download source metadata ↓</a>
+  </section></Base
+>

@@ -1,0 +1,45 @@
+---
+import GameArt from "./GameArt.astro";
+import {
+  defaultEdition,
+  gameUrl,
+  tagLabel,
+  gameEditions,
+} from "../lib/catalog.mjs";
+const { game, number = 1 } = Astro.props;
+const edition = defaultEdition(game);
+const profiles = new Set(gameEditions(game).map((e) => e.id)).size;
+---
+
+<article
+  class="game-card"
+  data-game-card
+  data-search={[game.title, ...(game.aliases || []), ...(game.tags || [])]
+    .join(" ")
+    .toLowerCase()}
+  data-completeness={edition.readingStatus}
+>
+  <a
+    class="card-art-link"
+    href={gameUrl(game)}
+    aria-label={`Read ${game.title} rules`}
+    ><GameArt gameId={game.id} /><span class="card-number">0{number}</span></a
+  >
+  <div class="card-body">
+    <div class="card-overline">
+      <span>{tagLabel(game.tags?.[0] || "Game rules")}</span><span
+        >{
+          edition.readingStatus === "complete"
+            ? "Complete within scope"
+            : "Partial guide"
+        }</span>
+    </div>
+    <h3><a href={gameUrl(game)}>{game.title}</a></h3>
+    <p>{edition.scope.summary}</p>
+    <div class="card-bottom">
+      <a href={gameUrl(game)}
+        >Read the rules <span aria-hidden="true">↗</span></a
+      ><span>{profiles} {profiles === 1 ? "profile" : "profiles"}</span>
+    </div>
+  </div>
+</article>

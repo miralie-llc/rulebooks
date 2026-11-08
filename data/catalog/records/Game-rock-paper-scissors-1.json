@@ -1,0 +1,19 @@
+{
+  "kind": "Game",
+  "id": "rock-paper-scissors",
+  "revision": 1,
+  "title": "Rock-paper-scissors",
+  "defaultEdition": {
+    "id": "rps-one-round",
+    "revision": 1
+  },
+  "tags": [
+    "2-players",
+    "simultaneous-choices",
+    "hand-game"
+  ],
+  "aliases": [
+    "RPS",
+    "Roshambo"
+  ]
+}

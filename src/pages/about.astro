@@ -1,0 +1,64 @@
+---
+import Base from "../layouts/Base.astro";
+import { isPreview } from "../lib/catalog.mjs";
+---
+
+<Base title="About the library | RuleBooks" active="about"
+  ><section class="prose-page shell">
+    <p class="eyebrow">ABOUT RULEBOOKS</p><h1>
+      Good games deserve<br /><em>clear rules.</em>
+    </h1><p class="reader-deck">
+      RuleBooks is a shared library of game rules, with a path from readable
+      explanations to precise, machine-readable definitions.
+    </p><h2>Read first. Explore further.</h2><p>
+      The ordinary question comes first: how do I play? Every guide names its
+      scope, follows a readable order and keeps its sources close. Different
+      editions and profiles have their own identities, so you can link to the
+      rules you mean.
+    </p><h2 id="editorial-status">A small, honest beginning</h2>{
+      isPreview ? (
+        <p>
+          The first collection contains newly authored guides to Nim and
+          rock-paper-scissors, plus a partial chess introduction. They are
+          editorial drafts prepared with AI assistance. A complete-within-scope
+          label describes the coverage of a guide; it does not mean human review
+          or formal verification has occurred.
+        </p>
+      ) : (
+        <p>
+          This catalog is built from a verified publication assembly. Exact
+          record revisions, attribution and acceptance evidence are available in
+          its downloads. Readable completeness and executable verification
+          remain separate claims.
+        </p>
+      )
+    }<p>
+      Reviewed publications retain their actual authorship and review records.
+      We do not invent approvals, executable mappings or historical revisions to
+      fill a page.
+    </p><h2 id="sources">Sources &amp; attribution</h2><p>
+      Each rule identifies its source or an explicit editorial choice. We link
+      to source documents and identify their editions. Third-party reference
+      material is not included in the public build. Original project content
+      follows the repository’s license and source policy.
+    </p><p>
+      <a
+        class="text-link"
+        href="https://github.com/miralie-llc/rulebooks/blob/main/docs/product/repository-boundaries.md#license-scope"
+        >Read the source and license policy ↗</a>
+    </p><h2 id="contribute">Bring your games and your process</h2><p>
+      A person, research tool or existing editorial team can contribute.
+      Already-reviewed records can go directly into the publication contract. An
+      optional draft workflow supports teams that want to preserve proposals,
+      evidence and unresolved questions before acceptance.
+    </p><a class="primary-link" href="https://github.com/miralie-llc/rulebooks"
+      >Explore the repository ↗</a
+    ><h2>Shared semantics, when they are ready</h2><p>
+      RuleBooks also owns the evolving Board Game Semantic Model, or BGSM.
+      Formalization will connect readable rules to shared concepts and
+      executable definitions. Each game page identifies the mappings available
+      for its exact rulebook revision; readable rules remain useful without
+      them.
+    </p>
+  </section></Base
+>

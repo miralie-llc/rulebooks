@@ -6,11 +6,11 @@ Part of [proposal 0.3.0](README.md). Managed hosting with minimal maintenance is
 
 The [repository validation workflow](../../.github/workflows/validate.yml) checks maintained paths and documentation links, product work records, credentials and publication contract/boundary tests on pull requests and pushes to `main`, with a manual run option. Contract tests cover fixture boundaries, exact references, attribution, coverage, digests and immutable history. The workflow uses a read-only repository token, no deployment secrets, pinned action commits and pinned dependencies/scanner. The [contribution-check guide](../development/contribution-checks.md) defines local review, exact-candidate verification and enforcement limits.
 
-These checks do not build a site, fetch external citations or enforce branch protection. Local pre-publication review remains required: CI runs after the triggering push has already disclosed its contents. Mandatory reviewers/repository rules and protected deployment promotion still need configuration before broader contributions and launch.
+The workflow also builds the static Astro site and tests routes, stable anchors and downloads. It does not fetch external citations or enforce branch protection. Local pre-publication review remains required: CI runs after the triggering push has already disclosed its contents. Mandatory reviewers/repository rules and protected deployment promotion still need configuration before broader contributions and launch.
 
 Set up delivery in stages:
 
-1. **Now:** run validation against the existing repository data. Extend checks when publication contracts and the site build exist.
+1. **Now:** validate the repository, publication contracts and Astro build. Use the [local catalog](../development/site.md) to review readable game data.
 2. **First buildable catalog slice:** create a Cloudflare Pages Direct Upload project and upload an approved static build as a preview. Use GitHub Actions to build the artifact; Cloudflare serves the prebuilt output. This does not require connecting Cloudflare's GitHub app to other repositories or organizations.
 3. **Before public launch:** add artifact retention and digest verification, protected production promotion, the custom domain, smoke checks, rollback and external monitoring. Track this in [implementation issue #12](https://github.com/miralie-llc/rulebooks/issues/12). Promote the reviewed artifact without rebuilding it.
 

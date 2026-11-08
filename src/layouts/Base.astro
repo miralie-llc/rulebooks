@@ -1,0 +1,65 @@
+---
+import "../styles/site.css";
+import { isPreview } from "../lib/catalog.mjs";
+const {
+  title = "RuleBooks — A shared library of game rules",
+  description = "Understand the rules. See the sources. Explore the games.",
+  active = "games",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f5f2e9" />
+    {isPreview && <meta name="robots" content="noindex, nofollow" />}
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%23a83f27'/%3E%3Ctext x='8' y='24' fill='%23fff' font-family='Georgia' font-size='25'%3ER%3C/text%3E%3C/svg%3E"
+    />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header shell">
+      <a class="brand" href="/" aria-label="RuleBooks home"
+        ><span class="brand-mark" aria-hidden="true">R</span><span
+          >RuleBooks<span class="brand-period">.</span></span
+        ></a
+      >
+      <nav aria-label="Main navigation">
+        <a
+          href="/#library"
+          aria-current={active === "games" ? "page" : undefined}>The library</a
+        >
+        <a href="/about/" aria-current={active === "about" ? "page" : undefined}
+          >About the project</a
+        >
+        <a class="github-link" href="https://github.com/miralie-llc/rulebooks"
+          >GitHub <span aria-hidden="true">↗</span></a
+        >
+      </nav>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="site-footer shell">
+      <div>
+        <a class="footer-brand" href="/">RuleBooks.</a><p>
+          A shared home for the rules we play by.
+        </p>
+      </div>
+      <div class="footer-links">
+        <a href="/about/#contribute">Add a game</a><a href="/about/#sources"
+          >Sources &amp; attribution</a
+        ><span
+          >{
+            isPreview
+              ? "Catalog preview · Editorial drafts"
+              : "Published catalog"
+          }</span>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "kind": "Source",
+  "id": "cornell-nim-2004",
+  "revision": 1,
+  "title": "How to play Nim",
+  "edition": {
+    "label": "26 February 2004"
+  },
+  "url": "https://pi.math.cornell.edu/~mec/2003-2004/graphtheory/nim/howtoplaynim.html",
+  "accessed": "2026-11-07",
+  "reuse": "metadata-only",
+  "author": "Cornell University"
+}

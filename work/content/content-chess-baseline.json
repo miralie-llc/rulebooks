@@ -4,8 +4,12 @@
   "queue": "content",
   "kind": "content-task",
   "title": "Add a sourced, readable chess baseline",
-  "status": "proposed",
-  "target": {"kind": "candidate-game", "id": "chess"},
+  "status": "in-progress",
+  "target": {
+    "kind": "rulebook",
+    "id": "chess-fide-introduction",
+    "revision": "1"
+  },
   "acceptance": [
     "Select and cite an exact chess rules source edition and declare the baseline's scope; distinguish that source edition from the RuleBooks record revision.",
     "Write and review objective, board and pieces, setup, turns, movement, captures, special moves, checks, endings and draws with stable rule IDs and source locators.",
@@ -14,7 +18,17 @@
     "Create semantic work only when source review or a concrete mapping attempt reveals an evidenced limitation."
   ],
   "evidence": [
-    {"path": "docs/product/README.md", "note": "Chess is one of the first three readable game entries."},
-    {"path": "docs/reference/sources.md", "note": "The source register identifies FIDE primary rules and secondary orientation material for source selection."}
+    {
+      "path": "docs/product/README.md",
+      "note": "Chess is one of the first three readable game entries."
+    },
+    {
+      "path": "docs/reference/sources.md",
+      "note": "The source register identifies FIDE primary rules and secondary orientation material for source selection."
+    },
+    {
+      "path": "data/catalog/records/RulebookEdition-chess-fide-introduction-1.json",
+      "note": "Partial FIDE 2023 introduction; full movement, special moves and other baseline coverage remain outstanding."
+    }
   ]
 }

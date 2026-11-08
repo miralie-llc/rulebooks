@@ -2,14 +2,27 @@
   "schemaVersion": "0.1.0",
   "id": "content-nim-baseline",
   "queue": "content",
-  "kind": "wishlist",
+  "kind": "content-task",
   "title": "Add a readable normal-play Nim baseline",
-  "status": "proposed",
-  "target": {"kind": "candidate-game", "id": "nim-normal-play"},
+  "status": "review",
+  "target": {
+    "kind": "rulebook",
+    "id": "nim-three-heaps",
+    "revision": "1"
+  },
   "acceptance": [
     "Choose and document a precise normal-play configuration and its sources or original editorial origin.",
     "Review objective, setup, turns, legal actions and outcome with stable rule IDs.",
     "Publish truthful formalization coverage separately from reading completeness."
   ],
-  "evidence": [{"path": "docs/product/README.md", "note": "First public version includes Nim; executable support is a separate release gate."}]
+  "evidence": [
+    {
+      "path": "docs/product/README.md",
+      "note": "First public version includes Nim; executable support is a separate release gate."
+    },
+    {
+      "path": "data/catalog/records/RulebookEdition-nim-three-heaps-1.json",
+      "note": "Two complete-within-scope editorial drafts (3/4/5 and 1/2 heaps), awaiting acceptance; no formalization claimed."
+    }
+  ]
 }

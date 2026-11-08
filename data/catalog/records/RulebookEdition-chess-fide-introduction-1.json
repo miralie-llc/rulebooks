@@ -1,0 +1,176 @@
+{
+  "kind": "RulebookEdition",
+  "id": "chess-fide-introduction",
+  "revision": 1,
+  "gameId": "chess",
+  "label": "FIDE 2023 · introduction",
+  "scope": {
+    "summary": "A short introduction to the board, turns, king safety and game endings. Start here, then consult the full Laws for complete play.",
+    "includes": [
+      "Basic setup context, alternating turns, legal-move constraints and two endings"
+    ],
+    "excludes": [
+      "Complete piece-movement instructions and the full starting-piece diagram",
+      "Castling, en passant and promotion",
+      "Other draw rules, clocks, touch-move and competition procedures"
+    ]
+  },
+  "dimensions": [
+    "game"
+  ],
+  "readingStatus": "partial",
+  "sections": [
+    {
+      "id": "objective",
+      "title": "The objective",
+      "rules": [
+        {
+          "id": "checkmate",
+          "statement": "Win by attacking the opposing king so that no legal response can remove the attack.",
+          "origin": {
+            "kind": "source",
+            "citations": [
+              {
+                "source": {
+                  "id": "fide-laws-2023",
+                  "revision": 1
+                },
+                "locator": "Articles 1.4 and 5.1.1"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "setup",
+      "title": "Board and pieces",
+      "rules": [
+        {
+          "id": "board",
+          "statement": "Use an eight-by-eight board, with a light corner square on each player’s right.",
+          "origin": {
+            "kind": "source",
+            "citations": [
+              {
+                "source": {
+                  "id": "fide-laws-2023",
+                  "revision": 1
+                },
+                "locator": "Article 2.1"
+              }
+            ]
+          }
+        },
+        {
+          "id": "pieces",
+          "statement": "Each side starts with a king, queen, two rooks, two bishops, two knights and eight pawns. See the source’s initial-position diagram.",
+          "origin": {
+            "kind": "source",
+            "citations": [
+              {
+                "source": {
+                  "id": "fide-laws-2023",
+                  "revision": 1
+                },
+                "locator": "Articles 2.2–2.3"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "turns",
+      "title": "Moves and king safety",
+      "rules": [
+        {
+          "id": "turn-order",
+          "statement": "White moves first; the players then alternate.",
+          "origin": {
+            "kind": "source",
+            "citations": [
+              {
+                "source": {
+                  "id": "fide-laws-2023",
+                  "revision": 1
+                },
+                "locator": "Article 1.2"
+              }
+            ]
+          }
+        },
+        {
+          "id": "legal-move",
+          "statement": "A move must follow the moving piece’s movement rules and leave its own king safe.",
+          "origin": {
+            "kind": "source",
+            "citations": [
+              {
+                "source": {
+                  "id": "fide-laws-2023",
+                  "revision": 1
+                },
+                "locator": "Articles 3.2–3.10"
+              }
+            ]
+          }
+        },
+        {
+          "id": "capture",
+          "statement": "Ordinarily, capturing replaces an opposing piece on its square. Your own pieces cannot share a square, and kings are never captured.",
+          "origin": {
+            "kind": "source",
+            "citations": [
+              {
+                "source": {
+                  "id": "fide-laws-2023",
+                  "revision": 1
+                },
+                "locator": "Articles 1.4.1 and 3.1–3.1.1"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ending",
+      "title": "Two important endings",
+      "rules": [
+        {
+          "id": "mate-ends",
+          "statement": "Checkmate ends the game immediately with a win.",
+          "origin": {
+            "kind": "source",
+            "citations": [
+              {
+                "source": {
+                  "id": "fide-laws-2023",
+                  "revision": 1
+                },
+                "locator": "Article 5.1.1"
+              }
+            ]
+          }
+        },
+        {
+          "id": "stalemate",
+          "statement": "If the player to move has no legal move and their king is not attacked, the game is drawn by stalemate.",
+          "origin": {
+            "kind": "source",
+            "citations": [
+              {
+                "source": {
+                  "id": "fide-laws-2023",
+                  "revision": 1
+                },
+                "locator": "Article 5.2.1"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

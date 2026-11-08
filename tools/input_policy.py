@@ -2,9 +2,9 @@
 
 from pathlib import PurePosixPath
 
-ROOT_FILES = {"README.md", "AGENTS.md", "LICENSE", ".gitignore", ".env.example"}
-SOURCE_ROOTS = {".github", "docs", "schema", "tools", "tests", "work", "data"}
-SOURCE_SUFFIXES = {".md", ".json", ".py", ".txt", ".yml", ".yaml", ".toml", ".sh"}
+ROOT_FILES = {"README.md", "AGENTS.md", "LICENSE", ".gitignore", ".env.example", "package.json", "package-lock.json", "astro.config.mjs", "tsconfig.json"}
+SOURCE_ROOTS = {".github", "docs", "schema", "tools", "tests", "work", "data", "src"}
+SOURCE_SUFFIXES = {".md", ".json", ".py", ".txt", ".yml", ".yaml", ".toml", ".sh", ".mjs", ".ts", ".astro", ".css"}
 PRIVATE_ROOTS = {"reference", "LOCAL_CONTEXT.md"}
 EXCLUDED_PARTS = {
     ".git", ".private", ".scratch", ".cache", ".aws", ".codex", ".agents",
@@ -45,6 +45,6 @@ def publication_path_problem(name):
     if problem:
         return problem
     # A publication explicitly lists its assets; never ingest repository tooling/queues.
-    if PurePosixPath(name).parts[0] in SOURCE_ROOTS | {"README.md", "AGENTS.md", ".gitignore", ".env.example"}:
+    if PurePosixPath(name).parts[0] in SOURCE_ROOTS | ROOT_FILES:
         return "repository-only material is not a publication asset"
     return None

@@ -1,0 +1,22 @@
+{
+  "kind": "Game",
+  "id": "nim-normal-play",
+  "revision": 1,
+  "title": "Nim",
+  "defaultEdition": {
+    "id": "nim-three-heaps",
+    "revision": 1
+  },
+  "tags": [
+    "2-players",
+    "perfect-information",
+    "strategy"
+  ],
+  "family": {
+    "id": "nim",
+    "revision": 1
+  },
+  "aliases": [
+    "Normal-play Nim"
+  ]
+}
